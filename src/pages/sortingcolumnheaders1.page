@@ -1,0 +1,93 @@
+<apex:page controller="SortingController" sidebar="false" >
+
+    <apex:sectionHeader title="Accounts" subtitle="Sorting Example" />
+    <apex:form >
+    <apex:pageBlock title="My Accounts" mode="inlineEdit">
+    <apex:pageBlockTable value="{!accounts}" var="account" >
+    <apex:column >
+    <apex:facet name="header" >
+    <apex:commandLink action="{!empty}">
+    <apex:outputText value="{!$ObjectType.Account.Fields.Name.Label}" />
+    <apex:outputText escape="false" rendered="{!sortBy=='Name'&&sortDir=='ASC'}">
+    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+    </apex:outputText>
+    <apex:outputText escape="false" rendered="{!sortBy=='Name'&&sortDir=='DESC'}">
+    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+    </apex:outputText>
+    <apex:param value="Name" name="column" assignTo="{!sortBy}" />
+    <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Name', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+    </apex:commandLink>
+    </apex:facet>
+    <apex:outputLink value="/{!account.Id}" >
+    <apex:outputText value="{!account.Name}" />
+    </apex:outputLink>
+    </apex:column>
+    <apex:column >
+    <apex:facet name="header" >
+    <apex:commandLink action="{!empty}">
+    <apex:outputText value="{!$ObjectType.Account.Fields.Site.Label}" />
+    <apex:outputText escape="false" rendered="{!sortBy=='Site'&&sortDir=='ASC'}">
+    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+    </apex:outputText>
+    <apex:outputText escape="false" rendered="{!sortBy=='Site'&&sortDir=='DESC'}">
+    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+    </apex:outputText>
+    <apex:param value="Site" name="column" assignTo="{!sortBy}" />
+    <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Site', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+    </apex:commandLink>
+    </apex:facet>
+    <apex:outputText value="{!account.Site}" />
+    </apex:column>
+    <apex:column >
+    <apex:facet name="header" >
+    <apex:commandLink action="{!empty}">
+    <apex:outputText value="{!$ObjectType.Account.Fields.BillingState.Label}" />
+    <apex:outputText escape="false" rendered="{!sortBy=='BillingState'&&sortDir=='ASC'}">
+    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+    </apex:outputText>
+    <apex:outputText escape="false" rendered="{!sortBy=='BillingState'&&sortDir=='DESC'}">
+    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+    </apex:outputText>
+    <apex:param value="BillingState" name="column" assignTo="{!sortBy}" />
+    <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='BillingState', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+    </apex:commandLink>
+    </apex:facet>
+    <apex:outputText value="{!account.BillingState}" />
+    </apex:column>
+    <apex:column >
+    <apex:facet name="header" >
+    <apex:commandLink action="{!empty}">
+    <apex:outputText value="{!$ObjectType.Account.Fields.Phone.Label}" />
+    <apex:outputText escape="false" rendered="{!sortBy=='Phone'&&sortDir=='ASC'}">
+    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+    </apex:outputText>
+    <apex:outputText escape="false" rendered="{!sortBy=='Phone'&&sortDir=='DESC'}">
+    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+    </apex:outputText>
+    <apex:param value="Phone" name="column" assignTo="{!sortBy}" />
+    <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Phone', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+    </apex:commandLink>
+    </apex:facet>
+    <apex:outputText value="{!account.Phone}" />
+    </apex:column>
+    <apex:column >
+    <apex:facet name="header" >
+    <apex:commandLink action="{!empty}">
+    <apex:outputText value="{!$ObjectType.Account.Fields.Type.Label}" />
+    <apex:outputText escape="false" rendered="{!sortBy=='Type'&&sortDir=='ASC'}">
+    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+    </apex:outputText>
+    <apex:outputText escape="false" rendered="{!sortBy=='Type'&&sortDir=='DESC'}">
+    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+    </apex:outputText>
+    <apex:param value="Type" name="column" assignTo="{!sortBy}" />
+    <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Type', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+    </apex:commandLink>
+    </apex:facet>
+    <apex:outputText value="{!account.Type}" />
+    </apex:column>
+    </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:form>
+    
+    </apex:page>

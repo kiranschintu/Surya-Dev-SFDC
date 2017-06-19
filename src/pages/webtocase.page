@@ -1,0 +1,14 @@
+<apex:page controller="webtocasecon">
+<apex:form id="block" target="https://www.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8">
+    
+    <table cellspacing="3" border="0" width="68%"> 
+    <tr><td><apex:inputHidden id="org" /></td></tr>
+    <tr><td><apex:inputHidden id="site" /></td></tr>
+     <tr><td>Your Name</td><td><apex:inputText required="true" id="intext"/></td><td><apex:message for="intext"/></td></tr>
+     <tr><td>Your Email</td><td><apex:inputText required="true" id="intext1"/></td><td><apex:message for="intext1"/></td></tr>
+     <tr><td>Your Telephone</td><td><apex:inputText required="true" id="intext2"/></td><td><apex:message for="intext2"/></td></tr>
+     <tr><td>Your Message</td><td rowspan="2"><apex:inputTextArea rows="10"/></td></tr>
+     <tr><td></td></tr>
+     <tr><td colspan="2" align="center"><apex:commandButton value="SEND THIS FORM"/></td></tr>
+    </table></apex:form>
+</apex:page>

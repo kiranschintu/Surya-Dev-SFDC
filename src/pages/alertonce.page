@@ -1,0 +1,8 @@
+<apex:page standardController="Lead" extensions="aletoncecon">
+  <script>
+    //if('{!lead.alert_once__c}'==True){
+    var Message = 'Hello';
+    alert(Message);
+    //}
+</script>
+</apex:page>

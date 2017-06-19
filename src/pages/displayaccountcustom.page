@@ -1,0 +1,28 @@
+<apex:page controller="mycon" tabStyle="Account">
+  <!--<apex:pageBlock title="My Account Page">
+      <apex:pageblockSection title="Account Information">
+          <apex:outputField value="{!Accounrecords.name}"/>
+          <apex:outputField value="{!Accounrecords.Id}"/>
+          <apex:outputField value="{!Accounrecords.phone}"/>
+      </apex:pageblockSection>
+  </apex:pageBlock>-->
+  
+ <!-- <apex:pageBlock title="My Account Page">
+      <apex:pageblockSection title="Account Information">
+          <apex:outputField value="{!account.name}"/>
+          <apex:outputField value="{!account.Id}"/>
+          <apex:outputField value="{!account.phone}" rendered="{!NOT(ACCOUNT.PHONE=='')}"/>
+          
+      </apex:pageblockSection>
+  </apex:pageBlock>
+  -->
+  
+  <apex:pageBlock title="My Account Page">
+      <apex:pageBlockTable value="{!account}" var="a">
+          <apex:column value="{!a.name}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  
+  
+  
+</apex:page>

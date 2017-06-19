@@ -1,0 +1,55 @@
+<apex:page standardController="Account" sidebar="false" showHeader="true" recordSetVar="accounts">
+<head>
+<script src="{!$Resource.JQuery1}"></script>
+<!--<apex:includeScript value="{!$Resource.JQuery1}"/>
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/jquery-ui-1.9.2.custom/js/jquery-1.8.3.js')}"  />
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js')}"  />
+<apex:stylesheet value="{!URLFOR($Resource.JQuery, '/jquery-ui-1.9.2.custom/css/ui-lightness/jquery-ui-1.9.2.custom.css')}"  />
+
+<script type="text/javascript">
+    j$= jQuery.noConflict();
+    if(j$)
+    {
+         alert('jQuery Loded'); 
+    }
+    else
+    { 
+        alert('jQuery Not Loaded'); 
+    }
+    j$(document).ready(function() {
+    j$("#flip").click(function() {
+    j$("#panel").toggle("slow");
+    });
+    });
+</script>  
+  
+<style type="text/css"> 
+#panel,#flip
+{
+padding:5px;
+text-align:center;
+color:white;
+background-color:Gray;
+border:solid 1px #c3c3c3;
+}
+#panel
+{
+padding:50px;
+display:none;
+}
+</style>-->
+</head>
+<body>
+<!--<apex:form >
+<div id="flip">
+Click to See
+</div>
+<div id="panel">
+<p><apex:dataTable value="{!accounts}" var="a">
+   <apex:column value="{!a.name}"/>
+</apex:dataTable></p>
+<apex:actionFunction immediate="true" name="jq" />
+</div>
+</apex:form>-->
+</body>
+</apex:page>

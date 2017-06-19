@@ -1,0 +1,32 @@
+<apex:page controller="AddPiclistDyanmicCon" sidebar="false" tabStyle="account">
+<apex:form >
+<apex:sectionHeader title="Dynamic Picklist" subtitle="Reusable code"/>
+<apex:pageblock id="tab">
+<apex:pageblockSection title="Book Details">
+    <apex:inputField value="{!books.name}"/>
+</apex:pageblockSection>
+<apex:pageBlockSection title="Dynamic picklist" columns="1" id="news">
+      <apex:pageblocksectionItem >
+          <apex:outputlabel value="City" for="values" />
+          <apex:selectList value="{!city}" size="1" id="values">
+              <apex:actionSupport event="onchange" reRender="news" />
+              <apex:selectOptions value="{!citynames}"/>
+          </apex:selectList>
+      </apex:pageblocksectionItem>                                        
+          <apex:outputpanel id="newvalue">
+             <apex:outputpanel >
+             <div style="position:relative;left:75px;">             
+                  <apex:outputlabel value="New value" for="newval" />
+                  <apex:inputText value="{!newpicklistvalue}" id="newval"/>
+                  <apex:commandbutton action="{!saverec}" value="Add!"/>
+             </div>
+             </apex:outputpanel>
+          </apex:outputpanel> 
+          
+                    <apex:commandLink value="Add Row" rerender="table"/>
+                    
+                        
+  </apex:pageblocksection>
+</apex:pageblock>
+</apex:form>
+</apex:page>

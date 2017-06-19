@@ -1,0 +1,37 @@
+<apex:page controller="exampleCon">
+   <apex:form >
+        
+        <apex:actionFunction name="sayHello" action="{!sayHello}" rerender="out" status="myStatus"/>
+    </apex:form>
+
+   <!-- <apex:outputPanel id="out">
+    <apex:outputLabel value="Hello " onclick="javsf()"/>
+   <apex:actionStatus startText="requesting..." id="myStatus">
+        <apex:facet name="stop">{!uname}</apex:facet>
+    </apex:actionStatus>
+    </apex:outputPanel>
+       -->
+    
+    
+    <apex:pageBlock id="out">     
+    
+       <apex:outputLabel onmouseover="javaScrpt()" >Hello</apex:outputLabel><br/>
+        <apex:actionStatus startText="requesting..." id="myStatus"></apex:actionStatus>
+       <apex:outputText value="{!uname}"></apex:outputText>
+       
+       <apex:pageBlockSection title="hello" rendered="{!uname=='Surya'}">
+       Hello sub
+       </apex:pageBlockSection>
+   
+   </apex:pageBlock>
+   
+  <!-- <script>window.setTimeout(sayHello,2000)</script> -->
+  <script>
+     function javaScrpt(){
+       sayHello();
+          
+      }
+      
+    </script>
+     
+</apex:page>

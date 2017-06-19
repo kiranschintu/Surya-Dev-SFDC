@@ -1,0 +1,17 @@
+<apex:component controller="AllContactsCon">
+    <!--<apex:attribute name="myValue" description="This is the value for the component." type="Account" required="true"/>-->
+    
+    <apex:attribute name="parentId" description="This is the value for the component." type="String" required="true" assignTo="{!accountId}"/>
+    <apex:pageBlock title="Attached Documents">  
+        {!init}
+        <apex:pageBlockTable value="{!contacts }" var="d" >
+            <apex:column >
+                <apex:CommandLink value="Action" action="{!doAction}">
+                    <apex:param name="docid" value="{!d.id}" assignTo="{!ConcourseDocGUID}"/>
+                </apex:CommandLink>
+            </apex:column>
+            <apex:column value="{!d.name}"/>
+            <apex:column value="{!d.phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:component>

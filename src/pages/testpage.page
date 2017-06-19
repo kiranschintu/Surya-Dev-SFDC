@@ -1,0 +1,14 @@
+<apex:page sidebar="false" controller="TestPageCTRL">
+  <head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+  <div class="container">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Save" action="{!doSome}" />
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+  </div>
+</apex:page>

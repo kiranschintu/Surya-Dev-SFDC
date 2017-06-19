@@ -1,0 +1,16 @@
+<apex:page controller="casecon">
+<apex:form >
+        <apex:pageBlock title="Record Details">
+        <apex:pageBlockSection >
+            <!--In the apex class getrecord() method holds the field values of objects. so here we can access it
+            throw record.ex{!record.id}for example method name is getvalues we can access thorw values.ex{!values.id} -->
+            
+            <apex:outputField value="{!record.id}"/><br/>
+            <apex:outputField value="{!record.origin}"/><br/>
+            <apex:outputField value="{!record.contact.name}"/><br/>
+            <apex:outputField value="{!record.origin}"/><br/>
+            <apex:commandButton value="save"/>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+</apex:form>
+</apex:page>

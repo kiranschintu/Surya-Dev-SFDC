@@ -1,0 +1,137 @@
+<apex:page controller="CalendarController" action="{!pageLoad}">
+  
+    <!--<apex:includeScript value="{!URLFOR($Resource.fullcalendarprint,'fullcalendar-1.6.4/lib/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fullcalendarprint,'fullcalendar-1.6.4/lib/jquery-ui.custom.min.js')}"/>
+   
+    <apex:stylesheet value="{!URLFOR($Resource.fullcalendarprint,'fullcalendar-1.6.4/fullcalendar/fullcalendar.css')}"/>  
+    <apex:stylesheet value="{!URLFOR($Resource.fullcalendarprint,'fullcalendar-1.6.4/fullcalendar/fullcalendar.print.css')}"/>  
+    <apex:includeScript value="{!URLFOR($Resource.fullcalendarprint,'fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js')}"/>-->
+    <apex:includeScript value="{!$Resource.jquerymin}"/>
+    <apex:includeScript value="{!$Resource.jqueryuicustommin}"/>
+    <apex:includeScript value="{!$Resource.fullcalendarmin}"/>
+    <apex:stylesheet value="{!$Resource.fullcalendar}"/>
+    <apex:stylesheet value="{!$Resource.fullcalendarprint}"/>
+    
+    
+    
+    <script>
+
+        //We need to wrap everything in a doc.ready function so that the code fires after the DOM is loaded
+
+        $(document).ready(function() {   
+
+            //Call the fullCallendar method. You can replace the '#calendar' with the ID of the dom element where you want the calendar to go. 
+
+            $('#calendar').fullCalendar({
+
+                header: {
+
+                    left: 'prev,next today',
+
+                    center: 'title',
+
+                    right: 'month,agendaWeek,agendaDay'
+
+                },
+
+                editable: true,
+
+                events:
+
+                [
+
+                    //At run time, this APEX Repeat will reneder the array elements for the events array
+
+                    <apex:repeat value="{!events}" var="e">
+
+                        {
+
+                            title: "{!e.title}",
+
+                            start: '{!e.startString}',
+
+                            end: '{!e.endString}',
+
+                            url: '{!e.url}',
+
+                            allDay: {!e.allDay},
+
+                            className: '{!e.className}'
+
+                        },
+
+                    </apex:repeat>
+
+                ],
+                
+               eventClick: function(calEvent, jsEvent, view) {
+                                                             
+                   //var left = (screen.width/2)-(w/2);
+                   //var top = (screen.height/2)-(h/2);
+                   var left = (screen.width - 800) / 2;
+                   var top = (screen.height - 600) / 4; 
+                   
+                   if (calEvent.url) {
+                    window.open(calEvent.url,'_blank','width=400, height=180,resizable=no,top='+top+',left='+left);
+                    return false;
+                   }
+            
+                     
+                }
+
+            });
+
+            
+
+        });   
+      
+
+    </script>
+   
+    
+
+    <!--some styling. Modify this to fit your needs-->
+  
+    <style>
+
+        #cal-options {float:left;}
+
+        #cal-legend { float:right;}
+
+        #cal-legend ul {margin:0;padding:0;list-style:none;}
+
+        #cal-legend ul li {margin:0;padding:5px;float:left;}
+
+        #cal-legend ul li span {display:block; height:16px; width:16px; margin-right:4px; float:left; border-radius:4px;}
+
+        #calendar {margin-top:20px;}
+
+        #calendar a:hover {color:#fff !important;}
+      
+
+        .fc-event-inner {padding:3px;}
+
+        
+
+        
+
+    </style>
+
+    
+    <apex:sectionHeader title="Scheduler Calendar View"/>
+    
+    <apex:pageBlock >
+    <apex:outputPanel id="calPanel">
+
+        <apex:form id="frm" >          
+                          
+            <div style="clear:both;"><!--fix floats--></div>
+
+            <div id="calendar"></div>           
+           
+
+        </apex:form>
+
+    </apex:outputPanel>
+   </apex:pageBlock>
+</apex:page>

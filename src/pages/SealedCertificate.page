@@ -1,0 +1,119 @@
+<apex:page showHeader="false" standardStylesheets="false" renderAs="pdf" docType="html-5.0"  applyHtmlTag="false" applyBodyTag="false">
+    <head>
+      <title>Sealed Certificate</title>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+    <div class="container">
+      <div class="page-header text-center">
+        <h1>The Florida Bar</h1>
+        <p>651 East Jefferson Street <br/>Tallahassee, FL  32399-2300</p> 
+      </div>
+      
+      <div class="row text-center">
+        <div class="col-sm-4">
+          <p>John F. Harkness, <br/>Jr.Executive Director</p>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+          <p>850/561-5600 <br/> www.FLORIDABAR.org</p>
+        </div>
+      </div>
+      
+      <div class="row" style="height:30px;">
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+            <p>State of Florida )</p>
+            <p>County of Leon   )</p>
+        </div>
+        <div class="col-sm-4">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+             <p>In Re: MNFE_Customer_Number__c<br/>
+                Name<br/>
+                tfb_Firm_Name__c<br/>
+                MailingAddress<br/>
+                Mailing City, Mailing Postal Code</p>
+        </div>
+      </div>
+      
+      <div class="row" style="height:30px;">
+      </div>
+          
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+          <p>I HEREBY CERTIFY that I am the duly appointed custodian of membership records of The Florida Bar.</p>
+          <p>I FURTHER CERTIFY that the records in the office of the Clerk of the Supreme Court of Florida indicate that said attorney was admitted to practice law in the State of Florida on tfb_Date_Admitted_to_The_Florida_Bar__c.</p>
+          <p>I FURTHER CERTIFY that the records in the office of The Florida Bar indicate that the above attorney is an active member of The Florida Bar in good standing.</p>
+        </div>
+        <div class="col-sm-2">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+          <p>Dated this _______ day of (Month)</p>
+          <p></p>
+          <p></p>
+          <p>Pam Gerard, Manager <br/> Membership Records Dept. <br/> The Florida Bar </p>
+          <p></p>
+          <p></p>
+          <p>PG/R10</p>
+        </div>
+        <div class="col-sm-4">
+          Image
+        </div>
+        <div class="col-sm-2">
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-sm-12">
+          <h3>Column 1</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-4">
+          <h3>Column 1</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+        <div class="col-sm-4">
+          <h3>Column 2</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+        <div class="col-sm-4">
+          <h3>Column 3</h3>        
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+      </div>-->
+    </div>
+
+    </body>
+
+</apex:page>

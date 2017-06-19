@@ -1,0 +1,15 @@
+<apex:page sidebar="false" standardController="Case" showHeader="false" extensions="CaseSlaController">
+    <c:categorySelect callback="knowledgePicker.bindTreeClicks" sObjectType="KnowledgeArticleVersion"/>
+
+    <script>           
+        var knowledgePicker = new Object();
+
+        knowledgePicker.bindTreeClicks = function(tree)
+        {
+            j$('.dataCategoryLink').click(function(event,ui){
+                event.preventDefault();
+                alert('clicked ' + j$(this).attr('category'));
+            }); 
+        }                           
+    </script>   
+</apex:page>

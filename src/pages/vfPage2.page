@@ -1,0 +1,18 @@
+<apex:page controller="VFPage2Cls">
+    <apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:inputField value="{!cas.status}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Search" action="{!doSearch}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock title="List of Cases">
+        <apex:pageBlockTable value="{!cases}" var="cs">
+            <apex:column value="{!cs.id}"/>
+            <apex:column value="{!cs.casenumber}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

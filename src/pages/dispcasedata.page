@@ -1,0 +1,19 @@
+<apex:page standardController="case" sidebar="false">
+    <apex:outputLabel value="case name :"></apex:outputLabel>
+    <!--Here case name is not a direct field of case,it is contact name filed so
+     we hav to apply replation beacuse case name is lookup field of contact ex:{!case.contact.name}-->
+    <apex:outputtext value="{!case.contact.name}"></apex:outputtext> <br/>
+    
+    <apex:outputLabel value="case origin :"></apex:outputLabel>
+    <!--It is direct field of case -->
+    <apex:outputtext value="{!case.origin}"></apex:outputtext> <br/>
+    
+    <apex:outputLabel value="case phone number :"></apex:outputLabel>
+    <!--Here case phone number is not a direct field of case,it is contact phone filed so
+     we hav to apply replation beacuse case name is lookup field of contact ex:{!case.contact.phone }-->
+    <apex:outputtext value="{!case.contact.phone}"></apex:outputtext> <br/>
+    
+    <apex:outputLabel value="case id :"></apex:outputLabel>
+    <!--It is direct field of case -->
+    <apex:outputtext value="{!case.id}"></apex:outputtext> <br/>
+</apex:page>

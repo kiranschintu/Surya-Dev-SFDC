@@ -1,0 +1,476 @@
+<apex:page standardController="Lead" extensions="convertLeadExtension" id="convertLead">  
+  <script type="text/javascript">
+    window.onload = init;
+    
+    function init() {
+        if ({!loadPage}) {
+            loadElements();
+        }
+    }
+         
+    function accountSectionSwitch() {
+        var createAccount = document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.createAccount}');
+        if (createAccount.options[createAccount.selectedIndex].value == '') document.getElementById('{!$Component.inputForm.convertLeadBlock.accountPageSection}').style.display = 'none';
+        else document.getElementById('{!$Component.inputForm.convertLeadBlock.accountPageSection}').style.display = 'inline';
+    }
+    
+    function oppSectionSwitch() {
+        document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.opportunityName}').disabled = document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.noOppCheckbox}').checked;
+        var createOpp = document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.noOppCheckbox}').checked;
+        if (createOpp) {
+            if (document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.opportunityName}').value != '-- None --') document.getElementById('{!$Component.inputForm.prevOppName}').value = document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.opportunityName}').value;
+            document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.opportunityName}').value = '-- None --';
+        }
+        else {
+            document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.opportunityNameSection.opportunityName}').value = document.getElementById('{!$Component.inputForm.prevOppName}').value;
+        }
+    }
+    
+    function oppTypeSwitch(){
+        var oppTypeBox = document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.oppTypeSection.oppType}');
+        if (oppTypeBox != null) {
+            var opportunityLob = document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.opportunityLobSection.opportunityLob}').value;
+            oppTypeBox.length = 0;
+            if (opportunityLob == 'PPM') {
+                addOption(oppTypeBox, '--None--');
+                addOption(oppTypeBox, 'Add-On');
+                addOption(oppTypeBox, 'Existing');
+                addOption(oppTypeBox, 'New');
+            }
+            else if (opportunityLob == 'Other' || opportunityLob == 'Education') {
+                addOption(oppTypeBox, '--None--');
+                addOption(oppTypeBox, 'Add-On');
+                addOption(oppTypeBox, 'New');
+            }
+            else {
+                addOption(oppTypeBox, '--None--');
+                addOption(oppTypeBox, 'New Business / New Customer');
+                addOption(oppTypeBox, 'New Logo');
+                addOption(oppTypeBox, 'New Business / Existing Customer');
+                addOption(oppTypeBox, 'Add-On');
+                addOption(oppTypeBox, 'Renewal');
+            }
+        }
+    }
+    
+    function oppProdRevTypeSwitch(){
+        var oppProdRevTypeBox = document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.oppProdRevTypeSection.oppProdRevType}');
+        if (oppProdRevTypeBox != null) {
+            var opportunityLob = document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.opportunityLobSection.opportunityLob}').value;
+            oppProdRevTypeBox.length = 0;
+            if (opportunityLob == 'PPM') {
+                addOption(oppProdRevTypeBox, '--None--');
+                addOption(oppProdRevTypeBox, 'Services');
+                addOption(oppProdRevTypeBox, 'Book & Bill');
+                addOption(oppProdRevTypeBox, 'GAA');
+                addOption(oppProdRevTypeBox, 'Lease');
+                addOption(oppProdRevTypeBox, 'Mixed');
+            }
+            else {
+                addOption(oppProdRevTypeBox, '--None--');
+                addOption(oppProdRevTypeBox, '% of Completion');
+                addOption(oppProdRevTypeBox, 'Book & Bill');
+                addOption(oppProdRevTypeBox, 'Book & Bill - Geospatial');
+                addOption(oppProdRevTypeBox, 'Services Only');
+                addOption(oppProdRevTypeBox, 'Services Only - Geospatial');
+                addOption(oppProdRevTypeBox, 'Subscriptions');
+            }
+        }
+    }
+    
+    function accountCountrySwitch() {
+        var accountCountry = document.getElementById('{!$Component.inputForm.convertLeadBlock.accountPageSection.accountCountrySection.accountCountry}').value;
+        var accountState = document.getElementById('{!$Component.inputForm.convertLeadBlock.accountPageSection.accountStateSection}');
+        var accountZip = document.getElementById('{!$Component.inputForm.convertLeadBlock.accountPageSection.accountZipSection}');
+        if (accountCountry == 'United States' || accountCountry == 'Canada') {
+            accountState.style.display = 'inline';
+            accountZip.style.display = 'inline';
+        }
+        else if (accountCountry == 'Netherlands' || accountCountry == 'Australia' || accountCountry == 'Germany' || accountCountry == 'China' || accountCountry == 'Indonesia' || accountCountry == 'Malaysia' || accountCountry == 'New Zealand' || accountCountry == 'Singapore' || accountCountry == 'Spain' || accountCountry == 'Taiwan' || accountCountry == 'Thailand' || accountCountry == 'United Kingdom'){
+            accountState.style.display = 'none';
+            accountZip.style.display = 'inline';
+        }
+        else {
+            accountState.style.display = 'none';
+            accountZip.style.display = 'none';
+        }
+    }
+        
+    function loadElements() {
+        oppSectionSwitch();
+        oppTypeSwitch();
+        oppProdRevTypeSwitch();
+        
+        //Load these form fields with what's stored on the server
+        
+       
+    }
+    
+    function prePopulate() {
+        //Pre-populate this field with default value
+        if (document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.ppmOppFields.oppPrimaryIndustryPercentSection.oppPrimaryIndustryPercent}') != null) {
+            if (document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.ppmOppFields.oppPrimaryIndustryPercentSection.oppPrimaryIndustryPercent}').value == '') document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.ppmOppFields.oppPrimaryIndustryPercentSection.oppPrimaryIndustryPercent}').value = '100';
+        }
+    }
+    
+    function addOption(selectObject, text){
+        newOption = document.createElement('option');
+        newOption.text = text;
+        try { //Standards Compliant
+            selectObject.add(newOption, null);
+        }
+        catch (ex) { //IE Only
+            selectObject.add(newOption);
+        }
+    }
+    
+    function forceOpportunityLobOnChange() {
+        fireEvent(document.getElementById('{!$Component.inputForm.convertLeadBlock.oppPageSection.opportunityLobSection.opportunityLob}'), 'change');
+    }
+    
+    function fireEvent(element, event){
+        if (document.createEventObject){
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return element.fireEvent('on' + event, evt)
+        }
+        else{
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+            return !element.dispatchEvent(evt);
+        }
+    }
+    
+    function viewAccount() {
+        var acc_select = document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.createAccount}');
+        var acc_id = acc_select.options[acc_select.selectedIndex].value;
+        if (acc_id == null || acc_id == "" || acc_id == 'createNew' || acc_id == 000000000000000) {
+            alert("You can only view existing accounts.");
+        } else {
+            printWin('/'+acc_id+'/p');
+        }
+    }
+    
+    leadConvertLookupPick = function(formName, selectId, accountId, accountName) {
+        //var acc_select=document.getElementById(selectId);
+        accountId = normaliseSforceID(accountId) //convert to 18 digit id form
+        var acc_select=document.getElementById('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.createAccount}');
+        for(i=0; i < acc_select.options.length; i++) {
+            var option = acc_select.options[i];
+            if(option.value == accountId) {
+                option.selected = true;
+                if(acc_select.onchange) {
+                    acc_select.onchange();
+                }
+                return;
+            }
+        }
+        
+        var newAccountCreateOptions = document.getElementById('{!$Component.inputForm.newAccountCreateOptions}');
+        newAccountCreateOptions.value = accountId + "," + accountName;
+        newAccountCreateOptions.onchange();
+        var accountNameFull = LC.getLabel("Page_Lead_Convert", "attach", accountName);
+        var accOption = new Option(accountNameFull, accountId, true, true);
+        acc_select.options[acc_select.options.length] = accOption;
+        if(acc_select.onchange) {
+            acc_select.onchange();
+        }
+    }
+    
+    function normaliseSforceID(id) { // fluff up a 15 char id to return an 18 char id
+        if (id == null) return id;
+        id = id.replace(/\"/g, ''); // scrub quotes from this id
+        if (id.length != 15) {
+            //print('well, id is not 15, bye' + id + ' ' + id.length);
+            return null;
+        }
+        var suffix = "";
+        for (var i = 0; i < 3; i++) {
+            var flags = 0;
+            for (var j = 0; j < 5; j++) {
+                var c = id.charAt(i * 5 + j);
+                if (c >= 'A' && c <= 'Z') {
+                    flags += 1 << j;
+                }
+            }
+            if (flags <= 25) {
+                suffix += "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(flags);
+            } else {
+                suffix += "012345".charAt(flags-26);
+            }
+        }
+        return id + suffix;
+    }
+  </script>
+  <apex:sectionHeader title="Convert Lead" Subtitle="{!lead.Name}" />
+    Leads can be converted to accounts, contacts, opportunities, and follow up tasks. <br />
+    You should only convert a lead once you have identified it as qualified. <br />
+    After this lead has been converted, it can no longer be viewed or edited as a lead, but can be viewed in lead reports. <br />
+  <apex:form id="errorForm" rendered="{!NOT(loadPage)}">
+    <apex:pageBlock id="errorBlock">
+    <apex:pageMessages />   
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+  <apex:form id="inputForm" rendered="{!loadPage}">
+    <apex:inputHidden id="leadCompany" value="{!lead.Company}" />
+    <apex:inputHidden id="leadFirstName" value="{!lead.FirstName}" />
+    <apex:inputHidden id="leadLastName" value="{!lead.LastName}" />
+    
+    <apex:inputHidden id="leadLob" value="{!lead.Line_of_Business__c}" /> 
+    
+    <apex:inputHidden id="prevAccountZip" value="{!lead.PostalCode}" />
+    <apex:inputHidden id="prevAccountState" value="{!lead.State}" />
+    <apex:inputHidden id="prevOppName" value="{!opportunityName}" />
+    <apex:inputText id="newAccountCreateOptions" value="{!newAccountCreateOptions}" style="display:none">
+        <apex:actionSupport event="onchange" action="{!parseNewAccountCreateOptions}" oncomplete="document.getElementById('{!$Component.inputForm.newAccountCreateOptions}').value = null;" />
+    </apex:inputText> 
+      <apex:pageBlock id="convertLeadBlock" >
+      <apex:pageMessages />        
+        <apex:pageBlockButtons >
+          <apex:commandButton value="Convert" action="{!convert}">
+            <apex:param name="id" value="{!$CurrentPage.parameters.id}" />
+          </apex:commandButton>
+          <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+        <apex:outputPanel id="convertLeadPanel">
+            <apex:pageBlockSection title="Convert Lead" columns="1" id="convertInfoSection">
+                <apex:pageBlockSectionItem id="recordOwnerSection" >
+                    <apex:outputLabel for="ownerId" value="Record Owner" />
+                    <apex:panelGrid columns="2">
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            <apex:inputHidden id="ownerId_lkid" value="{!ownerId_lkid}" />
+                            <apex:inputHidden id="ownerId_lkold" value="{!ownerId_lkold}" />
+                            <apex:inputHidden id="ownerId_lktp" value="{!ownerId_lktp}" />
+                            <apex:inputHidden id="ownerId_lspf" value="{!ownerId_lspf}" />
+                            <apex:inputHidden id="ownerId_mod" value="{!ownerId_mod}" />
+                            <apex:inputText id="ownerId" onchange="getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.recordOwnerSection.ownerId_lkid}').value='';getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.recordOwnerSection.ownerId_mod}').value='1';" value="{!recordOwner}" />
+                        </apex:outputPanel>
+                        <apex:outputLink value="javascript: openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm={!$Component.inputForm.convertLeadBlock.convertInfoSection.recordOwnerSection.ownerId}&lktp=' + getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.recordOwnerSection.ownerId_lktp}').value, 670, '1','&lksrch=' + escapeUTF(getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.recordOwnerSection.ownerId}').value.substring(0, 80)))" id="owner_id_lkwgt" onclick="setLastMousePosition(event)" title="Record Owner Lookup (New Window)"><img src="/s.gif" alt="Record Owner Lookup (New Window)"  class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title="Record Owner Lookup (New Window)"/></apex:outputLink>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="sendEmailSection" >
+                    <apex:outputLabel for="emailCheckbox" value="Send email to owner" />
+                    <apex:inputCheckbox id="emailCheckbox" value="{!sendEmail}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="createAccountSection" >
+                    <apex:outputLabel for="createAccount" value="Account Name" />
+                    <apex:panelGrid columns="4">
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            <apex:inputText id="acclkId" onchange="getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.acclkId_lkid}').value='';getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.acclkId_mod}').value='1';" style="display:none" value="{!acclkId}" />
+                            <apex:inputHidden id="acclkId_lkid" value="{!acclkId_lkid}" />
+                            <apex:inputHidden id="acclkId_lkold" value="{!acclkId_lkold}" />
+                            <apex:inputHidden id="acclkId_lktp" value="{!acclkId_lktp}" />
+                            <apex:inputHidden id="acclkId_lspf" value="{!acclkId_lspf}" />
+                            <apex:inputHidden id="acclkId_mod" value="{!acclkId_mod}" />
+                            <apex:selectList id="createAccount" value="{!accountCreate}" size="1" >
+                                <apex:selectOptions value="{!accountCreateOptions}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                        <apex:outputLink value="javascript: openLookup('/_ui/common/data/LookupPage?lkpr={!lead.Id}&lkfm=editPage&lknm={!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.acclkId}&leadconv=1&lktp=' + getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.acclkId_lktp}').value,670,'1','&lksrch=' + escapeUTF(getElementByIdCS('{!$Component.inputForm.convertLeadBlock.convertInfoSection.createAccountSection.acclkId}').value))" id="acclkid_lkwgt" onclick="setLastMousePosition(event)" title=" Lookup (New Window)"><img src="/s.gif" alt=" Lookup (New Window)"  class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title=" Lookup (New Window)"/></apex:outputLink>
+                        <apex:outputLink value="javascript: viewAccount();" title="View (New Window)">View</apex:outputLink>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="opportunityNameSection" >
+                        <apex:outputLabel for="opportunityName" value="Opportunity Name" />
+                        <apex:panelGrid columns="2">
+                            <apex:actionRegion >
+                                <apex:outputPanel styleClass="requiredInput" layout="block" id="opportunityNamePanel">
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block" />  
+                                    <apex:inputText id="opportunityName" title="Opportunity Name" value="{!opportunityName}"  /><br />
+                                    <apex:inputCheckbox id="noOppCheckbox" value="{!doNotCreateOpportunity}" required="true">
+                                        <apex:actionSupport event="onclick" oncomplete="oppSectionSwitch(); oppTypeSwitch(); oppProdRevTypeSwitch(); forceOpportunityLobOnChange(); prePopulate()" rerender="opportunityPanel"  />
+                                    </apex:inputCheckbox>
+                                    <apex:outputLabel for="noOppCheckbox" value="Do not create a new opportunity upon conversion." />
+                                </apex:outputPanel>
+                            </apex:actionRegion>
+                        </apex:panelGrid>
+                    </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="convertedStatusSection" >
+                    <apex:outputLabel for="cstatus" value="Converted Status" />
+                    <apex:panelGrid columns="2">
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            <apex:selectList id="cstatus" value="{!convertedStatus}" size="1" >
+                                <apex:selectOptions value="{!convertedStatusOptions}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Account Fields" columns="1" id="accountPageSection" collapsible="false">
+                <apex:pageBlockSectionItem id="parentAccountSection" >
+                    <apex:outputLabel for="parentAccount" value="Parent Account" />
+                    <apex:panelGrid columns="5">
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" rendered="{!CONTAINS(user.UserRole.Name, 'Partner')}" />
+                            <apex:inputHidden id="parentAccount_lkid" value="{!parentAccount_lkid}" />
+                            <apex:inputHidden id="parentAccount_lkold" value="{!parentAccount_lkold}" />
+                            <apex:inputHidden id="parentAccount_lktp" value="{!parentAccount_lktp}" />
+                            <apex:inputHidden id="parentAccount_lspf" value="{!parentAccount_lspf}" />
+                            <apex:inputHidden id="parentAccount_mod" value="{!parentAccount_mod}" />
+                            <apex:inputText id="parentAccount" value="{!parentAccount}" disabled="true" onchange="getElementByIdCS('{!$Component.parentAccount_lkid}').value='';getElementByIdCS('{!$Component.parentAccount_mod}').value='1';" />
+                            <apex:outputLink value="javascript: openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm={!$Component.parentAccount}&lktp=' + getElementByIdCS('{!$Component.parentAccount_lktp}').value,670,'1','&lksrch=' + escapeUTF(getElementByIdCS('{!$Component.parentAccount}').value.substring(0, 80)))" id="parentAccount_lkwgt" onclick="setLastMousePosition(event)" title=" Lookup (New Window)"><img src="/s.gif" alt=" Lookup (New Window)"  class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title=" Lookup (New Window)"/></apex:outputLink>
+                        </apex:outputPanel>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountLobSection">
+                    <apex:outputLabel for="accountLob" value="Line of Business" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:actionRegion >
+                            <apex:inputField id="accountLob" value="{!account.Account_Intergraph_Line_of_Business__c}">
+                                <apex:actionSupport event="onchange" rerender="accountPageSection" />
+                            </apex:inputField>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountIndustrySection">
+                    <apex:outputLabel for="accountIndustry" value="Industry" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountIndustry" value="{!lead.Industry}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountTypeSection">
+                    <apex:outputLabel for="accountType" value="Type" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        
+                        
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountStreetSection">
+                    <apex:outputLabel for="accountStreet" value="Street" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountStreet" value="{!lead.Street}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountCitySection">
+                    <apex:outputlabel for="accountCity" value="City" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountCity" value="{!lead.City}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountStateSection" rendered="{!OR(lead.Country_Code__c == 'United States', lead.Country_Code__c == 'Canada')}">
+                    <apex:outputlabel for="accountState" value="State/Province" />  
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountState" value="{!lead.State}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountZipSection" rendered="{!OR(lead.Country_Code__c == 'United States', lead.Country_Code__c == 'Canada', lead.Country_Code__c == 'Netherlands', lead.Country_Code__c == 'Australia', lead.Country_Code__c == 'Germany')}">
+                    <apex:outputlabel for="accountZip" value="Zip/Postal Code" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountZip" value="{!lead.PostalCode}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="accountCountrySection">
+                    <apex:outputlabel for="accountCountry" value="Country" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                        <apex:inputField id="accountCountry" value="{!lead.Country_Code__c}">
+                            <apex:actionSupport event="onchange" rerender="accountPageSection" />
+                        </apex:inputField>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSection title="PPM Only Fields" columns="1" id="ppmAccountFields" rendered="{!account.Account_Intergraph_Line_of_Business__c == 'PPM'}"> 
+                    <apex:pageBlockSectionItem id="accountCategorySection">
+                        <apex:outputlabel for="accountCategory" value="Account Category" />
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            
+                                <!--<apex:actionSupport event="onchange" action="{!refreshAccountSubcategoryOptions}" rerender="ppmAccountFields" status="categoryStatus" />-->
+                            
+                            <!--<apex:actionStatus id="categoryStatus" startText="Fetching dependent values..." />-->
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>    
+                    <!--<apex:pageBlockSectionItem id="accountSubcategorySection" rendered="false">
+                        <apex:outputlabel for="accountSubcategory" value="Account Subcategory" />
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            <apex:selectList id="accountSubcategory" multiselect="true" value="{!accountSubcategory}" size="4" >
+                                <apex:selectOptions value="{!accountSubcategoryOptions}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>-->
+                </apex:pageBlockSection>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Fields" columns="1" id="contactPageSection" collapsible="false">
+                <apex:inputField id="contactEmail" value="{!contact.Email}" required="true" />
+                <apex:inputField id="contactStreet" value="{!contact.MailingStreet}" />
+                <apex:inputField id="contactCity" value="{!contact.MailingCity}" />
+                <apex:inputField id="contactState" value="{!contact.MailingState}" />
+                <apex:inputField id="contactZip" value="{!contact.MailingPostalCode}" />                        
+                <apex:inputField id="contactCountry" value="{!contact.MailingCountry}" />
+            </apex:pageBlockSection>
+            <apex:outputPanel id="opportunityPanel">
+                <apex:pageBlockSection title="Opportunity Fields" columns="1" id="oppPageSection" collapsible="false" rendered="{!NOT(doNotCreateOpportunity)}">
+                    <apex:pageBlockSectionItem id="opportunityLobSection">
+                        <apex:outputLabel for="opportunityLob" value="Line of Business" />
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            <apex:inputField id="opportunityLob" value="{!opportunity.Opportunity_Intergaph_Line_of_Business__c}">
+                                <apex:actionSupport event="onchange" oncomplete="oppTypeSwitch(); oppProdRevTypeSwitch(); prePopulate()" rerender="oppPageSection" />
+                            </apex:inputField>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                   
+                    <apex:pageBlockSectionItem id="oppProdRevTypeSection">
+                        <apex:outputlabel for="oppProdRevType" value="Product Revenue Type" />
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+                            
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSection title="PPM Only Fields" columns="1" id="ppmOppFields" collapsible="false" rendered="{!opportunity.Opportunity_Intergaph_Line_of_Business__c == 'PPM'}">
+                        <apex:pageBlockSectionItem id="oppPrimaryIndustrySection">
+                            <apex:outputLabel for="oppPrimaryIndustry" value="Primary Industry" />
+                            <apex:outputPanel styleClass="requiredInput" layout="block">
+                                <apex:outputpanel styleClass="requiredBlock" layout="block" />
+                                
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="oppPrimaryIndustryPercentSection">
+                            <apex:outputlabel for="oppPrimaryIndustryPercent" value="Primary Industry %" />
+                            <apex:outputPanel styleClass="requiredInput" layout="block">
+                                <apex:outputpanel styleClass="requiredBlock" layout="block" />
+                                
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:pageBlockSection title="Task Information" columns="1" id="taskPageSection"> 
+                <table class="detailList">
+                    <apex:inputField id="taskStatus" value="{!Task.Status}" required="false" />
+                    <apex:inputField id="taskPriority" value="{!Task.Priority}" required="false" />
+                    <apex:inputField id="taskDueDate" value="{!Task.ActivityDate}" />
+                    
+                    <apex:pageBlockSection title="Description Information" columns="1" id="taskDescriptionInfo" collapsible="false">
+                        <apex:inputField id="taskSubject" value="{!Task.Subject}" />
+                        <apex:inputField id="taskDescription" value="{!Task.Description}" style="width:300px; height:100px;" />
+                        <apex:pageBlockSectionItem >
+                            <apex:inputCheckbox id="emailFollowup" />
+                            <apex:outputLabel value="Send Notification Email" for="emailFollowup" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Reminder" columns="1" id="reminderPageSection" collapsible="false"> 
+                        <table class="detailList">
+                            <apex:inputField id="taskReminder" value="{!Task.ReminderDateTime}" />
+                        </table>
+                    </apex:pageBlockSection>
+                </table>
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+      </apex:pageBlock>  
+  </apex:form>
+</apex:page>

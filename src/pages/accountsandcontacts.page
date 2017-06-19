@@ -1,0 +1,31 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="accountsandcontactscon" sidebar="false">
+
+    <apex:form ><apex:actionstatus starttext="Processing..." id="st"/>
+    <apex:pageBlock id="block">
+    
+    <apex:repeat value="{!accounts}" var="acc">
+    <apex:outputPanel id="block1">
+        <apex:commandLink action="{!dosome}" rerender="block1" value="{!symbol}" status="st"  style="font-weight:bold;font-size:15px;text-decoration:none">
+            <apex:param name="accountid" assignTo="{!accid}" value="{!acc.id}"/> <!-- {!if(buttonstate==1,'-','+')}  value="{!if(buttonstate!=1,'+','-')}   -->
+        </apex:commandLink>&nbsp;<apex:outputField value="{!acc.name}"/><br/>
+        <ul>
+        
+        <apex:repeat value="{!contacts}" var="cons">
+        
+            <apex:outputPanel rendered="{!cons.accountid==acc.id}">
+            <li>
+            <apex:outputtext value="{!cons.name}"/><br/>
+            </li>
+            </apex:outputPanel>
+        </apex:repeat>
+        
+    
+        </ul> 
+      </apex:outputPanel>  
+    </apex:repeat>
+   
+    
+    </apex:pageBlock>
+    </apex:form> 
+   
+</apex:page>

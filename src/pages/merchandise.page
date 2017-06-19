@@ -1,0 +1,6 @@
+<apex:page standardController="Merchandise__c" >
+  <apex:outputField value="{!Merchandise__c.name}"/>
+  <apex:dataTable value="{!Merchandise__c.Line_Items__r}" var="b"> 
+  
+  </apex:dataTable>
+</apex:page>

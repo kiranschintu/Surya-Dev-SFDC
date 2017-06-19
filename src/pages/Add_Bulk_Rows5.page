@@ -1,0 +1,17 @@
+<apex:page controller="bulkrowithindex">
+ <apex:form >
+ <apex:pageBlock >
+  <apex:actionFunction name="removeItem" action="{!removeItem}" rerender="theForm">
+      <apex:param name="rowIndex" value="" />
+</apex:actionFunction>
+<apex:pageBlockTable var="index" value="{!memberIndexes}">
+              <apex:column >
+           
+            <apex:inputField value="{!index.name}"  required="false"/>
+        </apex:column>
+    
+</apex:pageBlockTable>
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

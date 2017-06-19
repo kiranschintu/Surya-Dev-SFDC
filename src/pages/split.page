@@ -1,0 +1,7 @@
+<apex:page controller="Split" >
+  <apex:outputtext value="{!name}"></apex:outputtext>
+  <apex:repeat value="{!records}" var="r">
+      {!r.name}<br/>
+      {!r.Company_Email__c}<br/>
+  </apex:repeat>
+</apex:page>

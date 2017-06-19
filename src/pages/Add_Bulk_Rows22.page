@@ -1,0 +1,43 @@
+<apex:page controller="test1">
+
+<apex:form >
+
+<apex:pageBlock id="panelWithVar">
+<apex:variable value="{!0}" var="rowNumber" />
+
+<apex:commandButton value="Add" action="{!addNewObject}" reRender="panelWithVar" immediate="true"/>
+
+<apex:pageBlockTable value="{!objectsToInsert}" var="item" id="newItems">
+   
+   
+    <apex:column width="5%">
+    
+        <apex:commandButton action="{!removeNewObject}" value=" X " reRender="panelWithVar">
+            
+            <apex:param name="p1" value="{!rowNumber}" assignTo="{!numberOfRowToRemove}"/> 
+            <!--<apex:param name="p2" value="{!Counting[0]}" assignTo="{!numberOfRowToRemove}"/>-->
+            <apex:outputText value="{!i}"/>
+            
+        <apex:outputText value="{!rowNumber}"/>
+        
+        </apex:commandButton>
+    </apex:column>
+        
+    <apex:column >
+        <apex:inputField value="{!item.leadsource}">
+        <apex:variable var="rowNumber" value="{!rowNumber + 1}" />
+             
+        </apex:inputField>
+        <apex:outputText value="{!rowNumber}"/>
+        <!--<apex:outputText value="{!Count}"/>-->
+    </apex:column>
+    
+
+
+
+</apex:pageBlockTable>
+
+</apex:pageBlock>
+
+</apex:form> 
+</apex:page>

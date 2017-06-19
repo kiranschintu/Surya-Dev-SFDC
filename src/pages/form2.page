@@ -1,0 +1,18 @@
+<apex:page controller="form1Con" action="{!values}">
+  <apex:pageBlock >
+      <apex:pageBlockSection >
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel value="First Name"></apex:outputLabel>
+              <apex:outputText value="{!fn1}"></apex:outputText>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Last Name"></apex:outputLabel>
+              <apex:outputText value="{!ln1}"></apex:outputText>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Phone"></apex:outputLabel>
+              <apex:outputText value="{!phone1}"></apex:outputText>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

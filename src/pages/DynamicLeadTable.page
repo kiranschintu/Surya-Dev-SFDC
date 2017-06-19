@@ -1,0 +1,35 @@
+<apex:page controller="DynamicLeadTableCls">
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockSection >
+      <!--<apex:repeat value="{!headers}" var="outer">
+                  <apex:panelGrid columns="2" id="pnlgrd">
+                  <table  border="1">
+                  <tr><td></td>
+                  <td>
+                  {!outer}
+                  </td>
+                  </tr>
+                  <apex:repeat value="{!mapData[outer]}" var="inner">
+                      <tr>
+                          <td>{!inner.header}</td>
+                          <td>{!inner.lead.name}</td>
+                          
+                      </tr>
+                      </apex:repeat>
+                  </table>
+                  </apex:panelGrid>
+              </apex:repeat>-->
+              
+              <apex:repeat value="{!leadWrappers}" var="l">
+                  <table border="1">
+                      <tr>
+                          <!--<td>{!l.lead.name}</td>-->
+                      </tr>
+                  </table>
+              </apex:repeat>
+          
+     </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

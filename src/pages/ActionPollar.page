@@ -1,0 +1,8 @@
+<apex:page controller="ActionPollarCTRL">
+  
+  <apex:form id="frm">
+  <apex:actionstatus stoptext="done" startText="loadig..." id="st"></apex:actionstatus>
+  Count::{!count}
+      <apex:actionPoller action="{!checkCounter}" reRender="frm" interval="5" status="st"/>
+  </apex:form>
+</apex:page>

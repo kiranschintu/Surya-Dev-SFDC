@@ -1,0 +1,22 @@
+<apex:page controller="SampleControllerVijaya" showHeader="false"
+    standardStylesheets="false" sidebar="false" showChat="false"
+    tabStyle="Account" title="Request Details">
+    <!--<apex:stylesheet value="{!$Resource.pangea3CSS}" />-->
+  <apex:pageMessages />
+  <apex:form target="_self" id="request_details_form">
+    <apex:tabPanel switchType="client">
+
+        <apex:tab label="Details" id="tab_details">
+            
+                      
+        </apex:tab>
+        <apex:tab label="Attached Documents" id="tab_documents">
+            <c:AttachedDocuments workProdId="{!wpObject.id}"/>
+        </apex:tab>
+        <apex:tab label="Associated Requests" id="tab_requests">
+        </apex:tab>
+        <apex:tab label="Abstraction" id="tab_abstraction">
+        </apex:tab>
+    </apex:tabPanel>
+    </apex:form>
+</apex:page>

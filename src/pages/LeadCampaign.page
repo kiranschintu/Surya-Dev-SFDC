@@ -1,0 +1,6 @@
+<apex:page standardController="CampaignMember"  extensions="campaignCon" sidebar="false">
+  <apex:outputField value="{!Record.id}"/><br/>
+  <apex:outputField value="{!Record.status}"/><br/>
+  <apex:outputField value="{!Record.campaignid}"/><br/>
+  <apex:outputField value="{!Record.campaign.name}"/><br/>
+</apex:page>

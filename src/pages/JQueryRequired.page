@@ -1,0 +1,59 @@
+<apex:page controller="ACETMisdirectedCallController">
+    <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js"/>
+    <apex:form > 
+    <apex:sectionHeader title="Misdirect"/>    
+    <apex:pageBlock id="pb" >
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Misdirected Reason" />
+                <apex:inputText id="misdirectReason"/>
+            </apex:pageBlockSectionItem>                
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Comments" />               
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom" >   
+            <apex:commandButton value="Save" onclick="return validate();" />
+            <apex:commandButton value="Clear" onclick="form.reset()"/>                                                                                         
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>
+    </apex:form>  
+    <script>        
+        
+        function validate(){            
+            var $reason = $("[id$='misdirectReason']");                        
+            
+            var retFlag = true;
+            $reason.removeClass("error").parent().find(".errorMsg").remove();                        
+            if(!$reason.val()){
+               var errorMsg = "You must enter a value."; 
+               $reason.addClass("error").parent().append('<div class="errorMsg"><strong>Error:</strong> ' + errorMsg + '</div>'); 
+               retFlag = false;                  
+            }
+                  
+            if(retFlag){                
+                sf_save();
+            }    
+            
+            return false;             
+        }
+        
+        function resetForm(){
+            form.reset();
+            (".errorMsg").remove(); 
+            return false;
+        }
+        
+        $(document).ready(function() {                      
+            //var flId = 'j_id5:misdirectReason';
+            //var flIf = 'j_id0:j_id2:pb:j_id4:j_id5:misdirectReason';
+            //$("[id$='j_id5:misdirectReason']").wrap('<div class="requiredInput"></div>').parent().prepend('<div class="requiredBlock"></div>');
+            //            alert('>>>'+$("[id$='j_id0:j_id2:pb:j_id4:j_id5']").find('misdirectReason'));
+            var fid ='j_id5:misdirectReason';
+            //if($("#"+fid +""))
+            //alert('found');
+            
+            $("[id$='"+fid+"']").wrap('<div class="requiredInput"></div>').parent().prepend('<div class="requiredBlock"></div>');                                                                      
+        });
+    </script>   
+</apex:page>

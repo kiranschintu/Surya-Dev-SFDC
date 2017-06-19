@@ -1,0 +1,18 @@
+<apex:page >
+    <apex:stylesheet value="/resource/LightningStyles/assets/styles/salesforce-lightning-design-system-scoped.css"/>
+    
+    <apex:includeLightning />
+    <div id="lightning" />
+<div class="slds" style="margin-top:10px;margin-left:10px;"> 
+    <script>
+        $Lightning.use("dhr:VFToLightTest", function() {
+          $Lightning.createComponent("dhr:AllAccounts",
+          { label : "Press Me!" },
+          "lightning",
+          function(cmp) {
+            
+          });
+        });
+    </script>
+    </div>
+</apex:page>

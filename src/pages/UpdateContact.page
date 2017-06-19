@@ -1,0 +1,6 @@
+<apex:page controller="gettingemail">
+<apex:messages />
+    <apex:pageblock >
+        
+    </apex:pageblock>
+</apex:page>

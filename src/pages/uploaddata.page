@@ -1,0 +1,25 @@
+<apex:page sidebar="false" controller="ContactLoader" showHeader="false">
+   <apex:form >
+      <apex:pagemessages />
+      <apex:pageBlock title="Upload Your CSV File" rendered="{!display}" >
+             <center>
+             Please choose your file to upload : <apex:inputFile value="{!csvFile}" filename="{!nameFile}" /> <br/>
+             <br/><br/><apex:commandButton action="{!ReadFile}" value="Insert" id="theButton" style="background:#216BB5;color:white; width:10%;"/>
+             </center>
+     </apex:pageBlock>    
+    <apex:pageBlock title="Inserted Records" rendered="{!records}">
+      <apex:pageblocktable value="{!uploadedContacts}" var="cnt" rendered="{!NOT(ISNULL(uploadedContacts))}">
+          <apex:column headerValue="First Name">
+              <apex:outputField value="{!cnt.Name}"/>
+          </apex:column>
+          <apex:column headerValue="Description">
+              <apex:outputField value="{!cnt.Description}"/>
+          </apex:column>
+      </apex:pageblocktable>
+      <center>
+      <br/>
+   <apex:commandButton value="Go Back" action="{!refresh}" style="background:#216BB5;color:white;width:10%;"/>
+      </center>
+     </apex:pageBlock>
+   </apex:form>
+</apex:page>

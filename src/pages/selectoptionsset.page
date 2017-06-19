@@ -1,0 +1,13 @@
+<apex:page controller="selectoptionsset" action="{!displayoptions}">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:pageBlockSectionItem >
+              Select Industry : <apex:selectList size="1">
+                  <apex:selectOptions value="{!options}"></apex:selectOptions>
+              </apex:selectList>
+              </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

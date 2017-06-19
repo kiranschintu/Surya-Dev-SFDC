@@ -1,0 +1,32 @@
+<apex:page standardController="Overriding__c" >
+  <apex:sectionHeader title="Overridings" subtitle="Home"/>
+  <apex:form >
+  <apex:pageBlock id="thePageBlock">
+      <apex:pageblockButtons >
+          <apex:commandButton value="Edit" id="editButton" action="{!edit}"/>
+          <apex:commandButton value="Delete" id="delButton" action="{!delete}"/>
+          <apex:commandButton value="Save" id="saveButton" action="{!save}" style="display:none"/>
+          <apex:commandButton onclick="resetInlineEdit()" id="cancelButton" value="Cancel" style="display:none"/>      
+          
+      </apex:pageblockButtons>
+      <apex:pageBlockSection columns="0">
+          
+          <apex:outputField value="{!Overriding__c.name}">
+              <apex:inlineEditSupport showOnEdit="saveButton,cancelButton"  hideOnEdit="editButton,delButton" event="ondblclick" resetFunction="resetInlineEdit"/>  
+          </apex:outputField>
+          
+          <apex:outputField value="{!Overriding__c.Date__c}">
+              <!--<apex:inlineEditSupport showOnEdit="saveButton,cancelButton"  hideOnEdit="editButton,delButton" event="ondblclick" resetFunction="resetInlineEdit"/>
+          <apex:inlineEditSupport />-->
+          </apex:outputField>
+          <apex:outputField value="{!Overriding__c.Status__c}">
+              <apex:actionSupport event="onchange" rerender="thePageBlock" status="actstatus"/>
+              <apex:actionStatus startText="proceeding..." id="actstatus"></apex:actionStatus>
+          </apex:outputField>
+                  
+          <apex:outputfield value="{!Overriding__c.Description__c}" rendered="{!Overriding__c.Status__c==true}" />
+         
+      </apex:pageBlockSection>
+  </apex:pageBlock> 
+  </apex:form>
+</apex:page>

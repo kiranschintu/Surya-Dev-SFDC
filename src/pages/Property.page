@@ -1,0 +1,5 @@
+<apex:page controller="PropertyCLS">
+  <apex:form >
+      <apex:outputText value="{!status}"/>
+  </apex:form>
+</apex:page>

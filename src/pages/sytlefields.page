@@ -1,0 +1,17 @@
+<apex:page id="pg" standardController="Account">
+  
+  <apex:form id="frm">
+      <apex:pageBlock id="pb" >
+      <apex:pageBlockSection id="pbs">
+      <apex:inputField value="{!Account.name}"/>
+      <apex:inputField id="phn" value="{!Account.Phone}"/>
+      </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+  <script>
+      alert('Hello');
+      var ids = document.getElementById('pg:frm:pb:pbs:phn');
+      ids.disabled=true;
+      alert('value>>'+ids);
+  </script>
+</apex:page>

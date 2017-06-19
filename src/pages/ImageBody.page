@@ -1,0 +1,9 @@
+<apex:page standardStylesheets="false" showHeader="false" renderAs="pdf">
+<style>
+    body{
+        background-image: url("http://www.w3schools.com/cssref/img_tree.gif");
+        background-repeat:repeat;
+    }
+</style>
+Hello
+</apex:page>

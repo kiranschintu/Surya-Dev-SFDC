@@ -1,0 +1,53 @@
+<apex:page controller="SelectRadioCls">
+  
+  <apex:form >
+<apex:pageblock id="allcons" title="Available Contacts">
+               <apex:pageblocktable id="allcons" value="{!AllContacts}" var="allcon">
+                    <apex:column headervalue="Set as Primary">                    
+                       
+                       <input type="radio" name="rocRecId" value="{!allcon.Id}">
+                            <apex:actionSupport event="onclick" immediate="true" reRender="consel">
+                                <apex:param name="selRocRecIndexParam" value="{!allcon.Id}" />
+                            </apex:actionSupport>
+                       </input>
+                        
+                    </apex:column> 
+                    <!--
+                    <apex:actionsupport action="{!selectcon}" event="onclick" rerender="consel">  
+                        
+                        <input type="rado" />                    
+                            <apex:param name="conid" value="{!allcon.Id}">
+                        </apex:param></apex:actionsupport>    
+                    -->   
+                    <apex:column headervalue="Last Name">
+                        <apex:outputfield value="{!allcon.LastName}">
+                    </apex:outputfield></apex:column> 
+                    <apex:column headervalue="First Name">
+                        <apex:outputfield value="{!allcon.FirstName}">
+                    </apex:outputfield></apex:column>  
+                    <apex:column headervalue="Email">
+                        <apex:outputfield value="{!allcon.Email}">
+                    </apex:outputfield></apex:column>  
+                    <apex:column headervalue="Phone">
+                        <apex:outputfield value="{!allcon.Phone}">
+                    </apex:outputfield></apex:column>  
+                </apex:pageblocktable>
+</apex:pageblock> 
+<apex:pageblock id="consel" title="Selected Contact">
+            <apex:pageblocktable id="allcons" value="{!selectedContact}" var="selcon">                       
+                    <apex:column headervalue="Last Name">
+                        <apex:outputfield value="{!selcon.LastName}">
+                    </apex:outputfield></apex:column> 
+                    <apex:column headervalue="First Name">
+                        <apex:outputfield value="{!selcon.FirstName}">
+                    </apex:outputfield></apex:column>  
+                    <apex:column headervalue="Email">
+                        <apex:outputfield value="{!selcon.Email}">
+                    </apex:outputfield></apex:column>  
+                    <apex:column headervalue="Phone">
+                        <apex:outputfield value="{!selcon.Phone}">
+                    </apex:outputfield></apex:column>  
+                </apex:pageblocktable>
+</apex:pageblock>               
+</apex:form>
+</apex:page>

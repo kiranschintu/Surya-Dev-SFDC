@@ -1,0 +1,11 @@
+<apex:page controller="InsertContact" >
+  <apex:form >
+  <apex:pageBlock >
+    <apex:pageblocksection >
+        <apex:inputfield value="{!con.lastname}"/>
+        <apex:inputField value="{!con.email}"/>
+    </apex:pageblocksection>
+    <apex:commandButton value="save" action="{!saving}"/>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,39 @@
+<apex:page controller="MassContactController">
+    <apex:form >
+        <table border="0" >
+            <tr>
+                <th>First Name</th><th>Last name</th>
+                <th>Phone</th><th>Email</th>
+            </tr>
+            <apex:repeat var="contact" value="{!Contacts}">
+                <tr>
+                    <td><apex:inputField value="{!contact.FirstName}" REquired="TRUE" /></td>
+                    <td><apex:inputField value="{!contact.LastName}" /></td>
+                    <td><apex:inputField value="{!contact.Phone}" /></td>
+                    <td><apex:inputField value="{!contact.Email}" /></td>
+                </tr>
+            </apex:repeat> 
+        </table>
+        <apex:commandButton action="{!Save}" title="Save" value="Save"/>
+    </apex:form>
+    
+    
+    <apex:form >
+        <apex:pageBlock >
+        
+            <apex:pageBlockTable value="{!Contacts}" var="a" id="table">
+           
+                <apex:column headerValue="Name">
+                    <apex:inputField value="{!a.Name}"/>
+                    
+                </apex:column>
+                <apex:column headerValue="fax">
+                    <apex:inputField value="{!a.fax}"/>
+                </apex:column>  
+                                   
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

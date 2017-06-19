@@ -1,0 +1,36 @@
+<apex:page controller="RemoteAction2s">
+  <script type="text/javascript">
+function getAccountJS() {
+    var accountNameJS = document.getElementById('accountname').value;
+
+    dhr.RemoteAction2s.doSome( accountNameJS, function(result, event)
+    {
+        if (event.status)
+        {
+           document.getElementById("{!$Component.theBlock.pbs.pbsi2.accId}")
+                                  .innerHTML = result.Id;
+           document.getElementById("{!$Component.theBlock.pbs.pbsi1.name}")
+                                  .innerHTML = result.Name;
+        } 
+    }, {escape:true});
+}
+</script>
+
+    <input id="accountname" type="text"/>
+    
+    <button onclick="getAccountJS();">Get Account</button>
+    
+    <apex:pageblock id="theBlock">
+        <apex:pageblocksection columns="2" id="pbs">
+    
+            <apex:pageblocksectionitem id="pbsi1">
+                 <apex:outputtext id="name">
+            </apex:outputtext></apex:pageblocksectionitem>
+    
+            <apex:pageblocksectionitem id="pbsi2">
+                <apex:outputtext id="accId">
+            </apex:outputtext></apex:pageblocksectionitem>
+    
+        </apex:pageblocksection>
+    </apex:pageblock>
+</apex:page>

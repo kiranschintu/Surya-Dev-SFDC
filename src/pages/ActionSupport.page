@@ -1,0 +1,29 @@
+<apex:page controller="ActionSupportController" sidebar="false" id="pg">
+    {!Month(Today())}
+    <script>
+        
+    </script>
+    <div id="divForm">
+    <apex:form id="frm">
+        <apex:commandButton value="Click Me" action="{!doSome}"/>
+        <apex:pageBlock title="Search Accounts">
+            <apex:pageBlockSection >
+                <apex:inputField value="{!acc.Rating}">
+                    <apex:actionSupport action="{!doSome}" event="onchange" reRender="divForm"/>
+                
+                </apex:inputField>
+                <apex:selectList value="{!multiSelevals}" multiselect="true">
+                
+                    <apex:selectOptions value="{!options}"></apex:selectOptions>
+                </apex:selectList>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!accounts}" var="a">
+                <apex:column value="{!a.name}"/>
+                <apex:column value="{!a.Rating}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+    </div>
+</apex:page>

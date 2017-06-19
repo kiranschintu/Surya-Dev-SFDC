@@ -1,0 +1,17 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false" >
+<head>
+<!--Every version of your webapp should include a list of all versions. -->
+<link rel="alternate" href="/apex/DesktopVersion" id="desktop" media="only screen and(touch-enabled:0)"/>
+<link rel="alternate" href="/apex/PhoneVersion" id="phone" media="only screen and(max-device-width:640px)"/>
+<link rel="alternate" href="/apex/TabletVersion" id="tablet" media="only screen and(min-device-width:641px)"/>
+<meta name="viewport" content="width=device-width,user-scalable=no"/>
+<script src="{!URLFOR($Resource.dhr__Device)}"/>
+</head>
+<body>
+<ul>
+<li><a href="?device=phone">Phone Version</a></li>
+<li><a href="?device=tablet">Tablet Version</a></li>
+</ul>
+<h1> This is the Desktop Version</h1>
+</body>
+</apex:page>

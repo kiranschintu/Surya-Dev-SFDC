@@ -1,0 +1,47 @@
+<apex:page standardStylesheets="false" showheader="false" standardController="contact" recordSetVar="people">
+  <apex:stylesheet value="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.0/jquery.mobile-1.1.0.min.css"/>
+  <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"/>
+<apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.0/jquery.mobile-1.1.0.min.js"/>
+<body>
+<div data-role="page" data-theme="b" id="mainpage">
+<div data-role="header">
+<a href='#' id="link_logout" data-role="button" data-icon='delete'>Log Out</a>
+<h2>List</h2>
+</div>
+<div id="#content" data-role="content">
+<h2>Contacts</h2>
+<div id="div_people">
+<ul data-inset="true" data-role="listview" data-theme="a" data-dividertheme="a">
+<apex:repeat value="{!people}" var="person">
+<li>
+<a href="#detailpage{!person.Id}">
+<apex:outputField value="{!person.Name}"/>
+</a>
+</li>
+</apex:repeat>
+</ul>
+</div>
+</div>
+</div>
+<apex:repeat value="{!people}" var="person">
+<div data-role="page" data-theme="b" id="detailpage{!person.Id}">
+<div data-role="header">
+<a href='#mainpage' id="backInventory" class='ui-btn-left' data-icon='home'>Home</a>
+<h1>Edit</h1>
+</div>
+<div id="#content" data-role="content">
+<h2 id="name">
+<apex:outputField value="{!person.Name}"/>
+</h2>
+<label for="phone" class="ui-hidden-accessible">Phone #:</label>
+<apex:outputField value="{!person.Phone}"/>
+<br/>
+<label for="description" class="ui-hidden-accessible">Description #:</label>
+<apex:outputField value="{!person.Description}"/>
+<br/>
+</div>
+</div>
+
+</apex:repeat>
+</body>
+</apex:page>

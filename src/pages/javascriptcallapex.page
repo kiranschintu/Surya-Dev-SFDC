@@ -1,0 +1,12 @@
+<apex:page controller="javascriptcallapex" >
+  <script src="/soap/ajax/30.0/connection.js" type="text/javascript"></script>
+  <script src="/soap/ajax/30.0/apex.js" type="text/javascript"></script>
+  <apex:includeScript value="/soap/ajax/24.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/24.0/apex.js"/>
+
+  <script>
+  sforce.connection.sessionId = "{!$Api.Session_ID}";
+    var resultMsg = sforce.apex.execute("dhr.javascriptcallapex ","addNumbers",{numOne:4,numTwo:5});
+    alert('success');
+  </script>
+</apex:page>

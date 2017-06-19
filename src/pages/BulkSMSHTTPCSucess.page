@@ -1,0 +1,16 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="SendBulkSMSHTTPAccountStriker" sidebar="false">
+  
+  <style type="text/css">
+ h1 {font-weight: bolder;
+     font-size: 25px;
+     color: Blue }
+ p {color: Blue}
+ h2{color:pink}
+</style>
+  <h1>SMS has been sent to following Numbers</h1>
+  
+  <h2><apex:dataList value="{!selected}" var="item1">
+    <apex:outputText value="{!item1.Phone}"/>
+</apex:dataList></h2><br/>
+  <p>(Check Task in Account page)</p>
+</apex:page>

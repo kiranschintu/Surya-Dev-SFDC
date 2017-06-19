@@ -1,0 +1,37 @@
+<apex:page controller="RestAPIExample">
+
+<style>
+    .loader {
+z-index: 1200;
+position: absolute;
+margin-left: -60px;
+filter: Alpha(Opacity =70);
+opacity: 0.70;
+          -moz-opacity: 0.70;
+top: 40%;
+left: 50%;
+      }
+      #pgb .bPageBlock {
+border:none !important;
+margin-bottom:0 !important;
+width:300px !important;
+      }
+</style>
+<apex:form >
+<div class="bPageTitle"><div class="ptBody"><div class="content"><img src="/img/icon/custom51_100/books32.png" alt="REST API" class="pageTitleIcon" title="REST API" /><h1 class="pageType">REST API<span class="titleSeparatingColon">:</span></h1><h2 class="pageDescription">Account Records</h2><div class="blank">&nbsp;</div></div><div class="links"><a href="javascript:openPopupFocusEscapePounds(%27/help/doc/user_ed.jsp?loc=help&target=co_edit.htm&section=CustomObjects%27, %27Help%27, 700, 600, %27width=700,height=600,resizable=yes,toolbar=yes,status=no,scrollbars=yes,menubar=yes,directories=no,location=no,dependant=no%27, false, false);" title="Help for this Page (New Window)"><span class="helpLink">Help for this Page</span><imgsrc="/s.gif" alt="" class="helpIcon" /></a></div></div><div class="ptBreadcrumb"></div>
+</div>
+<apex:commandButton value="Invoke Accounts from Another Organisation" action="{!ShowAccounts}" rerender="AccPBT" id="InvokeBtn" status="ActStatus"/>
+<br/>
+<br/>
+<div id="pgb">
+<apex:pageblock id="Pg">
+<apex:actionStatus id="ActStatus">
+</apex:actionStatus>
+<apex:pageBlockTable value="{!lstwrap}" var="acc" id="AccPBT">
+<apex:column headerValue="Account Name" value="{!acc.AccName}"/>
+<apex:column headerValue="Account Id" value="{!acc.Accid}"/>
+</apex:pageBlockTable>
+</apex:pageblock>
+</div>
+</apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="InlineEditPageaccountcon" >
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageblockButtons >
+              <apex:commandButton value="save" action="{!save}"/>
+          </apex:pageblockButtons>
+          <apex:pageBlockSection >
+              <apex:inputField value="{!Account.name}"/>
+              <apex:inputField value="{!Acc.phone}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

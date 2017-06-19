@@ -1,0 +1,31 @@
+<apex:page controller="DisplayAllAccountsController" sidebar="false" extensions="DisplayAllAccountsControllerExtension1"><!--contentType="application/vnd.ms-excel#SupplierStatus_Report.xls"-->
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockTable value="{!accounts}" var="a">
+          <apex:column >
+              <apex:facet name="header">
+                  Select<br/>
+                  <select id="program" onchange="doSearch();">
+                      <option value="One">One</option>
+                  </select>
+              </apex:facet>
+              <apex:outputField value="{!a.Name}"/>
+          </apex:column>
+          <apex:column headerValue="Last Modified Date">
+              <apex:outputText value="{0,date,dd-MM-yyyy}">
+                   <apex:param value="{!a.lastmodifieddate}" />
+                </apex:outputText>
+          </apex:column>
+      </apex:pageBlockTable>
+      
+      <apex:pageBlockTable value="{!accountss}" var="a">
+          <apex:column value="{!a.name}"/>
+          <apex:column headerValue="Last Modified Date">
+              <apex:outputText value="{0,date,dd-MM-yyyy}">
+                   <apex:param value="{!a.lastmodifieddate}" />
+                </apex:outputText>
+          </apex:column>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

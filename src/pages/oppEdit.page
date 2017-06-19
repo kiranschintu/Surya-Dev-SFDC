@@ -1,0 +1,28 @@
+<apex:page standardController="Opportunity">
+    <apex:form >
+        <apex:pageBlock >
+         
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                
+                <apex:commandButton action="{!save}" id="saveButton" value="Save" />
+                <apex:commandButton id="cancelButton" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+           
+             <apex:outputField value="{!Opportunity.RecordTypeID}" rendered="{!$CurrentPage.parameters.RecordType==null}"/>
+             <apex:inputField value="{!Opportunity.RecordTypeID}"/>
+           
+                <apex:inputField value="{!Opportunity.name}"/>
+                    
+                <apex:inputField value="{!Opportunity.accountId}"/>
+                    
+                <apex:inputField value="{!Opportunity.Description}"/>
+                <apex:inputField value="{!Opportunity.stagename}"/>
+                <apex:inputField value="{!Opportunity.Closedate}"/>
+                    
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

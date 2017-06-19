@@ -1,0 +1,20 @@
+<apex:page controller="Twoobjcon">
+    <apex:form >
+        <apex:pageblock >
+         <apex:pageblocktable value="{!accountwrapperret}" var="acc">
+          <apex:column ><apex:inputfield value="{!acc.object_account_1.name}"/></apex:column>
+          <!--<apex:column value="{!acc.object_account_1.name}" />-->
+         
+          </apex:pageblocktable>
+          <apex:commandButton value="save"/>
+          <br/>
+          <br/>
+          <br/>
+          <apex:pageblocktable value="{!contactwrapperret}" var="con">
+          <apex:column ><apex:inputField value="{!con.object_contact_2.Lastname}"/></apex:column>
+         <!-- <apex:column value="{!con.object_contact_2.name}" />-->
+          </apex:pageblocktable>
+          <apex:commandButton value="save"/>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

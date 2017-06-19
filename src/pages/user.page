@@ -1,0 +1,11 @@
+<apex:page standardController="user" extensions="UserCon">
+<!--
+<apex:form >
+  <apex:outputfield value="{!user.name}"/><br/>
+  <apex:outputfield value="{!user.phone}"/><br/>
+  <apex:outputfield value="{!user.isactive}"/><br/>
+  <apex:commandButton value="DoUpdate" action="{!doupdate}"/><br/>
+</apex:form>
+-->
+{!$Api.session_id}
+</apex:page>

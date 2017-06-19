@@ -1,0 +1,11 @@
+<apex:page standardController="Attachment">
+<apex:outputLink value="{!URLFOR($Action.Attachment.Download, Attachment.id)}">
+Download Now!
+</apex:outputLink>
+<apex:image value="{!URLFOR($Action.Attachment.Download, Attachment.id)}"/><br/>
+
+<a href="/servlet/servlet.FileDownload?file={!attachment.id}" download="{!attachment.name}">{!attachment.name}</a> <br/>
+ 
+<apex:outputLink value="/servlet/servlet.FileDownload?file={!attachment.id}" >{!attachment.name}</apex:outputLink> 
+
+</apex:page>

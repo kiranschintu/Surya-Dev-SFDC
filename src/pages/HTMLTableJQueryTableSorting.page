@@ -1,0 +1,60 @@
+<apex:page showheader="false" sidebar="false" standardStylesheets="false" controller="HTMLTableJQueryTableSortingCtrl" >
+<apex:form >
+   <head>
+        
+    <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+    <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+    <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+    
+    <style>
+      .pagination .paginationBtns .ellipsis
+      {
+        border-right:0px solid #ddd;
+        border-top:0px solid #ddd;
+        border-bottom:0px solid #ddd;
+      }
+    </style>
+
+    </head>
+
+<body>
+                <div class="tableWrapper">    
+                            <table class="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>                                
+                                </thead>
+                                <tbody>
+                                      <apex:repeat value="{!lstContact}" var="contact" >
+                                    <tr>
+                                        <td>{!contact.FirstName}</td>
+                                        <td>{!contact.LastName}</td>
+                                        <td>{!contact.MobilePhone}</td>
+                                       <td>{!contact.Email}</td>
+                                       <td>{!contact.Phone}</td>
+                                    </tr>
+                                    </apex:repeat>  
+                                </tbody>
+                            </table>   
+
+                       
+
+                        
+                        </div>
+</body>
+
+<script>
+    j$ = jQuery.noConflict();
+        j$(document).ready( function () {
+        var workerActTable = j$('.dataTable').DataTable({
+            });            
+        });
+</script>
+
+</apex:form>
+</apex:page>

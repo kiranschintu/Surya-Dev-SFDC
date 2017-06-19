@@ -1,0 +1,37 @@
+<apex:page controller="JSONDataTableCls">
+    <script type="text/javascript" src="{!$Resource.jQueryDT}"></script>
+    <script type="text/javascript" src="{!$Resource.jQueryDataTables}"></script>
+    <link href="{!$Resource.JQueryStyleDT}" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript">
+      function Succ_Ref(){
+            alert('Entered');
+            $('#businessReferrals').dataTable( {
+                "bDestroy":true,
+                "bProcessing": true,
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "sAjaxSource": '{!$Page.JSONDataTable}?core.apexpages.devmode.url=1&ui=tst',
+                "aaSorting": [[ 3, "desc" ]]
+                
+                
+                //"bProcessing"   : true,
+                //"bServerSide"   : true,
+                //"sAjaxSource"   : '{!$Page.JSONDataTable}?core.apexpages.devmode.url=1'
+
+                } );
+                alert('done');
+        }
+  </script>
+  <A HREF="javascript:Succ_Ref();">Clicke Me</A>
+  <table cellpadding="0" cellspacing="0" border="0" width="400" class="display" id="businessReferrals">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>                      
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                
+            </table>    
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page standardController="contact" extensions="activitypagecon">
+    {!$Api.Session_Id}
+    <apex:dataTable value="{!records}" var="r">
+        <apex:outputText value="{!r.subject}"></apex:outputText>
+    </apex:dataTable>
+</apex:page>

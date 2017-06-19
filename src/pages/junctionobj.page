@@ -1,0 +1,8 @@
+<apex:page standardController="Invoice_Statement__c" extensions="junctionobjCon" sidebar="false">
+  <apex:pageBlock >
+      <apex:pageblockTable value="{!Records}" var="rec">
+          <apex:column value="{!rec.name}"/>
+          <apex:column value="{!rec.Merchandise__r.name}"/>
+      </apex:pageblockTable>
+  </apex:pageBlock>
+</apex:page>

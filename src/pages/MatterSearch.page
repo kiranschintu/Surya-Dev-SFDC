@@ -1,0 +1,47 @@
+<apex:page controller="MatterSearchCon" sidebar="false">
+  <apex:form >
+  <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlock title="Requests" rendered="{!!newreasta}">
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Search Requests" action="{!retrieveRequests}"/>
+              <apex:commandButton value="New Request" action="{!newRequest}"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection collapsible="false">
+          <apex:inputField value="{!matter.ConcourseMatterId__c}"/>
+          </apex:pageBlockSection>
+      <apex:pageBlockTable value="{!requests}" var="req" rendered="{!If(reqCount!=0,true,false)}">
+          <apex:column >
+              <apex:commandLink value="Edit" action="{!editRequest}">
+                  <apex:param value="{!req.id}" name="reqid" assignTo="{!editId}"/>
+              </apex:commandLink>
+          </apex:column>
+          <apex:column value="{!req.Name}"/>
+          <apex:column value="{!req.Work_Product_Name__c }"/>
+          <apex:column value="{!req.CreatedDate}"/>
+      </apex:pageBlockTable>
+      </apex:pageBlock>
+      
+      <apex:pageBlock rendered="{!newreasta}">
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Save" action="{!save}"/>
+              <apex:commandButton value="Cancel" immediate="true"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection >
+              <apex:inputField value="{!newRequest.Work_Product_Name__c}"/>
+              <apex:inputField value="{!newRequest.Related_Matter__c}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+      <apex:pageBlock rendered="{!editReq}">
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Update" action="{!updateReq}"/>
+              <apex:commandButton value="Cancel" immediate="true"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection >
+              <apex:inputField value="{!updRequest.Work_Product_Name__c}"/>
+              <apex:inputField value="{!updRequest.Related_Matter__c}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+  </apex:form>
+</apex:page>

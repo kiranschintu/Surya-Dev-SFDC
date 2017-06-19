@@ -1,0 +1,11 @@
+<apex:page controller="groupaccounts1" >
+   <apex:repeat value="{!industries}" var="ind">
+      <apex:pageBlock title="{!ind}">
+          <apex:repeat value="{!leads}" var="lead"> 
+              <apex:outputPanel rendered="{!IF(ind=lead.Industry,true,false)}">
+                  {!lead.name} - {!lead.industry}<br/>
+              </apex:outputPanel>
+          </apex:repeat>
+      </apex:pageBlock>
+  </apex:repeat>
+</apex:page>

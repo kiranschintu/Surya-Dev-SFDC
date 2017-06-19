@@ -1,0 +1,22 @@
+<apex:page controller="RadioButton" sidebar="false" >
+
+    <script type="text/javascript">
+        function CheckStJS() {
+            RadioButton.checkStatausJS({
+                
+            });
+        }
+    </script>
+
+  <apex:form id="block">
+  <apex:pageMessages ></apex:pageMessages>
+        <apex:selectRadio value="{!SelectedValue}" >
+          <apex:selectOptions value="{!chars}">
+          
+          </apex:selectOptions>
+      </apex:selectRadio>
+  <apex:commandButton value="check" reRender="block" action="{!checkstatus}"/>
+  <apex:commandButton value="check new" action="{!checkStatausJS}"/>
+  <button onclick="CheckStJS();">check new 1</button>
+  </apex:form> 
+</apex:page>

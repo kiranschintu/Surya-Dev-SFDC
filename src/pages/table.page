@@ -1,0 +1,18 @@
+<apex:page showHeader="false">
+  <center>
+  <table border="1" width="95%">
+  <tr><td valign="top">Cloumn10</td>
+  <td width="10%" height="50%"><table border="1" bgcolor="pink">
+  <tr><td>hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2
+  hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2
+  hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2
+  hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2
+  hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2hellotable2</td></tr>
+  
+  </table>
+  </td></tr>
+  <tr><td>Cloumn11</td>
+  <td>Cloumn11</td></tr>
+  </table>
+  </center>
+</apex:page>

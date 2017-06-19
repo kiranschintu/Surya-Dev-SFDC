@@ -1,0 +1,6 @@
+<apex:page controller="BulkDeleteController">
+  <apex:outputText value="{!accounts}"></apex:outputText>
+  <apex:dataList value="{!accounts}" var="a">
+      
+  </apex:dataList>
+</apex:page>

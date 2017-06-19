@@ -1,0 +1,37 @@
+<apex:page controller="P3_WorkProduct_Controller" showHeader="false"
+    standardStylesheets="false" sidebar="false" showChat="false"
+    tabStyle="Account" title="Request Details">
+    <!--<apex:stylesheet value="{!$Resource.pangea3CSS}" />-->
+  <apex:pageMessages />
+  <apex:form target="_self" id="request_details_form">
+    <apex:tabPanel switchType="client">
+
+        <apex:tab label="Details" id="tab_details">
+            
+            <apex:commandLink value="Back to Request List" styleClass="cust_actionLink"/>
+                <apex:pageBlock title="Request Details">
+                    <apex:pageBlockButtons location="top">
+                        <apex:outputPanel id="request_buttons">
+                            <apex:commandButton value="Edit">
+                            </apex:commandButton>
+                            <apex:commandButton value="Save"/>
+                            <apex:commandButton value="Quick Save"/>
+                            <apex:commandButton value="Cancel"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            
+        </apex:tab>
+        <apex:tab label="Attached Documents" id="tab_documents">
+           <c:AttachedDocuments workProdId="{!wpObject.id}"/>
+               <!--<AttachedDocuments objectAPIName="Work_Product__c"
+                parentAPIName="Work_Product__c" relationshipName="Related_Work_Product__c"
+                parentId="{!wpObject.Id}" rendered="{!initComplete}"/>-->
+        </apex:tab>
+        <apex:tab label="Associated Requests" id="tab_requests">
+        </apex:tab>
+        <apex:tab label="Abstraction" id="tab_abstraction">
+        </apex:tab>
+    </apex:tabPanel>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,17 @@
+<apex:page standardController="Account" extensions="reloadparentCls">
+  <script>
+      function doit(){
+      //alert('done>>>');
+      window.top.location='/{!account.id}';
+      window.close();
+      }
+  </script>
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockSection >
+          <apex:inputField value="{!acc.phone}"/>
+      </apex:pageBlockSection>
+      <apex:commandButton action="{!dosome}" oncomplete="doit();" value="save"/>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

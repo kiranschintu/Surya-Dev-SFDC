@@ -1,0 +1,22 @@
+<apex:page standardController="Account" extensions="tabpanelExtension" sidebar="false" showHeader="true">
+    <!-- Define Tab panel .css styles -->
+    <style>
+    .activeTab {background-color: #236FBD; color:white; background-image:none; cursor:hand;}
+    .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+    </style>
+    
+    <script>
+function test()
+{
+alert('hello');
+document.getElementById('{!$Component.lk}').style.color=red;
+</script>
+            
+    <!-- Create Tab panel -->
+    <apex:tabPanel switchType="ajax" value="{!selecTab}" id="AccountTabPanel"
+        tabClass="activeTab" inactiveTabClass="inactiveTab">
+        <apex:tab label="One" name="name1" id="tabOne" >content for tab one</apex:tab>
+        <apex:tab label="Two" name="name2" id="tabTwo">content for tab two</apex:tab>
+    </apex:tabPanel>
+    <apex:outputLink onmouseover="test();" id="lk">Hello</apex:outputLink>
+</apex:page>

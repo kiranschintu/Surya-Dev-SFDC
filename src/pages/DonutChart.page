@@ -1,0 +1,40 @@
+<apex:page controller="DonutChartController">
+  <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>-->
+  <apex:includeScript value="{!$Resource.JQueryMainPlugin}"/>
+  <apex:includeScript value="{!$Resource.Jquerychart}"/>
+  <apex:stylesheet value="{!$Resource.CSSCharts}"/>
+  <body>
+      <div class="wrap">
+
+        <h2>donut chart v1</h2>
+        <hr/>
+
+        <div class="chart">
+          <div class="donut-chart" data-percent="{!range}" data-title="uptime %"></div>
+        </div>
+
+        <h2>donut chart v2</h2>
+        <hr/>
+
+        <div class="chart">
+          <div class="donut-chart fill" data-percent="0.61" data-title="uptime %"></div>
+        </div>
+
+        
+
+      </div>
+
+      <!--<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+                //var contactTable = j$('[id$="contacttable"]').DataTable({
+                 j$('.donut-chart').cssCharts({type:"donut"}).trigger('show-donut-chart');   
+ 
+            });
+        
+        
+      </script>-->
+      <apex:includeScript value="{!$Resource.DashbaordDonut}"/>
+    </body>
+  
+</apex:page>

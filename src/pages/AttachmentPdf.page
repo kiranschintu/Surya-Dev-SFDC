@@ -1,0 +1,3 @@
+<apex:page renderAs="pdf" controller="AttachmentPdfCon">
+  Hello Welcome to PDF
+</apex:page>

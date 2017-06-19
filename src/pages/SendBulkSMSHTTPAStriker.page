@@ -1,0 +1,29 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="SendBulkSMSHTTPAccountStriker" showHeader="false">
+    <span style="font-weight:bold; color:red">
+         <apex:messages />
+    </span>
+    <apex:form >
+         <apex:pageBlock title="Send SMS"> 
+             <apex:pageBlockSection >
+               <apex:pageBlockSectionItem >
+                     <apex:outputLabel for="msgtxt" value="Enter your message:" />
+                     <apex:inputtextarea id="msgtxt" value="{!msgtxt}" required="true" />
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem >
+                     <apex:outputLabel for="receipientnos" value="Mobile Numbers" />
+                     
+                </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                    <apex:commandButton action="{!sendSMS}" value="Send" id="sendButton"/>
+            <apex:commandButton action="{!cancel}" value="Cancel" id="cancelButton"/>
+            
+                </apex:pageBlockSectionItem>
+           <apex:dataList value="{!selected}" var="item1" >
+    
+   <apex:outputText value="{!item1.Phone}"/>
+</apex:dataList>
+            </apex:pageBlockSection>
+            
+     </apex:pageBlock>
+ </apex:form>
+</apex:page>

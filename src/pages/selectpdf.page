@@ -1,0 +1,22 @@
+<apex:page standardController="contact" recordSetVar="listofobject" showHeader="false" extensions="SelectActionController" renderAs="pdf">
+ 
+  
+  <apex:form >
+  <apex:pageBlock >
+        <apex:pageBlockSection columns="0" >   
+            <apex:dataTable value="{!selected}" var="item1" border="1" align="center" width="100%"  rowClasses="odd,even">  
+             
+             
+             <apex:column id="pb" > 
+             
+           
+              <table  width="700" border="1">  
+                         <tr style="page-break-after:avoid;"> <td>{!item1.description}</td></tr> 
+              </table>
+              </apex:column>
+                    
+            </apex:dataTable>     
+        </apex:pageBlockSection>
+   </apex:pageBlock>
+</apex:form>
+ </apex:page>

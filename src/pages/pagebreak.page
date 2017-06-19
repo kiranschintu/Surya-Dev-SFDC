@@ -1,0 +1,136 @@
+<apex:page renderAs="pdf">
+
+<style type="text/css">
+    //table{ page-break-inside:auto }
+    //tr{  }
+</style>
+<div style="page-break-inside:avoid;"/>
+<table border="1">
+
+        <thead>
+            <tr><th>heading</th></tr>
+        </thead>
+        <tfoot>
+            <tr><td>notes</td></tr>
+        </tfoot>
+        <tr  style="page-break-after:auto;">
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx<br/>dfdsfsdfsd</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr><tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr><tr>
+            <td>x<br/>bbb</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr   style="page-break-after:avoid;">
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>lll</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr><tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx<br/>cccccc</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+        <!-- 500 more rows -->
+        <tr>
+            <td>x<br/>xxxx</td>
+        </tr>
+    
+    </table>
+
+</apex:page>

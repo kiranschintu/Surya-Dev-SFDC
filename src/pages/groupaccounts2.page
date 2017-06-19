@@ -1,0 +1,27 @@
+<apex:page controller="groupaccounts2" tabStyle="Opportunity">
+  <apex:form >
+  <apex:pageblock >
+  <apex:repeat value="{!UniqueStages}" var="us">
+      <apex:pageblockSection title="{!us}" columns="1">
+          
+          
+          
+          <apex:repeat value="{!opp}" var="os" >
+             <!-- <apex:pageblockSection rendered="{!us==os.stagename}">
+                  <apex:outputField value="{!os.Name}"/>
+                  <apex:outputField value="{!os.stageName}"/>
+              
+              </apex:pageblockSection> -->
+              
+              <apex:outputPanel rendered="{!us==os.stagename}">
+                  <apex:outputField value="{!os.Name}"/>&nbsp;
+                  <apex:outputField value="{!os.stageName}"/>
+              
+              </apex:outputPanel>
+              
+          </apex:repeat>
+      </apex:pageblockSection>
+  </apex:repeat>
+  </apex:pageblock>
+  </apex:form>
+</apex:page>

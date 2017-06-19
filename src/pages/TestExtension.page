@@ -1,0 +1,10 @@
+<apex:page standardController="Account" extensions="TestExtension1,TestExtension2" sidebar="false">
+  <apex:dataList value="{!ConRecords}" var="c">
+      {!c.name}
+  </apex:dataList>
+  
+  <apex:dataTable value="{!ConRecords}" var="c">
+      <apex:column value="{!c.name}"/>
+  </apex:dataTable>
+  
+</apex:page>

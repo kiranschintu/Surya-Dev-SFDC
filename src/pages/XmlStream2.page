@@ -1,0 +1,12 @@
+<apex:page controller="XmlStream2CTRL" sidebar="false">
+  <apex:pageBlock title="Parsing Below Data">
+      <apex:outputText >{!xmlData}</apex:outputText>
+  </apex:pageBlock>
+  
+  <apex:pageBlock title="After parsing">
+      <apex:pageBlockTable value="{!books}" var="bk">
+          <apex:column headerValue="Name" value="{!bk.Name}"/>
+          <apex:column headerValue="Version" value="{!bk.Version}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

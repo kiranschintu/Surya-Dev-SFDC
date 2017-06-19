@@ -1,0 +1,54 @@
+<apex:page controller="JQueryRequiredForTableCTRL">
+  <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js"/>
+  <script>        
+        
+        $(document).ready(function() {                      
+            var flId = 'j_id5:misdirectReason';
+            $("[id$='misdirectReason']").wrap('<div class="requiredInput"></div>').parent().prepend('<div class="requiredBlock"></div>');                                                                      
+        });
+  function validate(){            
+            var $reason = $("[id$='misdirectReason']");                        
+            
+            var retFlag = true;
+            $reason.removeClass("error").parent().find(".errorMsg").remove();                        
+            if(!$reason.val()){
+               var errorMsg = "You must enter a value."; 
+               $reason.addClass("error").parent().append('<div class="errorMsg"><strong>Error:</strong> ' + errorMsg + '</div>'); 
+               retFlag = false;                  
+            }
+                  
+            if(retFlag){                
+                sf_save();
+            }    
+            
+            return false;             
+        }
+        
+        function resetForm(){
+            form.reset();
+            (".errorMsg").remove(); 
+            return false;
+        }
+  
+  </script>
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Click Me" onclick="validate();"/>
+      </apex:pageBlockButtons>
+      <apex:pageBlockTable value="{!accs}" var="ac">
+          <apex:column >
+              <apex:inputField value="{!ac.Name}"/>
+              
+          </apex:column>
+          <apex:column >
+          <apex:inputField id="misdirectReason" value="{!ac.phone}"/>
+          
+          </apex:column>
+          <apex:column >
+          <apex:inputField value="{!ac.rating}"/>
+          </apex:column>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

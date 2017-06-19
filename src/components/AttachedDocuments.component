@@ -1,0 +1,19 @@
+<apex:component controller="AttachedDocumentsCOn">
+    <apex:attribute name="workProdId" description="This is the value for Work Product Id" type="String" required="true" assignTo="{!workProductId}"/>
+    {!Init}
+    <apex:pageBlock title="Attached Documents"> 
+        <apex:PageBlockTable cellspacing="10" cellpadding="3" value="{!concDocs}" var="d" rendered="{!!docStatus}">
+            <apex:column >
+                <apex:CommandButton value="Action" action="{!doAction}">
+                    <apex:param name="docid" value="{!d.Concourse_Doc_GUID__c}" assignTo="{!ConcDocGUID}"/>
+                </apex:CommandButton>
+            </apex:column>
+            
+            <apex:column headervalue="Document Name" value="{!d.Document_Name__c}"/>
+            <apex:column headervalue="Created Date" value="{!d.CreatedDate}"/>
+        </apex:PageblockTable>
+        <apex:outputPanel rendered="{!docStatus}">
+            No Documents found.
+        </apex:outputPanel>
+    </apex:pageblock>
+</apex:component>

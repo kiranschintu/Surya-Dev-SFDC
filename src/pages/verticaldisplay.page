@@ -1,0 +1,18 @@
+<apex:page controller="Tester" sidebar="false">
+    <apex:variable value="{!1}" var="counter"/>
+    <table border="1">
+           
+        <tr>
+        <apex:repeat value="{!records}" var="rec">
+        <td>hello</td>
+            <apex:repeat value="{!records}" var="rec">
+                
+                <td>{!rec}</td>
+                <apex:outputText rendered="{!AND((MOD(counter, 4) == 0), (counter < records.size))}" value="</tr><tr>" escape="false"/>
+                <apex:variable var="counter" value="{!counter + 1}"/>
+            </apex:repeat>
+            
+          </apex:repeat>
+        </tr>
+    </table>
+</apex:page>

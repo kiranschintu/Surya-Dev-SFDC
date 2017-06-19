@@ -1,0 +1,9 @@
+<apex:page controller="RandomNumberGen" sidebar="false">
+  <apex:form >
+  <apex:commandButton value="save" action="{!copy}"/>
+  <apex:outputText value="{!Number}"/><br/>
+  <apex:outputText value="{!Dattym}" /><br/>
+  <apex:outputText value="{!image.Image64__c}"></apex:outputText><br/>
+  <img alt="rtaImage" src="data:image/jpg;base64, PGJyPg=="></img>
+  </apex:form>
+</apex:page>

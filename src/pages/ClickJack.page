@@ -1,0 +1,4 @@
+<apex:page sidebar="false">
+ Hello
+ <c:TestClickJack />
+</apex:page>

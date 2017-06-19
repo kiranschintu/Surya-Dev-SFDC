@@ -1,0 +1,24 @@
+<apex:page sidebar="false">
+<head>
+<apex:includeScript value="/resource/1389342009000/dhr__JQuery1"/>
+<script>
+$(document).ready(function(){
+  $("input").focus(function(){
+    $(this).css("background-color","gray");
+  });
+  $("input").blur(function(){
+    $(this).css("background-color","lightblue");
+  });
+});
+</script>
+
+</head>
+<body>
+
+<p>Hello Mouser Hover : </p>
+<input type="text" name="name" id="EN"/>
+<apex:form >
+Enter Name:<apex:inputText id="EN"/>
+</apex:form>
+</body>
+</apex:page>

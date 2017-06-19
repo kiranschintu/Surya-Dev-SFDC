@@ -1,0 +1,12 @@
+<apex:page controller="CustomIterable2Upload">
+    <apex:form >
+      <apex:pagemessages />
+      <apex:pageBlock title="Upload Your CSV File">
+             <center>
+             Please choose your file to upload : <apex:inputFile value="{!csvFile}" filename="{!nameFile}" /> <br/>
+             <br/><br/><apex:commandButton action="{!ReadFile}" value="Insert" id="theButton" style="background:#216BB5;color:white; width:10%;"/>
+             </center>
+     </apex:pageBlock>    
+    
+   </apex:form>
+</apex:page>

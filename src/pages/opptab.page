@@ -1,0 +1,5 @@
+<apex:page standardController="opportunity" tabStyle="opportunity">
+  <apex:sectionHeader title="Opportunities" subtitle="Home"/><br/>
+  <apex:enhancedList type="Opportunity" height="600" customizable="true" rowsPerPage="10"/>
+  <apex:pageBlock title="sfsdfds"></apex:pageBlock>
+</apex:page>

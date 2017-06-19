@@ -1,0 +1,19 @@
+<apex:page controller="AngularJS3CTRL" showHeader="false" standardStylesheets="false">
+    <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{x.names}}
+        <div ng-repeat="x in names">
+            {{x.Account.Name}}
+        </div>
+    </div>
+    
+    <script>
+        var app = angular.module('myApp',[]);
+            app.controller('myCtrl',function($scope){
+                //$scope.names=['Surya','Rahul','Revanth'];
+                var data = {!accounts};
+                $scope.names=data;
+            }); 
+        
+    </script>  
+</apex:page>

@@ -1,0 +1,8 @@
+<apex:page standardController="Account" recordSetVar="accounts" contentType="text/csv#YOUR_FILE_NAME.csv" readOnly="true"  sidebar="false" standardStylesheets="false" showHeader="false"  cache="true"  expires="0">
+  <apex:repeat value="{!accounts}" var="acc">
+      <apex:outputText value="{!acc.Name}"/><br/>
+  </apex:repeat>
+  <!--<apex:dataTable value="{!accounts}" var="a">
+          <apex:column value="{!a.name}"/>
+      </apex:dataTable>-->
+</apex:page>

@@ -1,0 +1,21 @@
+<apex:component controller="DynamicCustomVFComponentCTRL" allowDML="true">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Component
+  <!-- End Default Content REMOVE THIS -->
+  <apex:attribute name="myAcc" description="This is the value for the component." type="Account" assignTo="{!acc}"/>
+  Heloooooooooooooooooooooooooooooooooooooooooooooo
+  <apex:form >
+  <apex:pageMessages />
+      <apex:pageBlock >
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Save" action="{!doSome}"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection >
+              <apex:inputField value="{!myAcc.Name}"/>
+              <apex:inputField value="{!myAcc.AnnualRevenue}"/>
+              <apex:inputField value="{!myAcc.BillingCity}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:component>

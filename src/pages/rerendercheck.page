@@ -1,0 +1,9 @@
+<apex:page controller="rerendercheckCon" >
+<apex:form id="frmId">
+<apex:actionPoller action="{!pollerMethod}" enabled="{!isPoller}" interval="10" rerender="frmId" status="st"/>  
+<apex:actionStatus startText="processing..." id="st"></apex:actionStatus>
+  <apex:commandButton value="Check" action="{!dosome}"/>
+  <apex:outputText >{!result}</apex:outputText><br/>
+  <apex:outputText value="{!result}" rendered="{!(selected=='yes' && isPoller)}"/>
+</apex:form>
+</apex:page>

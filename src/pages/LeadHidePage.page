@@ -1,0 +1,17 @@
+<apex:page standardController="Lead" sidebar="false">
+  <apex:form >
+      <apex:pageblock >
+          <apex:pageBlockSection id="thePageBlock">
+              <apex:inputField value="{!Lead.lastname}" />
+              <apex:inputField value="{!Lead.Number_of_Schools__c}" rendered="{!NOT(Lead.Lead_Type__c == 'Public School')}"/>
+              <apex:inputField value="{!Lead.Lead_Type__c}">
+              <apex:actionSupport event="onchange" rerender="thePageBlock"
+                                                    status="status"/>
+              </apex:inputField>
+              <apex:inputField value="{!Lead.Number_of_Students__c}" rendered="{!OR(Lead.Lead_Type__c == 'Public School',Lead.Lead_Type__c == '',Lead.Lead_Type__c == 'District')}"/>
+              <apex:inputField value="{!Lead.Executive_Staff__c}" />
+             
+          </apex:pageBlockSection>
+      </apex:pageblock>
+  </apex:form>
+</apex:page>

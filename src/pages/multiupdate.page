@@ -1,0 +1,13 @@
+<apex:page controller="MultiupdateCon">
+  <apex:form >
+  <apex:pageBlock >
+      <apex:commandButton value="Update" action="{!doupdate}"/>
+      <apex:pageBlockTable value="{!accounts}" var="a">
+          <apex:column value="{!a.account.id}"/>
+          <apex:column headerValue="Account Name">
+              <apex:inputText value="{!a.account.name}"/>
+          </apex:column>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

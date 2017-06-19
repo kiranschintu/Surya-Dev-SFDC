@@ -1,0 +1,11 @@
+<apex:page controller="pagemessagesCon">
+  <apex:form >
+  <apex:pageBlock title="Errors occured while processing.." rendered="{!errorMessages}">
+      <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlockSection >
+      <apex:inputField value="{!acc.Industry}" rendered="{!acc.Industry==null}"/>
+      <apex:inputField value="{!acc.Name}" rendered="{!acc.Name==null}"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,23 @@
+<apex:page >
+    <style>
+        .vfHelpText a            {position:relative;}
+        .vfHelpText a span       {display: none;}
+        .vfHelpText a:hover span {display: block;
+                                  position:absolute;
+                                  top:1.25em;
+                                  padding:2px 5px;
+                                  left:-15em; width:15em;
+                                  z-index:100;
+                                  border:1px solid orange;
+                                  background-color:#FEFDB9;
+                                  color:black;
+                                 }
+    </style>
+    <span class="vfHelpText">
+        <apex:outputLink value="javascript:return false;">
+            <img src="/s.gif" alt="" class="helpOrb" />
+            <span>{!$ObjectType.Contact.fields.AccountId.inlineHelpText}</span>
+        </apex:outputLink>
+    </span>
+ 
+</apex:page>

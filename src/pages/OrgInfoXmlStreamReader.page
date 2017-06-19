@@ -1,0 +1,5 @@
+<apex:page controller="OrgInfo_XmlStreamReader">
+  <apex:form >
+  
+  </apex:form>
+</apex:page>

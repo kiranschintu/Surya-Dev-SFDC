@@ -1,0 +1,45 @@
+<apex:page standardController="Account" extensions="FormAccCls">
+  <script>
+  function myFunction() {
+   //alert('Hello'+document.getElementById("{!$Component.frm.pb.pbs}"));
+    var searchEles = document.getElementById("{!$Component.frm.pb.pbs}").getElementsByTagName('input');
+    var searchEles1 = document.getElementById("{!$Component.frm.pb.pbs}").getElementsByTagName('select');//.children;
+   
+   for(var i = 0; i < searchEles.length; i++) {
+        if(searchEles[i].tagName == 'INPUT' || searchEles[i].tagName == 'SELECT') {
+            searchEles[i].value = '';
+        }
+    }
+   for(var i = 0; i < searchEles1.length; i++) {
+        if(searchEles1[i].tagName == 'INPUT' || searchEles1[i].tagName == 'SELECT') {
+            searchEles1[i].value = '';
+        }    
+    }
+
+}
+</script>  
+  <apex:form id="frm">
+      <apex:pageBlock id="pb" title="Account Form">
+          <apex:pageBlockSection id="pbs">
+              <apex:inputField id="nam" value="{!account.Name}"/>
+              <apex:inputField value="{!account.Phone}"/>
+              <apex:inputField value="{!account.Industry}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Cancel" immediate="true" onClick="myFunction()"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+      
+      
+      <!--<apex:pageBlock title="Account Form1">
+          <apex:pageBlockSection >
+              <apex:inputField value="{!account.Name}"/>
+              <apex:inputField value="{!account.Phone}"/>
+              <apex:inputField value="{!account.Industry}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Cancel1" onclick="this.form.reset();return false;"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>-->
+  </apex:form>
+</apex:page>

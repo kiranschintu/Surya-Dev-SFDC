@@ -1,0 +1,699 @@
+<!---------------------------------------------------------------------------------------------
+    @Author: Kranthi Nirmala
+    @Name: AEXP_DynamicEnrollmentPage
+    @Description: All the field's rendering is driven by ICON service
+    @Editor: Nghia Tran 11/11/2015
+    * Modification Log:
+    * ----------------------------------------------------------------------
+    * Developer                         Date                 Description
+    * ----------------------------------------------------------------------
+    
+    * Anshul Jain                       01/12/2015            Updated code for accomodating changed JSON Response
+    * Chiranjeevi Addela                 1/11/2016            added Upload document heading
+    * Nghia Tran                         1/13/2016            added UploadDocument function
+    * Nghia Tran                         1/15/2016            Required field symbol next to mandatory fields
+    * Chiranjeevi Addela                 1/25/2016            Changed the color of buttons and added borders on dialog boxes
+    * Kranthi Nirmala                    1/25/2016            Changed input type text to show disabled for read only fields
+    * Nghia Tran                         1/21/2016            added echoSignAgreement function
+    * Shraddha Vidhate                   2/12/2016            updated stylesheet to redirect at top of
+    
+     page(lne 57-60)
+    * Shraddha Vidhate                   2/25/2016            added isSubmitreq and isSubmitFlag flags to disable verification and enrollment form after submition of record(US393778) 
+    * Anshul Jain                        3/2/2016             Handled enabling and dsiabling of Multi-Select. 
+     ---------------------------------------------------------------------------------------------->
+    
+    <apex:page docType="html-5.0" showHeader="false" standardStylesheets="false" sidebar="false" standardcontroller="Opportunity" extensions="AEXP_DynamicEnrollmentPage_Controller"  action="{!initData}" >
+        
+        <html class="no-js lt-ie9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org"  lang="en">
+            <head>  
+                
+                <meta charset="utf-8"></meta>
+            <meta http-equiv="x-ua-compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale = 1.0, user-scalable=no"></meta>
+        
+        <apex:includeScript value="{!URLFOR($Resource.ANGULAR_JS, 'angular.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.SLDS091, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <apex:includeScript value="{!$Resource.AppCapture}" />  
+        <style>
+            .fileUpload {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+            }
+            .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            }
+            .titleCSS{
+            font-size:32px;
+            color:#00263;
+            }
+         #Verification
+         {
+         position:fixed;
+         overflow:scroll;
+         height:100%;
+         top:0px;
+         }
+            #navbar {
+            margin-bottom:0px;
+            padding-top:2.5px; 
+            position:fixed; 
+            bottom:0px;
+            z-index:998; 
+            text-align: center; 
+            opacity:0.8;
+            background-color:#c0c0c0;
+            width:100%;
+            }
+            #inner button.slds-button{
+             opacity:0.9; margin-top:12px; margin-bottom:12px;
+            }
+            #inner2 button.slds-button{
+             opacity:0.9; margin-top:12px; margin-bottom:30px;
+            }
+            #navbar 
+        </style>
+        
+    </head>
+    <body>
+        <div class="slds">
+            <div ng-app="myApp" ng-controller="formCtrl" data-ng-init = "getRemoteResponse()" >            
+                <input id="enrollmentId" class="slds-input" type="Text" ng-hide="true" ng-model="enrollmentId" value="{!strEnrollmentId }"  placeholder="{!strEnrollmentId }"/>     
+                <input id="OpportunityId" class="slds-input" type="Text" ng-hide="true" ng-model="OpportunityId" value="{!strOpportunityId }"  placeholder="{!strOpportunityId }"/>
+                <input id="countForErrormsg" class="slds-input" type="Text" ng-hide="true" ng-model="countForErrormsg" value="{!counterForErrormsg }"  placeholder="{!counterForErrormsg }"/>     
+                
+                <form id="Enrollment" name="EnrollmentForm" >
+                    
+                    <div align="left">
+                        <label class="titleCSS" >Enrollment Form</label>
+                    </div>
+                    
+                    <div id = "navbar">
+                        
+                        
+                        <p id="inner">
+                        <button class="slds-button slds-button--brand slds-button--large" ng-click="saveDynamicData()"  >Save</button> 
+                        <button class="slds-button slds-button--brand slds-button--large" ng-click="cancelDynamicData()"  >Cancel</button> 
+                        <button class="slds-button slds-button--brand slds-button--large" ng-click="continueDynamicData()"  >Continue</button> 
+                         </p>
+                    </div> 
+                  
+                   <br/>
+               
+                    <div ng-repeat = "section in enrollmentSecs.sections | orderObjectBy: 'section_sort_order':true" ng-show="section.section_display_condition != 'N'" ng-if="section.section_display_condition != 'N'" >       
+                        <div class="slds-box slds-theme--shade">
+                            <h3 id="CompanyInfo" class="slds-section-title section-group--is-open">
+                                <a href="javascript:void(0)" ng-click="toggle()" >
+                                    <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+                                        <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+                                    </svg> 
+                                    {{section.section_name}}</a>
+                            </h3>
+                        </div>
+                        
+                        <div class="slds-grid slds-wrap" ng-show = "section.section_name == 'Underwriting Informational Needs'" ng-if="section.section_name == 'Underwriting Informational Needs'">
+                            <div ng-repeat="x in section.field_value | orderObjectBy: 'sort_order':true" class="slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" ng-if= "(x.display_page == 'B' || x.display_page == 'E' )">
+                                <br/>   
+                                
+                                <div class="slds-p-horizontal--medium">
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Text'"  ng-if="x.element_data_type== 'Text' && (x.display_page == 'B' || x.display_page == 'E')">
+                                        <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}<span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> </label>
+                                         
+                                        <div class="slds-form-element__control">
+                                           
+                                            <input name="{{x.element_id}}" id="{{x.element_id}}" class="slds-input" type="{{x.element_data_type}}" aria-describedby="{{x.errorMsg}}" ng-model="x.value" placeholder="{{x.element_label}}"   required="" ng-disabled="{!isSubmitreq}"/>
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Checkbox'" ng-if="x.element_data_type== 'Checkbox' && (x.display_page == 'B' || x.display_page == 'E')" >
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-checkbox" for="{{x.element_id}}" >
+                                           
+                                                <input name="{{x.element_id}}" type="checkbox" ng-checked="{{x.value}}" ng-model="x.value" value ="{{x.value}}"  id="{{x.element_id}}"  ng-disabled="{!isSubmitreq}"/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{x.element_label}}</span>
+                                                 
+                                            </label>
+                                            
+                                            
+                                                                               
+                                        </div> 
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Text Area'" ng-if="x.element_data_type== 'Text Area'">
+                                        <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span>  
+                                        <div class="slds-form-element__control">
+                                           
+                                            <textarea id="{{x.element_id}}" class="slds-textarea" ng-model ="x.value" placeholder="{{x.element_label}}"  ng-disabled="{!isSubmitreq}"></textarea>
+                                            
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Select'" ng-if="x.element_data_type== 'Select' ">
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                            <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span>  
+                                           
+                                            <select id="{{x.element_id}}" class="slds-select" value="{{x.value}}"  ng-model ="x.value"  placeholder="{{x.element_label}}" ng-disabled="{!isSubmitreq}">
+                                                <option ng-repeat="option in x.e_num" ng-selected="{{option.Label == x.value}}" value="{{option.Label}}" >{{option.Label}}</option>
+                                            </select>
+                                           
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type=='Multiselect'" ng-if="x.element_data_type=='Multiselect'">
+                                        <label class="slds-form-element__label slds-text-body--regular" >{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> 
+                                        <div class="slds-form-element__control" ng-repeat="option in x.e_num">
+                                            <label class="slds-checkbox" for="{{option.Label}}" >
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}"  id="{{option.Label}}" ng-show="{!!isSubmitreq}" ng-if="{!!isSubmitreq}" />
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}_2"  id="{{option.Label}}"  disabled="true"  ng-show="{!isSubmitreq}" ng-if="{!isSubmitreq}" />                                              
+
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{option.Label}}</span>
+                                            </label>
+                                        </div>
+                                        <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                        <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                    </div>
+                                    
+                                    <div class="slds-box slds-theme--default"  ng-show="x.element_data_type== 'Sub-Heading'"  ng-if="x.element_data_type== 'Sub-Heading' && (x.display_page == 'B' || x.display_page == 'E') ">
+                                        <h3 class="slds-section-title section-group--is-open">{{x.element_label}}</h3>
+                                    </div>
+                                    
+                                    <div class="slds-publisher slds-publisher--discussion" ng-if="x.element_data_type== 'File' && (x.display_page == 'B' || x.display_page == 'E')">
+                                        
+                                        <div class="slds-attachments"></div>
+                                        <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
+                                            <ul class="slds-grid slds-publisher__toggle-visibility">
+                                                <li>
+                                                    <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                                     
+                                                    <input id="{{x.element_id}}filename" class="slds-input" placeholder="{{x.element_label}}" disabled="disabled"  > </input>
+                                                    
+                                                    <div class="fileUpload slds-button slds-button--neutral">
+                                                        <svg aria-hidden="true" class="slds-button__icon slds-button__icon--right">
+                                                            <!--<use xlink:href="{!URLFOR($Resource.UI_LIGHTNING,'lightningcss/assets/icons/utility-sprite/svg/symbols.svg#upload')}"></use>-->
+                                                            
+                                                        </svg>
+                                                        <span>Choose</span> 
+                                                        
+                                                        <input id ="{{x.element_id}}" name="filename['{{x.element_id}}']" placeholder="{{x.element_label}}" type="file" multiple="true" class="upload" value="{{x.attachment.body}}" onchange = "javascript:documentChange();"  /> 
+                                                        
+                                                        
+                                                    </div>
+                                                    <button class="slds-button slds-button--brand slds-button--large" ng-click="UploadDocument(x.element_id)" >UpLoad</button> 
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="slds-grid slds-wrap" ng-show = "section.section_name != 'Underwriting Informational Needs'" ng-if="section.section_name != 'Underwriting Informational Needs' ">
+                            <div ng-repeat="x in section.field_value | orderObjectBy: 'sort_order':true" class="slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" ng-if="(x.display_page == 'B' || x.display_page == 'E' )">
+                                <br/>   
+                                
+                                <div class="slds-p-horizontal--medium">    
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small "  ng-show="x.element_data_type== 'Text'"  ng-if="x.element_data_type== 'Text'">
+                                        <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}<span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> </label>
+                                         
+                                        <div class="slds-form-element__control">
+                                            
+                                            <input name="{{x.element_id}}" id="{{x.element_id}}"  class="slds-input" type="{{x.element_data_type}}" aria-describedby="{{x.errorMsg}}" disabled="true" ng-model="x.value" placeholder="{{x.element_label}}" required="" ng-show="x.is_editable == 'R'"  ng-if="x.is_editable== 'R'"  />
+                                           
+                                            <input name="{{x.element_id}}" id="{{x.element_id}}"  class="slds-input" type="{{x.element_data_type}}" aria-describedby="{{x.errorMsg}}" ng-model="x.value" placeholder="{{x.element_label}}" required="" ng-show="x.is_editable== 'E'"  ng-if="x.is_editable== 'E'" ng-disabled="{!isSubmitreq}" /> 
+                                            
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Checkbox'" ng-if="x.element_data_type== 'Checkbox'"  >
+                                                                               
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-checkbox" for="{{x.element_id}}" >
+                                              
+                                                <input name="{{x.element_id}}" type="checkbox" ng-checked="{{x.value}}" ng-model="x.value" value ="{{x.value}}"  id="{{x.element_id}}"  ng-disabled="{!isSubmitreq}" />
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{x.element_label}}</span>
+                                            </label>
+                                                                                    
+                                        </div> 
+                                    </div>
+                                    
+                                                                       
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Text Area'" ng-if="x.element_data_type== 'Text Area'">
+                                        <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span>  
+                                        <div class="slds-form-element__control">
+                                            <textarea id="{{x.element_id}}" class="slds-textarea" ng-model ="x.value" placeholder="{{x.element_label}}" disabled="true" ng-show="x.is_editable == 'R'"  ng-if="x.is_editable== 'R'"  ></textarea>
+                                           
+                                            <textarea id="{{x.element_id}}" class="slds-textarea" ng-model ="x.value" placeholder="{{x.element_label}}" ng-show="x.is_editable == 'E'"  ng-if="x.is_editable== 'E'" ng-disabled="{!isSubmitreq}" ></textarea>
+
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Radio'" ng-if="x.element_data_type== 'Radio'">
+                                        <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span>  
+                                        <div class="slds-form-element__control">
+                                            <div ng-repeat="radioOption in x.e_num">
+                                                <label class="slds-radio" for="{{radioOption.Label}}">
+                                                  
+                                                    <input type="radio" name="{{x.element_id}}" value="{{radioOption.Label}}" ng-model ="x.value" id="{{radioOption.Label}}"  ng-disabled="{!isSubmitreq}"/>
+                                                    <span class="slds-radio--faux"></span>
+                                                    <span class="slds-form-element__label">{{radioOption.Label}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type== 'Select' " ng-if="x.element_data_type== 'Select' ">
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                            <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span>  
+                                            <select id="{{x.element_id}}" class="slds-select" value="{{x.value}}" disabled="true" ng-model ="x.value"  placeholder="{{x.element_label}}" ng-show="x.is_editable == 'R'"  ng-if="x.is_editable== 'R'" >
+                                                <option ng-repeat="option in x.e_num" ng-selected="{{option.Label == x.value}}" value="{{option.Label}}" >{{option.Label}}</option>
+                                            </select>
+                                           
+                                            <select id="{{x.element_id}}" class="slds-select" value="{{x.value}}"  ng-model ="x.value"  placeholder="{{x.element_label}}" ng-show="x.is_editable == 'E'"  ng-if="x.is_editable== 'E'" ng-disabled="{!isSubmitreq}">
+                                                <option ng-repeat="option in x.e_num" ng-selected="{{option.Label == x.value}}" value="{{option.Label}}">{{option.Label}}</option>
+                                            </select>
+                                            
+                                            <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                            <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type=='Multiselect'" ng-if="x.element_data_type=='Multiselect'">
+                                        <label class="slds-form-element__label slds-text-body--regular" >{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> 
+                                        <div class="slds-form-element__control" ng-repeat="option in x.e_num">
+                                            <label class="slds-checkbox" for="{{option.Label}}" >
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}"  id="{{option.Label}}" ng-show="{!!isSubmitreq}" ng-if="{!!isSubmitreq}" />
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}_2"  id="{{option.Label}}"  disabled="true"  ng-show="{!isSubmitreq}" ng-if="{!isSubmitreq}" />                                              
+
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{option.Label}}</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                        <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                    </div>
+                                    
+                                    
+                                    <div class="slds-publisher slds-publisher--discussion" ng-if="x.element_data_type== 'File'">
+                                        
+                                        <div class="slds-attachments"></div>
+                                        <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
+                                            <ul class="slds-grid slds-publisher__toggle-visibility">
+                                                <li>
+                                                    <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}</label>
+                                                    
+                                                    
+                                                    <input id="{{x.element_id}}filename" value="{{x.value}}"  class="slds-input" placeholder="{{x.element_label}}" disabled="disabled"> </input>
+                                            <div class="fileUpload slds-button slds-button--neutral">
+                                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--right">
+                                                    <!--<use xlink:href="{!URLFOR($Resource.UI_LIGHTNING,'lightningcss/assets/icons/utility-sprite/svg/symbols.svg#upload')}"></use>-->
+                                                    
+                                                </svg>
+                                                <span>Choose</span> 
+                                                
+                                                <input id ="{{x.element_id}}" name="filename['{{x.element_id}}']" placeholder="{{x.element_label}}" type="file" multiple="true" class="upload" value="{{x.attachment.body}}" onchange = "javascript:documentChange();"   /> 
+                                                
+                                                
+                                            </div>
+                                            <button class="slds-button slds-button--brand slds-button--large" ng-click="UploadDocument(x.element_id)" >UpLoad</button> 
+                                           
+                                              
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            
+                                          
+                          </div>
+                        
+                    </div>
+                </div>
+                <br/>
+            </div>
+            
+            <div id="showError" style="display : none">
+                <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal--prompt">
+                       <div style="border-style: groove; border-width: medium; border-color: grey; border-radius:10px">
+                        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture" id="msgHeader">
+                            <h2 class="slds-text-heading--medium">{{messageHeader}}</h2>
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                    <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                        <div class="slds-modal__content">
+                            <div>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer slds-theme--default">
+                            <div class="slds-x-small-buttons--horizontal">
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="closeNotification()">
+                                    Okay
+                                </button> 
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </div>
+            
+            <div id="showError2" style="display : none">
+                <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal--prompt">
+                       <div style="border-style: groove; border-width: medium; border-color: grey; border-radius:10px">
+                        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture" id="msgHeader2">
+                            <h2 class="slds-text-heading--medium">{{messageHeader}}</h2>
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                    <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                        <div class="slds-modal__content">
+                            <div>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer slds-theme--default">
+                            <div class="slds-x-small-buttons--horizontal">
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="completeNotification()">
+                                    Confirm
+                                </button> 
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="closeNotification2()">
+                                    Cancel
+                                </button> 
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </div>  
+
+            <div id="showError0" style="display : none">
+                <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal--prompt">
+                       <div style="border-style: groove; border-width: medium; border-color: grey; border-radius:10px">
+                        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture" id="msgHeader2">
+                            <h2 class="slds-text-heading--medium">{{messageHeader}}</h2>
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                    <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                        <div class="slds-modal__content">
+                            <div>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer slds-theme--default">
+                            <div class="slds-x-small-buttons--horizontal">
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="completeNotification()">
+                                    Okay
+                                </button> 
+                                
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </div>
+
+            <br/><br/><br/><br/>
+            
+        </form>
+        
+        
+        <form id="Verification" style="display : none"  >
+           
+            <div align="left">
+                <label class="titleCSS" >Verification Form</label>
+            </div>
+            <div id = "navbar">
+                
+                <p id="inner2">
+
+                <button class="slds-button slds-button--brand slds-button--large" ng-click="cancelDynamicDataVerification()" >Cancel</button> 
+                <button id="CreateAgreement" ng-show="showCreateAgreement" ng-if="showCreateAgreement" class="slds-button slds-button--brand slds-button--large" ng-click="echoSignAgreement()" >Confirm</button>
+                <button id="ViewAgreement" ng-show="showViewAgreement" ng-if="showViewAgreement" class="slds-button slds-button--brand slds-button--large" ng-click="echoSignAgreement()"  >View Agreement</button>
+                
+                  <button id="showManual" class="slds-button slds-button--brand slds-button--large" ng-disabled="isSubmitFlag||((!isSigned)&&(isManualSubmit))" ng-click="confirmDynamicData()" >Submit</button> 
+              
+                </p> 
+                
+            </div>
+            <div id="showError3" style="display : none">
+                <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal--prompt">
+                       <div style="border-style: groove; border-width: medium; border-color: grey; border-radius:10px">
+                        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture" id="msgHeader3">
+                            <h2 class="slds-text-heading--medium">{{messageHeader}}</h2>
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                    <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                        <div class="slds-modal__content">
+                            <div>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer slds-theme--default">
+                            <div class="slds-x-small-buttons--horizontal">
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="completeNotification()">
+                                    Confirm
+                                </button> 
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="closeNotification3()">
+                                    Cancel
+                                </button> 
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </div>
+            
+            <div id="showError4" style="display : none">
+                <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal--prompt">
+                       <div style="border-style: groove; border-width: medium; border-color: grey; border-radius:10px">
+                        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture" id="msgHeader4">
+                            <h2 class="slds-text-heading--medium">{{messageHeader}}</h2>
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                    <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                        <div class="slds-modal__content">
+                            <div>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer slds-theme--default">
+                            <div class="slds-x-small-buttons--horizontal">
+                                <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="closeNotification4()">
+                                    Okay
+                                </button> 
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </div>
+            
+            
+            
+            
+            <br/>
+            <br/>
+            <div ng-repeat = "section in enrollmentSecs.sections | orderObjectBy: 'section_sort_order':true"  ng-show="section.section_display_condition != 'N'" ng-if="section.section_display_condition != 'N'"  >       
+                <div class="slds-box slds-theme--shade" ng-hide="section.sectionHide">
+                    <h3 id="CompanyInfo" class="slds-section-title section-group--is-open">
+                        <a href="javascript:void(0)" ng-click="toggle()" >
+                            <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-standard-user">
+                                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#user"></use>
+                            </svg> 
+                            {{section.section_name}} </a>
+                    </h3>
+                </div>
+                  
+                <div class="slds-grid slds-wrap" align="center">
+                    <div ng-repeat="x in section.field_value | orderObjectBy: 'sort_order':true" class="slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" ng-show="x.display_page=='B' || x.display_page=='V'" ng-if="x.display_page=='B' || x.display_page=='V'">
+                        
+                        <div ng-show="x.display_page=='B' || x.display_page=='V'"> <br/></div>
+                        
+                        
+                        <div class="slds-p-horizontal--medium" align="center">
+                            
+                            <div class="slds-form--horizontal" ng-show="(x.element_data_type== 'Text' || x.element_data_type== 'Date')&& (x.display_page=='B'|| x.display_page=='V')">
+                                <div class="slds-form-element"> 
+                                    
+                                    <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}} <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> </label>
+                                    
+                                    
+                                    <div class="slds-form-element__control">
+                                        
+                                        <input id="{{x.element_id}}" class="slds-input" type="{{x.element_data_type}}" ng-model ="x.value"  placeholder="{{x.element_label}}" disabled= "true" ng-show="x.is_editable == 'R'"  ng-if="x.is_editable== 'R'" />
+                                        <input id="{{x.element_id}}" class="slds-input" type="{{x.element_data_type}}" ng-model ="x.value"  placeholder="{{x.element_label}}" ng-show="x.is_editable == 'E'"  ng-if="x.is_editable== 'E'" ng-disabled="isSubmitFlag"/>
+                                        <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                        <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>                                                
+                                </div> 
+                                     
+                                </div>    
+                            </div>
+                            
+                            <div class="slds-form--horizontal"  ng-show="x.element_data_type== 'Checkbox' && (x.display_page=='B' || x.display_page=='V')">
+                                <div class="slds-form-element__control">
+                                    <label class="slds-checkbox">
+                                               
+                                               <input name="{{x.element_id}}" type="checkbox" ng-checked="{{x.value}}" ng-model="x.value" value ="{{x.value}}"  id="{{x.element_id}}" ng-click="manualSubmit(x.element_id,x.value)" ng-disabled="isSubmitFlag"/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{x.element_label}}</span>
+                                    </label>
+                                   
+                                    
+                                    
+                                </div> 
+                            </div>
+                            
+                            
+                            
+                            <div class="slds-form--horizontal"  ng-show="x.element_data_type== 'TextArea' && (x.display_page=='B' || x.display_page=='V')">
+                                <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}<span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'"  >*</span> </label>
+                                     
+                                  
+                                <div class="slds-form-element__control">
+                                    <textarea id="{{x.element_id}}" class="slds-textarea" ng-model ="x.value" placeholder="{{x.element_label}}" ng-disabled="isSubmitFlag"></textarea>
+                                    
+                                    <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                    <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form--horizontal"  ng-show="x.element_data_type== 'Radio' && (x.display_page=='B' || x.display_page=='V')">
+                                <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}<span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'"  >*</span> </label>
+                                     
+                                  
+                                <div class="slds-form-element__control">
+                                    <div ng-repeat="radioOption in x.e_num">
+                                        <label class="slds-radio" for="{{radioOption.Label}}">
+                                            <input type="radio" name="{{x.element_id}}" value="{{radioOption.Label}}" ng-model ="x.value" id="{{radioOption.Label}}" ng-disabled="isSubmitFlag"/>
+                                            <span class="slds-radio--faux"></span>
+                                            <span class="slds-form-element__label">{{radioOption.Label}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>          
+                            
+                            <div class="slds-form--horizontal"  ng-show="(x.element_data_type== 'Select') && (x.display_page=='B' || x.display_page=='V')" ng-if="x.element_data_type=='Select'">          
+                                <label class="slds-form-element__label slds-text-body--regular" for="{{x.element_id}}">{{x.element_label}}<span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'"  >*</span>  </label>
+                                    
+                                
+                                <div class="slds-form-element__control">
+                                    <select id="{{x.element_id}}" class="slds-select" value="{{x.value}}"  ng-model ="x.value"  placeholder="{{x.element_label}}" ng-show="x.is_editable == 'E'"  ng-if="x.is_editable== 'E'" ng-disabled="isSubmitFlag">
+                                        <option ng-repeat="option in x.e_num" ng-selected="{{option.Label == x.value}}" value="{{option.Label}}">{{option.Label}}</option>
+                                    </select>
+                                    <select id="{{x.element_id}}" class="slds-select" value="{{x.value}}"  ng-model ="x.value"  placeholder="{{x.element_label}}" disabled = "true" ng-show="x.is_editable == 'R'"  ng-if="x.is_editable== 'R'" >
+                                        <option ng-repeat="option in x.e_num" ng-selected="{{option.Label == x.value}}" value="{{option.Label}}">{{option.Label}}</option>
+                                    </select>
+                                   
+                                    <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                    <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                </div>
+                            </div>  
+                            
+                            
+                            <div class="slds-form-element slds-p-horizontal--x-small"  ng-show="x.element_data_type=='Multiselect'" ng-if="x.element_data_type=='Multiselect'">
+                                        <label class="slds-form-element__label slds-text-body--regular" >{{x.element_label}}</label>
+                                        <span style="color:red" class="slds-text-heading--medium" ng-show="x.is_mandatory =='M'">*</span> 
+                                        <div class="slds-form-element__control" ng-repeat="option in x.e_num">
+                                            <label class="slds-checkbox" for="{{option.Label}}" >
+                                                
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}"  id="{{option.Label}}" ng-show="!isSubmitFlag" ng-if="!isSubmitFlag" />
+                                                <input name="{{option.Label}}" type="checkbox" ng-checked="{{option.isSelected}}" ng-model="option.isSelected" value ="{{option.isSelected}}_2"  id="{{option.Label}}"  disabled="true"  ng-show="isSubmitFlag" ng-if="isSubmitFlag" />                                              
+                                                
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{{option.Label}}</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <span style="color:red" ng-show="x.errorMsg =='RequiredErr'" id="RequiredErr" >{{x.element_label}} is required </span>  
+                                        <span style="color:red" ng-show="x.errorMsg =='ValidationErr'" id="ValidationErr">{{x.element_label}} not supporting validation </span>
+                                    </div>
+                        </div>         
+                        
+                    </div>
+                </div>
+                <br/>
+            </div>   
+            
+            <br/><br/><br/><br/>      
+   
+            
+        </form>       
+        
+    </div>
+    </div>   
+    
+    </body>     
+    
+    </html>
+    
+    
+    </apex:page>

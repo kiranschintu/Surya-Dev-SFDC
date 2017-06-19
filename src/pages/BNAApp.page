@@ -1,0 +1,118 @@
+<apex:page controller="BNAAppCTRL" showHeader="false" standardStylesheets="false">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+  <!--<apex:includeScript value="{!$Resource.JQueryJS}"/>
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <apex:stylesheet value="{!$Resource.BootStrapCSS}"/>
+  <apex:includeScript value="{!$Resource.BootStrapJS}"/>-->
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  
+  
+    <div class="container" ng-app="myApp" ng-controller="myCTRL">
+        <!-- Screen 1 -->
+        <div id="screen1" ng-show="currentScreen=='screen1'">
+            <input ng-model="searchText" class="form-control" placeholder="Search" ng-keyup="loadAccounts()"/>
+            <div class="table-responsive" ng-hide="!accountRecords.length">          
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in accountRecords">
+                            <td><a ng-click="moveToScreen2(x)">{{x.Name}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Screen 2 -->
+        <div id="screen2" ng-show="currentScreen=='screen2'">
+            <div class="row">
+                <div class="col-xs-4 col-sm-5 col-md-5 col-lg-5">
+                    <input ng-model="searchText" class="form-control" placeholder="Search"/>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <a href="#">
+                        <span style="font-size:30px;" class="glyphicon glyphicon-search"></span>
+                    </a>
+                </div>
+                <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2">
+                        
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    NEW BNA
+                </div>
+                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                    <a href="#">
+                        <span style="font-size:30px;" class="glyphicon glyphicon-plus-sign"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="table-responsive">          
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="con in contactRecords">
+                                    <td>{{con.LastName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('myCTRL',function($scope){
+        $scope.accountRecords ='';
+        $scope.contactRecords ='';
+        $scope.currentScreen='screen1';
+        $scope.loadAccounts=function() {
+            var searchKey=$scope.searchText;
+            if(searchKey!=null && searchKey!=''){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.BNAAppCTRL.fetchAccounts}',
+                    searchKey,
+                    function(result, event) {
+                        $scope.accountRecords = result;
+                        $scope.$apply();
+                    }
+                ); 
+            }else{
+                $scope.accountRecords ='';
+            }
+            $scope.$apply();
+        }
+        $scope.moveToScreen2=function(acc) {
+            $scope.currentScreen='screen2';
+            var parentId = acc.Id;
+            if(parentId!=null && parentId!=''){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.BNAAppCTRL.fetchContacts}',
+                    parentId,
+                    function(result, event) {
+                        $scope.contactRecords = result;
+                        $scope.$apply();
+                    }
+                ); 
+            }else{
+                $scope.contactRecords ='';
+            }
+            $scope.$apply();
+        }
+        
+    });
+</script>
+
+</apex:page>

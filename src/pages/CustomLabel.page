@@ -1,0 +1,11 @@
+<apex:page controller="CustomLabelCon" sidebar="false">
+    <apex:pagemessage severity="info" strength="1" summary="{!$Label.CustomOne}" escape="false"></apex:pagemessage>
+    
+    <apex:pagemessages />
+    <apex:form >
+        <apex:commandButton value="check" action="{!doaction}"/>
+    </apex:form>
+    <!-- <apex:outputText >{!$Label[myLabel]}</apex:outputText><br/> -->
+    <apex:outputText >{!myLabel}</apex:outputText><br/>
+    <apex:outputText value="{!$Label.LineBreak}" escape="false"></apex:outputText>
+</apex:page>

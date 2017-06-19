@@ -1,0 +1,18 @@
+<apex:page standardController="FeedBack__c">
+  <style>
+  .btn{style.display:none}
+  </style>
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageblockButtons >
+          <apex:commandButton value="Save" action="{!save}"/>
+      </apex:pageblockButtons>
+      <apex:pageBlockSection >
+          <apex:outputField value="{!FeedBack__c.RecordTypeId}"/>
+          <apex:inputField value="{!FeedBack__c.Name}"/>
+          <apex:inputField value="{!FeedBack__c.Request_Status__c}"/>
+          <apex:inputField value="{!FeedBack__c.Field_Checking__c}"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

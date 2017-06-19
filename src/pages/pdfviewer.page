@@ -1,0 +1,7 @@
+<apex:page standardController="Opportunity" renderAs="pdf">
+<center>
+<apex:repeat var="attachment" value="{!Opportunity.attachments}">
+<c:pdf_attachment_viewer value="{!attachment.id}" width="85%" height="835px"/>
+</apex:repeat>
+</center>
+</apex:page>

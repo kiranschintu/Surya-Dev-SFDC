@@ -1,0 +1,36 @@
+<apex:page controller="TableSplitCon" sidebar="false">
+  
+  
+  <apex:repeat value="{!mainacc}" var="m">
+      <table border="1">
+      <tr><td>{!m}</td>
+      <apex:repeat value="{!mainacc[m]}"  var="a">
+              <td width="100">{!a.name} </td>
+      </apex:repeat>
+          </tr>
+      </table>
+  </apex:repeat>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--
+  <table border="1">
+  <apex:repeat value="{!acc}" var="a">
+      
+          <tr>
+              <td> {!a.name}</td>
+          </tr>
+      
+  </apex:repeat>
+  </table>-->
+</apex:page>

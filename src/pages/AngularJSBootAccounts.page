@@ -1,0 +1,81 @@
+<apex:page controller="BNAAppCTRL" showHeader="false" standardStylesheets="false">
+  <apex:includeScript value="{!$Resource.JQueryJS}"/>
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <apex:stylesheet value="{!$Resource.BootStrapCSS}"/>
+  <apex:includeScript value="{!$Resource.BootStrapJS}"/>
+  
+    <div class="container" ng-app="myApp" ng-controller="myCTRL">
+        <!-- Screen 1 -->
+        <div id="screen1" ng-show="currentSection==='screen1'">
+            <input ng-model="searchText" class="form-control" placeholder="Search" ng-keyup="loadAccounts()">
+            <!--<select ng-model="selectedTestAccount" ng-options="item.Id as item.Name for item in testAccounts">
+                <option value="">Select Account</option>
+            </select>-->
+            <div class="table-responsive" ng-hide="!accountRecords.length">          
+                <table class="table">
+                    <!--<thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>-->
+                    <tbody>
+                        <tr ng-repeat="x in accountRecords">
+                            <td><a ng-click="moveToScreen2()">{{x.Name}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </input>
+        </div>
+        
+        <!-- Screen 2 -->
+        <div id="screen2" ng-show="currentSection==='screen2'">
+            <div class="table-responsive" ng-hide="!accountRecords.length">          
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in accountRecords">
+                            <td><a ng-click="moveToScreen2(x)">{{x.Name}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('myCTRL',function($scope){
+        $scope.selectedTestAccount = null;
+        $scope.testAccounts = [];
+        
+        $scope.accountRecords ='';
+        $scope.contactRecords ='';
+        $scope.currentSection='screen1';
+        $scope.loadAccounts=function() {
+            var searchKey=$scope.searchText;
+            if(searchKey!=null && searchKey!=''){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.BNAAppCTRL.fetchAccounts}',
+                    searchKey,
+                    function(result, event) {
+                        $scope.accountRecords = result;
+                        $scope.testAccounts= result;
+                }); 
+            }else{
+                $scope.accountRecords ='';
+            }
+            $scope.$apply();
+        }
+        $scope.moveToScreen2=function(acc) {
+            alert('clicked...'+acc.Name);
+            $scope.currentSection='screen2';    
+        }
+        
+    });
+</script>
+
+</apex:page>

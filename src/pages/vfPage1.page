@@ -1,0 +1,4 @@
+<apex:page >
+  This is Page 1<br/>
+  <apex:include pageName="vfPage2"/>
+</apex:page>

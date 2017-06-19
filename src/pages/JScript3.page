@@ -1,0 +1,14 @@
+<apex:page standardController="Account">
+  <script>
+      alert('Hello onLoad');
+      function callScript(){
+          alert('Hello');
+          alert('{!$Component.frm.name}');
+      }
+  </script>
+  
+  <apex:form id="frm">
+      Enter Name : <apex:inputField id="name" value="{!Account.Phone}"/>
+  <input type="submit" value="Save" onclick="callScript();" />
+  </apex:form>
+</apex:page>

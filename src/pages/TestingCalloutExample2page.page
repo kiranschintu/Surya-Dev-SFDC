@@ -1,0 +1,19 @@
+<apex:page standardController="contact" extensions="TestingCalloutExample2" action="{!dosave}" sidebar="false">
+  <!--<apex:messages />
+  <apex:form >
+   
+  <apex:pageBlock title="Welcome " id="area" >
+  <apex:pageBlockButtons location="top">
+          
+      
+  </apex:pageBlockButtons>
+    <apex:pageBlockSection >
+        <apex:outputText value="{!contact.description}"></apex:outputText>
+    </apex:pageBlockSection>
+    <apex:commandButton value="Integrate" action="{!dosave}"/>
+    
+   </apex:pageBlock>
+  </apex:form>
+  -->
+ 
+</apex:page>

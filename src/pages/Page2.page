@@ -1,0 +1,16 @@
+<apex:page controller="AllPagesCTRL">
+ <apex:form >
+  <apex:pageMessages />
+      <apex:pageBlock >
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Save" action="{!doSome}"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection >
+              <apex:inputField value="{!acc.Name}"/>
+              <apex:inputField value="{!acc.AnnualRevenue}"/>
+              <apex:inputField value="{!acc.BillingCity}"/>
+              <apex:inputField value="{!acc.BillingCountry}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

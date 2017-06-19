@@ -1,0 +1,30 @@
+<apex:page standardcontroller="Account" extensions="MyController" tabStyle="Account" sidebar="false">
+    <apex:form >
+       <apex:actionFunction name="actionFunName" action="{!ActionFunMethode}" reRender="block"/>
+       <apex:actionFunction name="actionFunNamet" action="{!ActionFunMethodet}" reRender="block"/>
+       
+       <apex:pageBlock id="block">
+       <apex:commandButton value="Cal Action Fun" onclick="javaScrpt();return false;"/> 
+           <apex:outputLabel onmouseover="javaScrpt()" onmouseout="javaxcrptt()" for="inptCheckBox" value="Put Curser on Me" style="color:green;"></apex:outputLabel> <br/>
+        
+      <br/>
+       Result ::<apex:outputText value="{!MyString_From_Methode}"/>
+       </apex:pageBlock> 
+      
+     
+    </apex:form> 
+   
+   <script>
+   //window.setTimeout(javaScrpt(),1000);
+     function javaScrpt(){
+       actionFunName();
+          
+      }
+      function javaxcrptt(){
+       actionFunNamet();
+          
+      }
+      
+    </script>
+     
+</apex:page>

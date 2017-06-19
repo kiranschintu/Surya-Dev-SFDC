@@ -1,0 +1,8 @@
+<apex:page controller="mytransient">
+  Date Time Without Transient : <apex:outputText value="{!NoTranTime}"/><br/>
+  Date Time With Transient : <apex:outputText value="{!TranTime}"/>
+  {!s}
+  <apex:form >
+  <apex:commandButton value="refresh"/>
+  </apex:form>
+</apex:page>

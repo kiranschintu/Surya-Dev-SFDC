@@ -1,0 +1,33 @@
+<apex:page controller="multiAccountInsert">
+    <apex:form >
+     
+        <apex:pageBlock id="error" >
+        <apex:variable value="{!0}" var="Count"/>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}" rerender="error"/>
+                <apex:commandButton value="Add Row" action="{!addRow}" rerender="error"/>
+                
+                
+            </apex:pageBlockButtons>
+       
+            <apex:pageBlockTable value="{!accts}" var="a" id="table">
+          
+                 <apex:column headerValue="Billing City">
+                    <apex:inputField value="{!a.BillingCity}">
+                        <apex:variable value="{!Count+1}" var="Count"/>
+                    </apex:inputField>
+                </apex:column> 
+                 
+                 <apex:column >
+                 <apex:commandButton value="Delete Row" action="{!deleterow}" rerender="error">
+                 <apex:param name="rowToBeDeleted" value="{!Count+1}" assignTo="{!selectedRowIndex}"></apex:param>
+                 </apex:commandButton>
+                 </apex:column>  
+                
+               
+                                                   
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

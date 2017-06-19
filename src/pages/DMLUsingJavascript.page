@@ -1,0 +1,29 @@
+<apex:page id="pg" controller="DMLUsingJavascriptCon">
+  <script>
+  function doinsjs(){
+      alert('In function');
+      
+      document.getElementById('{!$Component.img}').style.display='block';
+      document.getElementById('{!$Component.fm}').style.display='none';
+      for(var i=0;i<300000000;i++){
+          calafconmeth();
+      }
+      //document.getElementById('{!$Component.img}').style.display='none';
+  }
+  
+  
+  </script>
+  
+      
+  <apex:form id="fm">
+  <apex:actionFunction reRender="fm" name="calafconmeth" action="{!doinsert}"/>
+      <apex:pageBlock >
+          <apex:pageBlockButtons >
+          <apex:commandButton value="Insert" reRender="fm" onclick="doinsjs();"/>
+      </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+  <center id="pan">
+        <apex:image id="img" value="http://www.schoolsnmore.com/app/webroot/img/cpr-ajax-loader.gif" style="display:none" height="70" width="70"/>
+    </center> 
+</apex:page>

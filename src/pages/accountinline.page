@@ -1,0 +1,36 @@
+<apex:page standardController="Account" cache="false" extensions="AccountInlineCon">
+<apex:outputPanel id="block">
+  Hello  
+<script>
+if('{!t1}'<= '{!t2}' && '{!t1}' > '{!t3}' && '{!t1!=Null}' && '{!t2!=Null}'  && '{!t3!=Null}' ){
+        //window.setTimeout(10);
+        //window.location.reload('\{!account.id}');
+        //window.top.location='/{!Account.id}';
+        //window.alert('hello');
+}
+//window.alert('hello');        
+    </script>
+    
+  <apex:form >
+    <apex:outputText value="Watch this counter: {!count}" id="counter"/>
+    <apex:actionPoller action="{!incrementCounter}" reRender="block" interval="5"/>
+  </apex:form>
+  
+  .....................
+  
+  Last Modified Date/Time:{!account.Last_Modified_Date_For_Reload__c}<br/>
+  Present Date/Time :{!now()}<br/>
+  Last Modified Date:{!d1}<br/>
+  Present Time :{!d2}<br/>
+  Last Modified Time t1:{!t1}<br/>
+  Present Time t2:{!t2}<br/>
+  Present Time - 1000 t3:{!t3}<br/>
+  ----------------
+  {!status}
+  
+  
+  
+  
+  
+  </apex:outputPanel>
+</apex:page>

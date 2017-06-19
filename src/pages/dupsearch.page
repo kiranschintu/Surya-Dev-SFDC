@@ -1,0 +1,70 @@
+<apex:page controller="DupSearchController">
+
+<apex:form >
+ <apex:pageBlock title="Quick Search" id="ref">
+   <apex:panelGrid >
+ <b> First Name:</b>     <apex:inputText label="First Name" id="fname" value="{!fname}"  />
+ <b> Last Name:</b>     <apex:inputText id="lname" label="Last Name" value="{!lname}"  />
+ <b> Email: </b>     <apex:inputText id="email" label="Email" value="{!email}"  />
+ <b> Phone:</b>    <apex:inputText id="phone" label="Phone" value="{!phone}"  />
+  <b> Company:</b>     <apex:inputText id="comp" label="Company" value="{!company}"  />
+ <b> Domain:</b>     <apex:inputText id="domain" label="Domain" value="{!domain}" />
+  </apex:panelGrid>
+       <apex:commandButton value="Search" action="{!getSearch}" reRender="results,errmsg"/>
+       <apex:commandButton value="Cancel" action="{!refresh}" reRender="ref"/>
+</apex:pageBlock>
+<apex:outputPanel id="results" title="Search Results" style="width:1000px;overflow:auto" >
+ <apex:actionStatus id="actStatusId" startText="Fetching Results...">
+                <apex:facet name="start" >
+                    <img src="/img/loading.gif"/>                    
+                </apex:facet>
+    </apex:actionStatus>
+   
+ <apex:messages id="errmsg"/><br/>
+         <apex:pageBlock title="Search Results" tabStyle="Lead" >
+                     <apex:pageBlockSection title="Leads({!lcount})">
+                     <apex:pageBlockTable value="{!leadList}" var="item" style="width:800px;overflow:auto" rows="25">
+                       <apex:column headerValue="Name">
+                <a href="/{!item.Id}">{!item.Name}</a>    
+                </apex:column>
+                       <apex:column headerValue="Title" value="{!item.Title}" />
+                       <apex:column headerValue="Phone" value="{!item.Phone}" />
+                       <apex:column headerValue="Company">
+                         <a href="/{!item.Id}">{!item.Company}</a>   
+                        </apex:column>
+                       <apex:column headerValue="Email" >
+                        <a href="mailto:{!item.email}">{!item.email}</a>
+                       </apex:column>
+                       <apex:column headerValue="Status" value="{!item.Status}" />
+                       
+                </apex:pageBlockTable>
+                </apex:pageblockSection>
+                     <apex:pageBlockSection title="Contacts({!ccount})">
+                   <apex:pageBlockTable value="{!contList}" var="item" style="width:800px;overflow:auto" rows="25" >
+                           <apex:column headerValue="Name">
+                        <a href="/{!item.Id}">{!item.Name}</a>    
+                        </apex:column>
+                       <apex:column headerValue="Title" value="{!item.title}" />
+                       <apex:column headerValue="Phone" value="{!item.phone}" />
+                       <apex:column headerValue="Account" value="{!item.AccountID}" />
+                        <apex:column headerValue="Email" >
+                        <a href="mailto:{!item.email}">{!item.email}</a>
+                       </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageblockSection>
+                      <apex:pageBlockSection title="Account({!acount})">
+                   <apex:pageBlockTable value="{!accList}" var="item" style="width:800px;overflow:auto" rows="25">
+                        <apex:column headerValue="Name">
+                            <a href="/{!item.Id}">{!item.Name}</a>    
+                            </apex:column>
+                       
+                       <apex:column headerValue="Phone" value="{!item.phone}"/>
+                       <apex:column headerValue="Type" value="{!item.type}"/>
+                       <apex:column headerValue="Industry" value="{!item.Industry}"/>
+                </apex:pageBlockTable>
+                </apex:pageblockSection>
+ </apex:pageBlock>
+
+</apex:outputPanel>
+</apex:form>
+</apex:page>

@@ -1,0 +1,7 @@
+<apex:page controller="AuthCallout" sidebar="false" readOnly="true">
+<!-- <apex:outputText value="{!OAuthSessioId1}"></apex:outputText><br/>-->
+  <apex:outputlabel >Another Salesfore.com Account Names</apex:outputlabel>
+  <apex:repeat value="{!AccountRecords}" var="a">
+   <apex:outputtext value="{!a}"/><br/>
+  </apex:repeat>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:page sidebar="false" controller="Tran3">
+  <apex:pageblock title="All Accounts">
+      <apex:pageblocktable value="{!acc}" var="a">
+          <apex:column value="{!a.name}"/>
+      </apex:pageblocktable>
+  </apex:pageblock>
+  <apex:chart data="{!acc}" height="400" width="400">
+      <apex:pieSeries dataField="kjh" labelField="Name"></apex:pieSeries>
+  </apex:chart>
+</apex:page>

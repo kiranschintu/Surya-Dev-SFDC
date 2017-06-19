@@ -1,0 +1,14 @@
+<apex:page standardStylesheets="false" showHeader="false">
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <div ng-app="myApp" ng-controller="myCTRL">
+      <div ng-repeat="x in name">
+          {{x}}
+      </div>
+  </div>
+  <script>
+      var app = angular.module('myApp',[]);
+      app.controller('myCTRL',function($scope){
+          $scope.name=['Surya','Kiran','Rahul'];
+      });
+  </script>
+</apex:page>

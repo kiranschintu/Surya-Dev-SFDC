@@ -1,0 +1,5 @@
+<apex:page controller="DynamicCustomVFComponentCTRL">
+    
+    <apex:dynamicComponent componentValue="{!MyCustomComponent}"/>
+
+</apex:page>

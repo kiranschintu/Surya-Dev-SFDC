@@ -1,0 +1,76 @@
+<apex:page Controller="PaginationCon">
+  <apex:form id="frmpiclist">
+    <apex:pageBlock id="statuspiclist">
+    <apex:pageBlockSection showHeader="false">
+       
+            <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Select User:"/>
+                <apex:selectList multiselect="false" size="1" value="{!strUserId}" onchange="javascript:funselected1()">
+                    <apex:selectOption itemValue="" itemLabel="All"/>
+                    <apex:selectOptions value="{!lstDisplay}"/>
+                    </apex:selectList>
+            </apex:pageBlockSectionItem>
+     </apex:pageBlockSection>    
+    <apex:actionFunction action="{!createTheList}" name="funselected" reRender="statusreq,selectopt" status="st1"/>
+    <apex:actionFunction action="{!createTheList}" name="funselected1" reRender="statusreq,selectopt" status="st1"/>
+    <apex:actionFunction action="{!createTheList}" name="funselected2" reRender="statusreq,selectopt" status="st1"/>
+    </apex:pageBlock>
+    </apex:form>
+    
+    <apex:outputPanel id="selectopt">
+    <center>
+            <apex:actionstatus id="st1">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:150%;opacity:0.65;width:100%;">
+                    <div class="waitingHolder" style="top: 50px; width: 91px;">
+                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                    <span class="waitingDescription" style="color:green;font-weight:bold;font-size:14px;">Loading....</span>
+                    </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+   </center>
+   </apex:outputPanel>
+     <apex:form id="frm">
+        <apex:pageBlock title="{!strlabelname}" id="statusreq">
+        <apex:pageMessages />
+            <apex:pageBlockTable value="{!Pagenationlist}" var="acc">
+                <apex:column >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputLink value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header">Created Date</apex:facet>
+                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                        <apex:param value="{!acc.CreatedDate}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="100px">
+                    <apex:facet name="header">Phone</apex:facet>
+                    <apex:outputPanel >{!acc.Phone}</apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+            <div align="right" style="display:{!IF(NOT(ISNULL(totallistsize)),'block','none')}">
+                            <b><font size="1pt" > Page &nbsp;<apex:outputLabel value="{!pageNumber}"/>&nbsp;of&nbsp;<apex:outputLabel value="{!totalPageNumber}"/>&nbsp;&nbsp;</font></b>
+                            <font size="1pt">Results&nbsp;<apex:outputLabel value="{!PrevPageNumber}"/>&nbsp; To &nbsp;<apex:outputLabel value="{!NxtPageNumber}"/>&nbsp;of&nbsp;<apex:outputLabel value="{!totallistsize}"/>&nbsp;&nbsp;</font>
+                            <apex:commandButton value="First" action="{!FirstbtnClick}" disabled="{!previousButtonEnabled}" reRender="frm" status="st"></apex:commandButton>
+                            <apex:commandButton value="<< Previous" action="{!previousBtnClick}" disabled="{!previousButtonEnabled}" reRender="frm" status="st"></apex:commandButton>
+                            <apex:commandButton value="Next >>" action="{!nextBtnClick}"  disabled="{!nextButtonDisabled}" reRender="frm" status="st"></apex:commandButton>
+                            <apex:commandButton value="Last"  action="{!LastbtnClick}"  disabled="{!nextButtonDisabled}" reRender="frm" status="st"></apex:commandButton>&nbsp;&nbsp;
+            </div>
+        </apex:pageBlock>
+        <center>
+            <apex:actionstatus id="st">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:150%;opacity:0.65;width:100%;">
+                    <div class="waitingHolder" style="top: 700px; width: 91px;">
+                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                    <span class="waitingDescription" style="color:green;font-weight:bold;font-size:14px;">Loading....</span>
+                    </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </center>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page action="{!doaction}" controller="ConstructorActionCls"  sidebar="false">
+ Result ::{!result}
+</apex:page>

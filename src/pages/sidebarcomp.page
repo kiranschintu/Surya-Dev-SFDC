@@ -1,0 +1,73 @@
+<apex:page sidebar="false" standardStylesheets="false" showHeader="false" > <!--<strong><font color="#800000"> </font></strong> >-->
+    
+    <apex:stylesheet value="{!$Resource.pagestyle}"/>
+    
+    <!--<apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-1.7.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.JQueryLib, 'js/jquery-ui-1.7.2.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.JQueryLib, 'css/ui-lightness/jquery-ui-1.7.2.custom.css')}"/>-->
+ <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"/>    
+ <style>
+ 
+//body .bPageBlock .pbBody{
+body{
+background-color: red !important;
+}
+p{
+    background-color: yellow;
+    font-size:16px;
+}
+
+p.bg{
+    
+    margin-right: 30px;
+    margin-left: 30px;
+}
+</style>
+     <script type="text/javascript">
+         var j$ = jQuery.noConflict();
+        j$(document).ready(function(){
+            j$("#btn1").click(function() {
+            var FirstName=j$("#fname").val();
+            var LastName=j$("#lname").val();
+            var EMail=j$("#mail").val();
+            var Phone=j$("#ph").val();
+            var Company=j$("#comp").val();
+             var Domain=j$("#dom").val();
+         
+           if(FirstName==''){FirstName="$";}
+             if(LastName==''){LastName="$";}
+              if(EMail==''){EMail="$";}
+               if(Phone==''){Phone="$";}
+                if(Company==''){Company="$";}
+                 if(Domain==''){Domain="$";}
+         
+   window.parent.location="/apex/dupsearch?FirstName="+FirstName+"&LastName="+LastName+"&EMail="+EMail+"&Phone="+Phone+"&Company="+Company+"&Domain="+Domain;
+          });
+            
+         j$("#btn2").click(function(){
+             j$("#fname").text('');
+            j$("#lname").text('');
+            j$("#mail").text('');
+            j$("#ph").text('');
+            j$("#comp").text('');
+            j$("#dom").text('');
+           });
+        });
+     </script>        
+    <apex:form ><!-- style="background:#ADD8E6;width:998px;height:100%;" -->
+    
+    <apex:pageBlock id="pgBlkID">
+
+
+ First Name:&nbsp;&nbsp; <input type="text" id="fname"/><br/>
+ Last Name:&nbsp;&nbsp; <input type="text" id="lname"/><br/>
+ Email:&nbsp;&nbsp; <input type="text" id="mail"/><br/>
+ Phone:&nbsp;&nbsp; <input type="text" id="ph"/><br/>
+ Company:&nbsp;&nbsp; <input type="text" id="comp"/><br/>
+ Domain:&nbsp;&nbsp; <input type="text" id="dom"/><br/>
+  <input type="Submit" id="btn1" name="Search" value="Search"/>  
+  <!--<apex:commandButton id="btn1" value="Search" reRender="pgBlkID" /> -->
+  <apex:commandButton id="btn2" value="Cancel" reRender="pgBlkID" />
+     </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page controller="CustomIterable1">
+ <!--<apex:form >
+    Enter name: <apex:inputText value="{!name}"/>
+     <apex:commandButton value="Execute Batch" action="{!ExecuteBatch}"/>
+ </apex:form> -->
+</apex:page>

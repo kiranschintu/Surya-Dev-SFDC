@@ -1,0 +1,7 @@
+<apex:page controller="Chart5CTRL">
+    <apex:chart theme="Salesforce" data="{!barData}" height="250" width="350" > 
+        <apex:axis type="Numeric" position="left" fields="Amount" title="Member" grid="true"/>
+        <apex:axis type="Category" position="bottom" fields="Name" title="Month of the Year"/>
+        <apex:barSeries orientation="vertical" stacked="true" axis="left" xField="Name" yField="Amount,Amount1,Amount2"/> 
+    </apex:chart>
+</apex:page>

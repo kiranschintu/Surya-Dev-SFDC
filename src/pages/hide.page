@@ -1,0 +1,58 @@
+<apex:page standardController="Opportunity" extensions="hidecon">
+    
+    <apex:sectionHeader title="Edit Opportunity" />
+    
+    <apex:form >
+        <apex:pageBlock title="Edit Opportunity" id="thePageBlock" mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>                
+            </apex:pageBlockButtons>
+            
+            
+                <apex:pageBlockSection title="Basic Information" columns="1">
+                    <apex:pageblockSection >
+                    
+                    
+                    <apex:inputCheckbox id="ref" value="{!check}" onClick="setInputFields();"/> 
+                     <apex:actionFunction name="setInputFields" action="{!setFields}" rerender="thePageBlock" />
+                    
+                    
+                    
+                    
+                    
+                    
+                        <apex:inputfield value="{!opportunity.name}"/>
+                        <apex:inputfield value="{!opportunity.AccountId}">
+                            <apex:actionSupport event="onchange" rerender="thePageBlock"
+                                                    status="status"/>
+                                                    <apex:actionStatus startText="applying value..." id="status"/>
+                        </apex:inputField>
+                        
+                    </apex:pageblockSection>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Stage"/>
+                        <apex:outputPanel >
+                           <apex:inputCheckbox value="{!check}">
+                            <!--<apex:actionSupport event="onchange" rerender="thePageBlock"
+                                                    status="status"/>
+                                                    <apex:actionStatus startText="applying value..." id="status"/>-->
+                            </apex:inputCheckbox>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                <apex:inputField value="{!opportunity.Description}" rendered="{!check ==true}"/>
+                
+           
+                </apex:pageBlockSection>
+              <apex:pageBlockSection >
+                
+                </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

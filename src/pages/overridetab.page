@@ -1,0 +1,5 @@
+<apex:page standardController="Overriding__c">
+  <apex:sectionHeader title="Overridings" subtitle="Home"/>
+  <apex:enhancedList type="Overriding__c" height="200"/>
+  <!--<apex:listViews type="Overriding__c"/>-->
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page controller="JSONParserUtil">
+    <apex:outputText value="{!parseJSONResponse}"></apex:outputText>
+</apex:page>

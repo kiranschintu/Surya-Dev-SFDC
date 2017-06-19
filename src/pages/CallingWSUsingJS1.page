@@ -1,0 +1,62 @@
+<apex:page sidebar="false">
+    
+    <script src="/soap/ajax/29.0/connection.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    //var __sfdcSessionId = '{!GETSESSIONID()}';
+    var result = sforce.connection.login("kiranch.sfdc@yahoo.com", "surya994952I0BW9wK1MINLq5XE04u6lmESA");
+    var __sfdcSessionId = result.sessionId;
+    </script>
+    
+    <script type="text/javascript">
+    //window.onload = setupPage;
+    function setupPage() {
+    var lt=document.getElementById('{!$Component.form.lmt}').value;
+    //var lt=3;
+    //function contains all code to execute after page is rendered
+    var state = {output : document.getElementById("output"),startTime : new Date().getTime()};
+    
+    var callback = {onSuccess: layoutResults,onFailure: queryFailed,source: state};
+    var qr=sforce.connection.query("Select Id, Name From Account limit "+lt,callback);
+    
+    //var qr = sforce.connection.search("find {MIT*} in Name fields RETURNING Account(name, id)");  
+    
+    
+    
+  }
+
+  function queryFailed(error, source) {
+    source.output.innerHTML = "An error has occurred: " + error;
+  }
+  
+  function layoutResults(qr, source) {
+    
+    if (qr.size > 0) {
+      var output = "";
+
+      //get the records array
+      //var records = qr.getArray('records');
+      //loop through the records and construct html string
+      /*for (var i = 0; i < records.length; i++) {
+        var account = records[i];
+        output += account.Id + " &nbsp;" + account.Name+"<br>";
+      }*/
+      
+      var it = new sforce.QueryResultIterator(qr);
+      while(it.hasNext()) {
+      var record = it.next();
+      output += record.Id + " &nbsp;" + record.Name+"<br>";
+      }
+      
+  }
+    //render the generated html string
+    source.output.innerHTML = output;
+}
+</script>
+<div id="output"></div>
+<apex:form id="form">
+<apex:outputlabel value="Enter Number of Records to Display :"/>
+<apex:inputText id="lmt"/>
+<apex:commandButton value="Search" oncomplete="setupPage();"/>
+</apex:form>
+</apex:page>

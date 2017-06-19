@@ -1,0 +1,31 @@
+<apex:page >
+<apex:form id="s">
+
+<apex:commandButton value="Submit" id="Submit"  onClick="SubmitOnClick(this);" reRender="block" status="st"/>
+<apex:commandButton value="import" id="so"/>
+<apex:commandButton value="Show " id="so1" onClick="SubmitOnClick1();" reRender="block"/>
+<apex:image value="/resource/1395226788000/dhr__AjaxLoading" id="im" style="display:none"/>
+<apex:outputPanel id="block">
+<apex:actionStatus startText="Processing......" id="st"></apex:actionStatus>
+</apex:outputPanel>
+</apex:form>
+ 
+<script language="Javascript">
+  //document.getElementById('{!$Component.s.im}').style.display='none';
+  function SubmitOnClick (objSubmitBtn) {
+  alert('Element'+objSubmitBtn.value);
+    objSubmitBtn.disabled = true;
+    objSubmitBtn.style.display='none';
+    document.getElementById('{!$Component.s.so}').style.display='none';
+    //document.getElementById('{!$Component.s.im}').style.display='none';
+    //alert('second');
+    //alert('Status'+document.getElementById('{!$Component.s.so}'));
+    
+  }
+  function SubmitOnClick1 () {
+   document.getElementById('{!$Component.s.im}').style.display='block';
+    
+  }
+  
+</script>
+</apex:page>

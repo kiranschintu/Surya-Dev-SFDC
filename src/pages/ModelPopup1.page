@@ -1,0 +1,36 @@
+<apex:page controller="ModelPopupController">
+ <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"  />-->
+   <apex:includeScript value="//code.jquery.com/jquery-1.10.2.js"  />
+   <apex:includeScript value="//code.jquery.com/ui/1.11.4/jquery-ui.js"  />
+   <apex:includeScript value="/resource/1447405536000/dhr__JQueryConfirm"/>
+   
+   <apex:form >
+     <p>
+     <button id="button" />
+    </p>
+     
+    <div id="dialog-modal" title="Basic modal dialog" style="display: none;"></div>
+      </apex:form>
+    <script type="text/javascript">
+     $j = jQuery.noConflict();
+    function showDialog()
+    {
+        var confirm;
+        var isOk;
+        var bar = "bar";
+        $("button").click(function() {
+          var foo=bar;
+          if ( foo == "bar" ) {
+            var isGood=confirm('Dialogue');
+            if (isGood) {
+              alert('true');
+            } else {
+              alert('false');
+            }
+          }
+        });
+             
+    }
+    </script>
+ 
+</apex:page>

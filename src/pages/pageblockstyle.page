@@ -1,0 +1,30 @@
+<apex:page >
+    
+    <style type="text/css">
+        .pbTitle {
+            white-space: pre;
+            escape:false;
+            background:red;
+        }
+    </style>
+ 
+    <apex:form >
+    <head>
+<style>
+div.pbheader{
+font-size:20px;
+}
+</style>
+</head>
+
+    <apex:pageBlock id="pbTitle" title="{!$Label.LineBreak}" >
+        <br/><br/>
+            Notice how the page block title is not wrapped.
+        <br/><br/>
+    </apex:pageBlock>
+    
+    </apex:form>
+    
+    <br/>
+ 
+</apex:page>

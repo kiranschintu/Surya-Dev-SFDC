@@ -1,0 +1,26 @@
+<apex:page controller="AEXP_EnrollmentDocuments_TestCTRL" docType="html-5.0" showHeader="false" standardStylesheets="false" sidebar="false">
+  
+    <html class="no-js lt-ie9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8"></meta>
+            <meta http-equiv="x-ua-compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale = 1.0, user-scalable=no"></meta>
+            <apex:includeScript value="{!URLFOR($Resource.ANGULAR_JS, 'angular.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS091, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <apex:includeScript value="{!$Resource.AppCaptureSrini}" />  
+            <style>
+                .disabled {
+                  cursor: not-allowed;
+                  pointer-events: none;
+                  color: grey;
+                }
+                .angular-with-newlines {
+                    white-space: pre;
+                }
+            </style>
+        </head>
+        <body>
+            <c:EnrollMentEditPageComponent />
+        </body>
+    </html>
+</apex:page>

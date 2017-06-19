@@ -1,0 +1,5 @@
+<apex:page controller="HttpCalloutSample">
+  <apex:form >
+      <apex:commandButton value="Do Callout" action="{!doCallout}"/>
+  </apex:form>
+</apex:page>

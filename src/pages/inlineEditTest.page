@@ -1,0 +1,37 @@
+<apex:page standardController="Contact">
+ 
+    
+    <apex:form id="str">
+        <apex:pageBlock mode="inlineEdit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!edit}" id="editButton" value="Edit" reRender="str"/>
+                <apex:commandButton action="{!save}" id="saveButton" value="Save"/>
+                <apex:commandButton onclick="resetInlineEdit()" id="cancelButton" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:outputField value="{!contact.lastname}">
+                    <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                        hideOnEdit="editButton" event="ondblclick" 
+                        changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                </apex:outputField>
+                <apex:outputField value="{!contact.accountId}"/>
+                <apex:outputField value="{!contact.phone}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script>   
+ alert('hello');
+    var inputs = document.getElementsByTagName("INPUT");
+for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].type === 'submit') {
+        inputs[i].disabled= 'true';
+        inputs[i].style.color= 'gray';
+        inputs[i].value= 'saving...';
+        inputs[i].style.background = 'rgb(232, 232, 233)';
+        inputs[i].style.cursor= 'auto';
+        
+    }
+}
+</script>
+</apex:page>

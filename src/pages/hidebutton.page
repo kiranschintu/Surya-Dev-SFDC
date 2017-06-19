@@ -1,0 +1,20 @@
+<apex:page sidebar="false">
+ <apex:outputPanel id="ren"> 
+  <script>
+      function makehide(){
+          alert('Hello'+document.getElementById('{!$Component.button.hd}'));
+          var x=document.getElementById('{!$Component.button.hd}').disabled;
+          document.getElementById('{!$Component.button.hd}').disabled=true;
+          var y =x
+          alert('Status :'+x);
+      }
+  </script>
+  <apex:form id="button">
+      <apex:commandButton onclick="makehide();" value="make hidden" status="st" id="hd" reRender="ren"/>
+      <apex:commandButton onclick="display:none" value="make hidden1" id="hd1" reRender="ren"/>
+      <apex:outputPanel >
+          <apex:actionStatus id="st" startText="Processing..."></apex:actionStatus>
+      </apex:outputPanel>
+  </apex:form>
+  </apex:outputPanel>
+</apex:page>

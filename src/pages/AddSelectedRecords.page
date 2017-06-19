@@ -1,0 +1,17 @@
+<apex:page sidebar="false" standardController="Account" extensions="ConAddSelectedRecords">
+    <apex:form >
+    <apex:commandButton value="Search" action="{!DisplayRecords}"/>
+    
+   <apex:dataTable value="{!accountsselection}" var="acc">
+        <apex:column >
+            <apex:inputCheckbox value="{!acc.selected}"/> 
+        </apex:column>
+        <apex:column value="{!acc.acc.name}"/>
+    </apex:dataTable>
+    <apex:commandButton value="Diplay Selected Reocrds" action="{!DisplaySelectedRecords}"/>
+    <apex:dataTable value="{!selectedAccounts}" var="s">
+        <apex:column value="{!s.name}"/>
+    </apex:dataTable>
+    </apex:form>
+  
+</apex:page>

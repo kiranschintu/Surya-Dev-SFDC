@@ -1,0 +1,19 @@
+<apex:page standardController="account" extensions="bulkupdatecon"  recordSetVar="leads">
+<apex:form >
+<apex:pageblock >
+<apex:pageblockButtons >
+    <apex:commandButton value="update" action="{!save}"/>
+</apex:pageblockButtons>
+              <apex:pageblockSection title="Checking" columns="1">
+                  <apex:repeat value="{!leads}" var="pc">
+                      <apex:pageblockSection columns="5">
+                          <apex:outputField value="{!pc.Name}" style="width:100px"/>
+                          <apex:inputField value="{!pc.phone}" style="width:100px"/>
+                          
+                      </apex:pageblockSection>
+                      
+                  </apex:repeat>
+                   </apex:pageblockSection>
+                   </apex:pageblock>
+                   </apex:form>
+</apex:page>

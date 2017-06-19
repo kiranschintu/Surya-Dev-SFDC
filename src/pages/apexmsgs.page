@@ -1,0 +1,20 @@
+<apex:page StandardController="contact" extensions="apexmsgscon">
+
+  <apex:form >
+  <apex:outputLabel id="out">
+  <apex:pagemessages />
+   <apex:outputLabel >FName</apex:outputLabel>
+   <apex:inputText id="fnn" value="{!fn}"/><br/>
+   <apex:outputLabel >LName</apex:outputLabel>
+   <apex:inputText value="{!ln}"/><br/>
+   <apex:outputLabel >City</apex:outputLabel>
+   <apex:inputText value="{!c}"/><br/>
+   <apex:commandButton value="submit" action="{!submit}" rerender="out"/>
+   </apex:outputLabel>
+  </apex:form>
+  <apex:dataTable value="{!records}" var="r" border="1">
+      <apex:column value="{!r.lastname}"/>
+      
+  </apex:dataTable>
+  
+</apex:page>

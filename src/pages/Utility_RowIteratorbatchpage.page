@@ -1,0 +1,13 @@
+<apex:page sidebar="false" controller="Utility_RowIteratorbatch" showHeader="false">
+   <apex:form >
+      <apex:pagemessages />
+      <apex:pageBlock title="Upload Your CSV File" >
+             <center>
+             Please choose your file to upload : <apex:inputFile value="{!csvFile}" filename="{!nameFile}" /> <br/> <!--   -->
+             <br/><br/><apex:commandButton action="{!executebatch}" value="Upload From First Batch" id="theButton" style="background:#216BB5;color:white; width:10%;"/>
+             <apex:commandButton action="{!executebatch1}" value="Upload From Second Batch" id="theButton1" style="background:Pink;color:white; width:10%;"/>
+             </center>
+     </apex:pageBlock>    
+   
+   </apex:form>
+</apex:page>

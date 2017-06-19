@@ -1,0 +1,48 @@
+<apex:page standardController="ConvertObj__c" extensions="convertobjpgcon1">
+  <apex:messages style="color:red"/>
+  <apex:form id="thePageBlock">
+  
+  <apex:pageBlock >
+      <apex:pageblockButtons >
+          <apex:commandButton value="Convert" action="{!doCreateOpportunity}"/>
+          <apex:commandButton value="Cancel" action="{!docancel}"/>
+      </apex:pageblockButtons>
+      <apex:pageBlockSection title="Convert Lead" collapsible="false" columns="1" >
+      <apex:inputField value="{!ConvertObj__c.owner.email}"/>
+          <apex:inputField value="{!ConvertObj__c.ownerid}"/>
+         <apex:inputcheckbox label="Send Email to the Owner" value="{!sendownemail}"/>
+          <apex:inputfield value="{!ConvertObj__c.Company__c}"/>
+       
+         <apex:inputText value="{!ConvertObj__c.Name}"  disabled="{!disable}"/>
+                  
+          <apex:inputcheckbox value="{!check}">
+             <apex:actionSupport event="onchange" action="{!doDisable}" reRender="thePageBlock"/>
+             
+          </apex:inputcheckbox>Do not create a new opportunity upon conversion.
+          
+          
+          <apex:inputfield value="{!ConvertObj__c.Converted_Status__c}"/>
+     </apex:pageBlockSection>
+     <apex:pageblockSection title="Task Inforamtion" collapsible="false">
+         <apex:inputText label="Subject" id="sub" value="{!sub}"/>
+         <apex:selectList label="Status" required="true" size="1" value="{!stat}">
+            <apex:selectOption itemValue="Ns" itemlabel="Not Started"/>
+            <apex:selectOption itemValue="Ip" itemlabel="In Progress"/>
+            <apex:selectOption itemValue="Cm" itemlabel="Completed"/>
+            <apex:selectOption itemValue="Wose" itemlabel="Waiting on someone else"/>
+            <apex:selectOption itemValue="De" itemlabel="Deferred"/>
+         </apex:selectList>
+         <apex:selectList label="Priority" required="true" size="1" value="{!prior}">
+             <apex:selectOption itemValue="Nrm" itemlabel="Normal"/>
+             <apex:selectOption itemValue="Hig" itemlabel="High"/>
+             <apex:selectOption itemValue="Lw" itemlabel="Low"/>
+         </apex:selectList>
+      
+     </apex:pageblockSection>
+     <apex:pageBlockSection title="Description Inforamtion" collapsible="false">
+         <apex:inputTextarea label="Comments" value="{!des}"/>
+        
+     </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

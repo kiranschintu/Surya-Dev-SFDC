@@ -1,0 +1,30 @@
+<apex:page standardcontroller="Account" extensions="SendSMSHttpContactSummit"
+ tabStyle="Contact" sidebar="false">
+ 
+    <span style="font-weight:bold; color:red">    <apex:messages />
+ </span>
+ 
+ <apex:form >
+ <apex:pageBlock title="Send SMS to {!account.name}">
+ <apex:pageBlockSection >
+ <apex:pageBlockSectionItem >
+ 
+ <apex:outputLabel for="msgtxt" value="Enter your message:" />
+ <apex:inputtextarea id="msgtxt" rows="4" cols="25" value="{!msgtxt}" required="true" />
+ 
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ 
+ <apex:outputLabel for="receipientno" value="Mobile Number" />
+ <apex:outputText id="receipientno" value="{!account.Phone}" />
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:commandButton action="{!SendSMS}" value="Send" id="sendButton"/>
+ <apex:commandButton action="{!cancel}" value="Cancel" id="cancelButton"/>
+ </apex:pageBlockSectionItem>
+ </apex:pageBlockSection>
+ </apex:pageBlock>
+ 
+ </apex:form>
+</apex:page>

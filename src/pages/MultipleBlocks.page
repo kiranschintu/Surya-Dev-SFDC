@@ -1,0 +1,38 @@
+<apex:page controller="MultipleBlocksCls">
+  <apex:form >
+  <apex:pageBlock title="Account Search" id="blk">
+  <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlockSection >
+          <apex:inputField value="{!acc.name}"/>
+          <apex:inputField value="{!acc.phone}"/>
+          <apex:inputField value="{!acc.Industry}"/>
+      </apex:pageBlockSection>
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Search Accounts" action="{!doAccSearch}" reRender="blk" status="st"/>
+          <apex:commandButton value="Cancel" reRender="blk" status="st"/>
+          <apex:actionStatus startText="Loading..." id="st"></apex:actionStatus>
+      </apex:pageBlockButtons>
+      <apex:pageBlockTable value="{!accs}" var="a">
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.Phone}"/>
+          <apex:column value="{!a.Industry}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  
+  <apex:pageBlock title="Contact Search">
+      <apex:pageBlockSection >
+          <apex:inputField value="{!con.Lastname}"/>
+          <apex:inputField value="{!con.phone}"/>
+          <apex:inputField value="{!con.Email}"/>
+      </apex:pageBlockSection>
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Search Contacts" action="{!doConSearch}"/>
+      </apex:pageBlockButtons>
+           <apex:pageBlockTable value="{!cons}" var="c">
+          <apex:column value="{!c.Name}"/>
+          <apex:column value="{!c.Phone}"/>
+          <apex:column value="{!c.Email}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

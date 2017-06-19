@@ -1,0 +1,22 @@
+<apex:page Controller="oppcancelCon">
+    <apex:form >
+        <apex:pageBlock id="frm">
+            <apex:pageBlockButtons id="btn">
+                
+                <!--<apex:commandButton action="{!save}" id="saveButton" value="Save" /> -->
+                <apex:commandButton id="cancelButton" value="Cancel" action="{!canceling}" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+           
+                  <apex:actionRegion renderRegionOnly="false">
+                <apex:inputField value="{!Opportunity.accountId}"/>
+                     
+                <apex:inputField required="true" value="{!Opportunity.Description}"/></apex:actionRegion> 
+                <!--<apex:inputField value="{!Opportunity.name}"/>
+                <apex:inputField value="{!Opportunity.stagename}"/>
+                <apex:inputField value="{!Opportunity.Closedate}"/> -->
+                   
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

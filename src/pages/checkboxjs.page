@@ -1,0 +1,29 @@
+<apex:page controller="checkboxjsCon" sidebar="false">
+  
+  <apex:form id="frm">
+  <apex:pageBlock id="pb">
+      <apex:pageBlockTable value="{!accs}" var="a" id="pbt">
+          <apex:column >
+              <apex:inputCheckbox value="{!check}"/>
+          </apex:column>
+          <apex:column value="{!a.name}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+  <script>
+      //function checkAll(bx) {
+      alert('hello');
+      var cbex = document.getElementsById('j_id0:frm:pb:pbt:3:j_id3');
+      alert('cbex length::'+cbex.length);
+      
+  var cbs = document.getElementsByTagName('input');
+  alert('iput tab::'+cbs);
+  for(var i=0; i < cbs.length; i++) {
+    if(cbs[i].type == 'checkbox') {
+      alert('Checked or not::'+cbs[i].checked);
+      //cbs[i].checked = bx.checked;
+    }
+  }
+//}
+  </script>
+</apex:page>

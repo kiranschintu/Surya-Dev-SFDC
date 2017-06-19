@@ -1,0 +1,8 @@
+<apex:page Controller="soaptestCon">
+  <apex:form >
+  <apex:pageblock title="Integration result">
+    {!response}
+    <apex:commandButton value="Click for Response" action="{!dosome}"/>
+  </apex:pageblock>
+  </apex:form>
+</apex:page>

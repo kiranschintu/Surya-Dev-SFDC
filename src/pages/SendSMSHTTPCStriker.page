@@ -1,0 +1,36 @@
+<apex:page standardcontroller="Account" tabStyle="Contact" extensions="SendSMSHttpContactStriker" showHeader="false">
+  <style type="text/css">
+ .cl {font-weight: bolder;   
+          font-size: 25px;
+     color: Blue }
+
+</style>
+ 
+ <span style="font-weight:bold; color:red">
+ <apex:messages />
+ </span>
+ 
+ <apex:form >
+ <apex:pageBlock id="cl" title="Send SMS to {!account.name}">
+ <apex:pageBlockSection >
+ <apex:pageBlockSectionItem >
+ 
+ <apex:outputLabel for="msgtxt" value="Enter your message:" />
+ <apex:inputtextarea id="msgtxt" value="{!msgtxt}" required="true" />
+ 
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ 
+ <apex:outputLabel for="receipientno" value="Mobile Number" />
+ <apex:outputText id="receipientno" value="{!account.Phone}" />
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:commandButton action="{!SendSMS}" value="Send" id="sendButton"/>
+ <apex:commandButton action="{!cancel}" value="Cancel" id="cancelButton"/>
+
+ </apex:pageBlockSectionItem>
+ </apex:pageBlockSection>
+ </apex:pageBlock>
+ 
+ </apex:form></apex:page>

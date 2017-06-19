@@ -1,0 +1,6 @@
+<apex:page controller="AuthCallout1" >
+<apex:form >
+  <!--<apex:commandButton value="call" action="{!InsertAccountRecord}"/>-->
+  <apex:outputText value="{!InsertAccountRecord}"></apex:outputText>
+</apex:form>
+</apex:page>

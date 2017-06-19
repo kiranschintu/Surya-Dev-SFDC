@@ -1,0 +1,14 @@
+<apex:page standardController="Account" Extensions="AllPagesCTRL">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!doSome}"/>
+            </apex:pageBlockButtons>
+              <apex:pageBlockSection >
+                  <apex:outputField value="{!Account.Name}"/>
+                  <apex:outputField value="{!Account.Phone}"/>
+                  <apex:outputField value="{!Account.Rating}"/>
+              </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

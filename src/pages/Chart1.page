@@ -1,0 +1,16 @@
+<apex:page sidebar="false" controller="Chart1CTRL" >
+ <apex:chart height="400" width="400" data="{!pieData}">
+     <apex:pieSeries dataField="data" labelField="name"/>
+     <apex:legend position="right"/>
+ </apex:chart>
+ 
+ <apex:chart height="400" width="400" data="{!pieData}">
+     <apex:pieSeries donut="50" dataField="data" labelField="name"/>
+     <apex:legend position="right"/>
+ </apex:chart>
+ 
+ <apex:chart height="400" width="400" animate="true" data="{!pieData}">
+    <apex:axis type="Gauge" position="gauge" title="Transaction Load" minimum="0" maximum="100" steps="10"/>
+    <apex:gaugeSeries dataField="data" donut="50" colorSet="#78c953,#ddd"/>
+</apex:chart>
+</apex:page>

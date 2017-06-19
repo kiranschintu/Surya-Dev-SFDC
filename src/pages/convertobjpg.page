@@ -1,0 +1,3 @@
+<apex:page standardController="ConvertObj__c" extensions="convertobjpgcon" action="{!doCreateOpportunity}">
+  
+</apex:page>

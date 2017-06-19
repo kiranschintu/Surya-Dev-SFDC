@@ -1,0 +1,13 @@
+<apex:page standardController="Contact" extensions="contactconex" >
+  <apex:form >
+  <apex:pageblock >
+  <apex:pageblockSection dir="LTR" >
+  <apex:inputField value="{!con.lastname}"/>
+  <apex:inputField value="{!con.Accountid}"/>
+  <apex:inputField value="{!con.lastname}"/>
+  <apex:inputField value="{!con.Accountid}"/>
+  <apex:commandButton value="save" action="{!saving}"/>
+  </apex:pageblockSection>
+  </apex:pageblock>
+  </apex:form>
+</apex:page>

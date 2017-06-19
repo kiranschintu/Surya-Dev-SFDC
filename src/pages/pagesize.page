@@ -1,0 +1,15 @@
+<apex:page standardController="Contact" recordSetVar="users" id="UsersPage">
+<apex:form id="myForm">
+<apex:inputHidden value="{!pageSize}" id="PageSize"/>
+<apex:actionFunction name="refresh_list" rerender="myForm"/>
+<apex:pageBlock >
+<apex:pageBlockTable value="{!users}" var="u" rows="5">
+<apex:column value="{!u.name}"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+<!--<script type='text/javascript'>
+document.getElementById('UsersPage:myForm:PageSize').value = 50;
+refresh_list();
+</script>-->
+</apex:page>

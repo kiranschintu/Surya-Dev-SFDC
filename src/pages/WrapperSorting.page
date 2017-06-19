@@ -1,0 +1,54 @@
+<apex:page controller="WrapperSortingCOn">
+
+<apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
+<apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.8/js/jquery.tablesorter.min.js" />
+<apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.8/css/theme.blue.css" />
+
+
+<apex:pageMessages ></apex:pageMessages> 
+   <apex:form >
+<apex:sectionHeader title="Data Tables Demo"/>
+<apex:pageBlock mode="inlineEdit">
+        <apex:commandButton value="First" action="{!First10Records}" disabled="{!fstbtn}"/>
+        <apex:commandButton value="Previous" action="{!previous}" disabled="{!prvbtn}"/>
+        <apex:commandButton value="Next" action="{!next}" disabled="{!nxtbtn}"/>
+        <apex:commandButton value="Last" action="{!Last10Records}" disabled="{!lstbtn}"/>
+    <apex:pageBlockSection columns="1">
+        
+        <apex:DataTable value="{!copyWrappers}" var="c" id="accsTable" styleclass="tablesorter">
+            <!--<apex:column >
+                <apex:inputCheckbox />
+            </apex:column>-->
+            <apex:column headerValue="Name">
+                <apex:outputField value="{!c.acc.Name}" />
+               
+            </apex:column>
+            <apex:column headerValue="Account Number">
+                
+                <!--<apex:facet name="header">
+               <apex:commandLink action="{!ViewData}" value="Account Number{!IF(sortExpression=='AccountNumber',IF(sortDirection='ASC','▼','▲'),'')}">
+                 <apex:param value="AccountNumber" name="column" assignTo="{!sortExpression}" ></apex:param>
+               </apex:commandLink>
+             </apex:facet>-->
+                
+                <apex:outputField value="{!c.acc.Account_Number__c}"/>
+                
+            </apex:column>
+            <apex:column >
+                <apex:outputText value="{!c.acc.phone}" />
+                
+            </apex:column>
+            
+        </apex:DataTable>
+        <script>
+  $(document).ready(function()
+  {
+    $("[id$='accsTable']").tablesorter({theme: 'blue', dateFormat : "dd/mm/yyyy"});
+  });
+</script>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+ 
+</apex:form>
+
+</apex:page>

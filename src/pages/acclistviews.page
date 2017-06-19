@@ -1,0 +1,30 @@
+<apex:page standardController="Account" extensions="AcclistviewsCon" recordSetVar="accounts">
+ <style type="text/css">
+    input.btn { display: none; }
+</style>
+ <apex:form >
+ <apex:actionStatus startText="Loading..." id="st"></apex:actionStatus>
+ <apex:actionFunction name="myselection"  reRender="block" status="st"/>
+     <apex:selectList value="{!selectedvalue}" size="1" onchange="myselection()" >
+         <apex:selectOptions value="{!options}" >
+         
+         </apex:selectOptions>
+     </apex:selectList>
+     
+ </apex:form>
+ <apex:outputPanel id="block">
+ 
+ {!selectedvalue}
+ <table width="100%"><tr><td>Views</td>
+ <td>
+ <apex:enhancedList type="Account" height="250" customizable="false"  rowsPerPage="25"  >
+ 
+ </apex:enhancedList></td></tr></table>
+<!--<apex:ListViews type="Account"  >
+                            <apex:facet name="header">
+                            &nbsp;
+                            </apex:facet>
+</apex:ListViews>-->
+ </apex:outputPanel>
+ <!--<apex:iframe src="https://www.salesforce.com"/> -->
+</apex:page>

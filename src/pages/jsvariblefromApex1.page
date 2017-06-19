@@ -1,0 +1,199 @@
+<apex:page controller="jsvariblefromApex1con" sidebar="false">
+<apex:form id="frmId">
+<style type="text/css">
+       .customPopup{ 
+            background-color: white;
+            border-style: solid; 
+            border-width: 4px;
+            left: 25%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            top:100px;
+            /* These are the 3 css properties you will need to tweak so the pop 
+            up displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can also add 
+            the height property for a fixed size pop up.*/
+            width: 500px;
+             
+        } 
+        
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            }
+            
+   
+</style>
+
+<script>
+ 
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      // Great success! All the File APIs are supported.
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+    
+    
+      function parseCSV(text, lineTerminator, cellTerminator,fname) {
+      //var filename = document.getElementById('files');
+      //alert('filename@@'+filename.value);
+      //document.getElementById('fileID').value=filename.value;
+        //break the lines apart
+        var lines = text.split(lineTerminator);
+        //alert(lines.length);
+        var totfiels= lines.length;
+        //alert('totfiels==='+totfiels);
+                
+        
+            var k=1;
+            var l=1;
+            var batch;
+            if(totfiels<=25000)
+                batch=1;
+            else if(totfiels<=50000 && totfiels>25000)
+                batch=2;
+            else if(totfiels<=75000 && totfiels>50000)
+                batch=3;
+            else if(totfiels<=100000 && totfiels>75000)
+                batch=4;
+            else
+                batch=5;
+            for(var i = 1; i<batch+1; i++)
+            {
+            //alert('i value'+i);
+            var newFile ='';
+            var num = k+totfiels/batch;
+            //alert('num value'+num);
+            for(var j = l; j< num && j<totfiels; j++){
+                if(lines[j] != "")
+                {
+                //alert('J Value'+j);
+                    newFile += lines[j]+lineTerminator;
+                    l=j+1;
+                }
+            }
+            
+            //alert('num'+num +':Data:'+newFile);
+            k=num;
+            var load='true';
+            if(newFile!=null && newFile!='')
+            {
+                methodOneInJavascript(newFile,fname,load);
+            }
+        }
+      
+      }
+        
+      function handleFileSelect() {
+      
+     var files = document.getElementById('files').files;
+     var filename = document.getElementById('files');
+     //alert('###'+filename.value);
+     //document.getElementById('fileID').value=filename.value;
+     //alert('$$'+document.getElementById('fileID').value);
+    // alert('selected file'+files);
+    if(filename.value==''){
+        alert('Please Choose File');
+    }else{
+        //if(filename.value.contains('.csv')){
+        if(filename.value.indexOf('.csv')!=-1){
+        // Loop through the FileList to get the data
+        for (var i = 0, f; f = files[i]; i++) {
+ 
+          var reader = new FileReader();
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+             //alert('On Load');
+              //call the parse function with the proper line terminator and cell terminator
+              parseCSV(e.target.result, '\n', ',',filename.value);
+           
+            };
+          })(f);
+ 
+          // Read the file as text
+          reader.readAsText(f);
+          
+        }
+        }else{
+            alert('Invalid File. Please Select valid .CSV file');
+        }
+        }
+      }
+ 
+      //document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    </script>
+     
+
+ 
+<apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!isVsbPopup}"/>
+<apex:outputPanel rendered="{!isVsbPopup}" styleClass="customPopup" id="popId">
+<apex:pagemessages />
+      <apex:pageBlock title="Upload of File">
+        <center>
+        Please choose a file to upload :  <input type="file" id="files" name="files[]" /><br/><br/><br/>
+        <apex:actionFunction action="{!executebatch}" name="methodOneInJavascript" rerender="frmId">
+            <apex:param name="firstParam1" assignTo="{!FileData}" value=""/>
+            <apex:param name="firstParam2" assignTo="{!filename}" value=""/>
+            <apex:param name="firstParam3" assignTo="{!loading}" value="true"/>
+        </apex:actionFunction>
+        <apex:commandButton value="Upload" onclick="handleFileSelect();" rerender="frmId">
+       <!-- <apex:param name="nickName" value="true" assignTo="{!loading}"/> -->
+        </apex:commandButton>
+        <apex:commandButton action="{!closePopup}" value="Close" id="theButton1" /> 
+       <apex:image value="/resource/1395226788000/dhr__AjaxLoading" rendered="{!loading}"/>
+        </center>
+       
+    </apex:pageBlock> 
+</apex:outputPanel>
+ <apex:actionPoller action="{!pollerMethod}" enabled="{!isPoller}" interval="60" rerender="frmId"/> 
+    <apex:pageBlock title="USGD Shipment File">
+        <apex:pageBlockTable value="{!lstOutput}" var="op">
+            <apex:column value="{!op.fileName}" headerValue="File Name"/>
+            <apex:column headerValue="Status">
+                <apex:commandlink action="{!importFiles}" rendered="{!IF(op.fileStatus='InProcess',false,true)}">
+                     <font color="blue"> <i>Import</i></font><apex:param assignTo="{!selectedFile}" value="{!op.fileName}" name="selectedFile"/>
+                 </apex:commandlink>
+                 <apex:image value="/img/loading.gif" rendered="{!IF(op.fileStatus='InProcess',true,false)}"/>
+             </apex:column>
+             <apex:column value="{!op.fName}" headerValue="Last Imported File Name"/>
+            <apex:column headerValue="Last Imported Date">
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!op.fcreateddate}" /> 
+                </apex:outputText>
+            </apex:column>
+        </apex:pageBlockTable>
+        <br/>
+        
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="LAPL Include File">
+        <apex:pageBlockTable value="{!lstOutputfinal}" var="opf">
+            <apex:column value="{!opf.fileName}" headerValue="File Name"/>
+            <apex:column headerValue="Status">
+                <apex:commandlink action="{!importFiles}">
+                     <font color="blue"> <i>Import</i></font><apex:param assignTo="{!selectedFile}" value="{!opf.fileName}" name="selectedFile"/>
+                 </apex:commandlink>
+                 <apex:image value="/img/loading.gif" rendered="{!IF(opf.fileStatus='InProcess',true,false)}"/>
+             </apex:column>
+             <apex:column value="{!opf.fName}" headerValue="Last Imported File Name"/>
+            <apex:column headerValue="Last Imported Date">
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!opf.fcreateddate}" /> 
+                </apex:outputText>
+            </apex:column>
+        </apex:pageBlockTable>
+        <br/>
+        
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

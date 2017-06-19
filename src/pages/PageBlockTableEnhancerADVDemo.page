@@ -1,0 +1,19 @@
+<apex:page controller="PageBlockTableEnhancerADVDemo_Con" tabStyle="Contact" sidebar="true">
+    <!--<c:AllDemoLink/>
+    <apex:sectionHeader subtitle="PageBlockTableEnhancerADV  Component Demo" title="Advanced VF table"/>-->   
+    <apex:form >
+        <c:PageBlockTableEnhancerADV targetPbTableIds="pbt"  pageSizeOptions="5,10,15,30" defaultPageSize="15"/>
+        <apex:pageBlock id="pb">                     
+           <apex:pageblocksection title="This table is enhanced by PageBlockTableEnhancerADV" columns="1" collapsible="false">
+               <apex:pageblockTable value="{!Accouts}" var="con" id="pbt" >
+                    <apex:column value="{!con.Name}"/>
+                    <apex:column value="{!con.Account_Number__c}"/>
+                    <apex:column value="{!con.phone}"/>
+                </apex:pageblockTable>
+            </apex:pageblocksection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Rerender" oncomplete="initPageBlockTableEnhancerADV();" rerender="pb"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

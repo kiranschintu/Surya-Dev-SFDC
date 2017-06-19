@@ -1,0 +1,6 @@
+<apex:page controller="vinaywebservice" >
+  <apex:form >
+  <apex:pageMessages ></apex:pageMessages>
+     <apex:commandButton value="Get Result" action="{!DoCalloutForSession}"/>
+  </apex:form>
+</apex:page>

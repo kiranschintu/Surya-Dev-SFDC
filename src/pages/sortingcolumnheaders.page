@@ -1,0 +1,61 @@
+<apex:page controller="PageBlockTableSortingCon" tabStyle="Account" sidebar="false">
+
+<apex:sectionHeader title="Accounts List with Sorting"></apex:sectionHeader>
+<apex:form >
+<apex:pageBlock title="" id="pageBlock" mode="inlineEdit">
+    <apex:pageBlockButtons location="top">
+      <apex:commandButton value="View" action="{!ViewData}" id="theButton" rerender="pageBlock"></apex:commandButton>
+    </apex:pageBlockButtons>
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:PageBlockTable value="{!accounts}" var="a" rendered="{!NOT(ISNULL(accounts))}">
+       <apex:column >
+         <apex:facet name="header">   
+           <apex:commandLink action="{!ViewData}" value="Account Name{!IF(sortExpression=='name',IF(sortDirection='ASC','▼','▲'),'')}" id="cmdSort">
+             <apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+         </apex:facet>
+         <apex:outputLink value="/{!a.Id}" target="_blank">{!a.Name}</apex:outputLink>
+       </apex:column>
+       
+       <apex:column >
+         <apex:facet name="header">   
+           <apex:commandLink action="{!ViewData}" value="Account Number{!IF(sortExpression=='Account_Number__c',IF(sortDirection='ASC','▼','▲'),'')}" >
+             <apex:param value="Account_Number__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+         </apex:facet>
+         <apex:outputField value="{!a.Account_Number__c}">
+             <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton" event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+         </apex:outputField>
+       </apex:column>
+       
+       <apex:column >
+         
+         <!--<apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton" event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>-->
+         
+         <apex:facet name="header">
+           <apex:commandLink action="{!ViewData}" value="Phone{!IF(sortExpression=='Phone',IF(sortDirection='ASC','▼','▲'),'')}">
+             <apex:param value="Phone" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+           <apex:outputText value="{!a.Phone}"/>
+         </apex:facet>
+         
+       </apex:column>
+        <apex:column value="{!a.BillingCity}">
+          <apex:facet name="header">
+           <apex:commandLink action="{!ViewData}" value="Billing City{!IF(sortExpression=='BillingCity',IF(sortDirection='ASC','▼','▲'),'')}">
+             <apex:param value="BillingCity" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+         </apex:facet>
+       </apex:column>
+        <apex:column value="{!a.BillingCountry}">
+          <apex:facet name="header">
+           <apex:commandLink action="{!ViewData}" value="Billing Country{!IF(sortExpression=='BillingCountry',IF(sortDirection='ASC','▼','▲'),'')}">
+             <apex:param value="BillingCountry" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+         </apex:facet>
+       </apex:column>
+     
+    </apex:PageBlockTable>
+</apex:pageBlock>
+</apex:form> 
+</apex:page>

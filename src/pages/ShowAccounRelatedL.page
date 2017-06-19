@@ -1,0 +1,42 @@
+<apex:page standardController="Account" recordSetVar="classlist"    extensions="DynamicClassroomLists">
+    
+   
+    
+    <apex:form >
+    
+        
+        <apex:pageBlock title="Classrooms Available" id="selectionBlock" mode="edit">
+        <apex:pageblockSection >
+            <apex:pageMessages />
+            <!--<apex:selectRadio value="{!objId}">
+                <apex:selectOptions value="{!displayObjsList}"/><br/>
+            </apex:selectRadio>-->
+            <apex:selectList value="{!objId}" size="1">
+                <apex:selectOptions value="{!displayObjsList}"/><br/>
+            </apex:selectList>
+            </apex:pageblockSection>
+            <apex:pageblockSection >
+            
+            </apex:pageblockSection>
+            
+            <apex:panelGrid columns="3">
+                <apex:selectList id="unselected_list" required="false" value="{!selected}" multiselect="true" size="20" style="width:250px">
+                    <apex:selectOptions value="{!unSelectedOptions}"/>
+                </apex:selectList>
+                <apex:panelGroup >
+                    <apex:commandButton value=">>" action="{!DoSelect}" reRender="selectionBlock"/>
+                    <br/>
+                    <apex:commandButton value="<<" action="{!DoUnselect}" reRender="selectionBlock"/>
+                </apex:panelGroup>
+                <apex:selectList id="selected_list" required="false" value="{!unselected}" multiselect="true" size="20"  style="width:250px">
+                    <apex:selectOptions value="{!selectedOptions}"/>
+                </apex:selectList>
+            </apex:panelGrid>
+            
+        </apex:pageBlock>
+
+        <apex:commandButton value="Select Related Items" action="{!Customize}"/>
+        <apex:commandButton value="Show Lists" action="{!show}"/>
+    </apex:form>
+     <apex:dynamicComponent componentValue="{!ClassroomRelatedLists}"/>
+</apex:page>

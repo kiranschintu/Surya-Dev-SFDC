@@ -1,0 +1,28 @@
+<apex:page title="Salesforce SOQL Offset Example Using Visualforce" controller="paginaton3_soql_offset_example" showHeader="false" sidebar="false" readOnly="true" cache="false">
+<apex:form >
+<apex:sectionHeader subtitle="SOQL Offset Example" title="Square Root Table"/>
+<apex:pageBlock id="block">  
+   <apex:pageBlockSection title="Total Number of Records : {!total_size}" collapsible="false" columns="1">
+   <apex:outputPanel id="myPanel">
+   <apex:pageMessages id="theMessages" />
+   <apex:pageBlockTable value="{!contacts}" var="n" width="100%">
+        <apex:column value="{!n.name}" />
+        <apex:column value="{!n.id}" />
+        <apex:facet name="footer">Showing Page # {!pageNumber} of {!TotalPages}</apex:facet>
+   </apex:pageBlockTable>
+   </apex:outputPanel>
+   <apex:actionStatus id="st" >
+   <apex:facet name="start">
+              <apex:image value="/img/loading.gif" height="30"/>
+          </apex:facet>
+   </apex:actionStatus>
+   </apex:pageBlockSection>
+   <apex:repeat value="{!pagenumbers}" var="pg" rows="{!DisplayPageNumbers}">
+       <apex:commandLink value="{!pg}" action="{!taketoPage}" style="text-decoration:none" reRender="block" status="st">
+           <apex:param value="{!pg}" name="num" assignTo="{!selectedPage}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </apex:commandLink>
+  </apex:repeat>
+       <apex:commandLink value="<Next>" action="{!NextPage}" rerender="block" status="st"  />
+</apex:pageBlock>
+ </apex:form>
+</apex:page>

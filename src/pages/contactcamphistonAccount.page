@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="DiplayContactCampaignHistory">
+ 
+  <apex:pageblock title="Campaign History" >
+       <apex:pageblocktable value="{!History}" var="r">
+         <apex:column value="{!r.campaign.name}"/>
+         <apex:column headerValue="Contact Name" value="{!r.contact.name}"/>
+         <apex:column value="{!r.campaign.StartDate}"/>
+         <apex:column value="{!r.campaign.Type}"/>
+         <apex:column value="{!r.campaign.Status}"/>
+         <apex:column value="{!r.campaign.IsActive}"/>
+     </apex:pageblocktable>
+ </apex:pageblock>
+</apex:page>

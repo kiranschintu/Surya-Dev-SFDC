@@ -1,0 +1,17 @@
+<apex:page standardController="Account">
+<script>
+var v = 'Rollercoaster of love.';
+var s='s';
+</script>
+<apex:form >
+
+<apex:inputHidden value="{!Account.Name}" id="theField" />
+
+<script> var theField = document.getElementById('{!$Component.theField}'); </script>
+
+
+<apex:commandButton onclick="theField.value=v;"  value="save"/>
+<apex:commandButton rendered="{!Account.Name=='s'}" action="{!save}" value="save"/>
+<!--<apex:outputText rendered="{!theField.value='s'}">HEllo</apex:outputText>-->
+</apex:form>
+</apex:page>

@@ -1,0 +1,14 @@
+<apex:page controller="searchmultipick">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:actionRegion >
+              <apex:inputField value="{!leads.Rating}">
+                  <apex:actionSupport event="onchange" status="stpup" action="{!dosome}" />
+              </apex:inputField>
+              </apex:actionRegion>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+     
+  </apex:form>
+</apex:page>

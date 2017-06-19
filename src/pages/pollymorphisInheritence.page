@@ -1,0 +1,13 @@
+<apex:page controller="ColoursController" showheader="false" standardstylesheets="false">
+ 
+    <apex:repeat value="{!colours}" var="c">
+        <apex:outputPanel layout="block" style="font-family: Georgia; font-size: 24px">
+            <apex:outputText value="Aweful Colour Combination" style="color:{!c.colour};"/>
+        </apex:outputPanel>
+    </apex:repeat>
+    <apex:pageBlock >
+    <apex:pageBlockTable value="{!colours}" var="c">
+        <apex:column value="{!c.colour}"/>
+    </apex:pageBlockTable>
+ </apex:pageBlock>
+</apex:page>

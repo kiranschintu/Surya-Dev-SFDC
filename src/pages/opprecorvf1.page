@@ -1,0 +1,3 @@
+<apex:page standardcontroller="Opportunity" extensions="redirect" action="{!RedirectEdit}">
+
+</apex:page>

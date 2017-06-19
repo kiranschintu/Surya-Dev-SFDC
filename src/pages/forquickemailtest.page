@@ -1,0 +1,11 @@
+<apex:page standardController="contact" extensions="quickEmailController" recordSetVar="contacts">
+  <apex:messages />
+  
+  Welcome
+  <apex:dataList value="{!selected}" var="item1">
+      <apex:outputText value="{!item1.mobilephone}"></apex:outputText>
+  </apex:dataList>
+  <apex:form >
+  <apex:commandButton value="check" action="{!dosomething}"/>
+  </apex:form>
+</apex:page>

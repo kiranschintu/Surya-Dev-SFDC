@@ -1,0 +1,23 @@
+<apex:page controller="form1Con">
+    <apex:form >
+        <apex:pageBlock title="Form Details">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save & Continue" action="{!next}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Name"></apex:outputLabel>
+                    <apex:inputText value="{!fn}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Name"></apex:outputLabel>
+                    <apex:inputText value="{!ln}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Phone"></apex:outputLabel>
+                    <apex:inputText value="{!phone}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

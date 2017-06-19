@@ -1,0 +1,21 @@
+<apex:page controller="OppVerticalCon" sidebar="false" standardStylesheets="false">
+ <table border="1" width="100%" >
+ <tr>
+ <apex:repeat value="{!accounts}" var="a">
+ <td>
+ <apex:outputfield value="{!a.name}"/><br/>
+ <apex:outputText value="</tr><tr>" escape="false"></apex:outputText>
+ </td>
+ 
+ <apex:repeat value="{!a.opportunities}" var="o">
+ <td>
+ <apex:outputfield value="{!o.closedate}"/><br/>
+ 
+ </td>
+ </apex:repeat>
+ </apex:repeat>
+ </tr>  
+      
+      </table>
+     
+</apex:page>

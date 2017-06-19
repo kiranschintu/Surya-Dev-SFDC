@@ -1,0 +1,6 @@
+<apex:page controller="checktwoextensionmethodscon" extensions="checktwoextensionmethodscon1,checktwoextensionmethodscon2" sidebar="false">
+  <apex:outputText value="{!display}"></apex:outputText>
+  <apex:form >
+      <apex:commandButton value="check" action="{!dosome}"/>
+  </apex:form>
+</apex:page>

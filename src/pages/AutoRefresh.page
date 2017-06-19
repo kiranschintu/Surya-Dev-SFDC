@@ -1,0 +1,15 @@
+<apex:page controller="exampleCon1" >
+  <apex:outputPanel id="block">
+<script>
+if('{!count}'==1){
+        //window.setTimeout(javaScrpt(),1000);
+        //window.location.reload();
+}        
+    </script>
+
+  <apex:form >
+    <apex:outputText value="Watch this counter: {!count}" id="counter"/>
+    <apex:actionPoller action="{!incrementCounter}" reRender="block" interval="5"/>
+  </apex:form>
+  </apex:outputPanel>
+</apex:page>

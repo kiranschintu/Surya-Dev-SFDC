@@ -1,0 +1,104 @@
+<apex:page controller="RemoteActionSearchAccsCLS" sidebar="false">
+  <script>
+      function jsSearch(){
+          //alert('Function called');
+          var accName = document.getElementById('aname').value;
+          //alert('Account Name >>>'+accName);
+          //document.getElementById('{!$Component.pb2.pbs2.pbsi2.aid}').innerHTML = 'fsadfsadfasd';
+          //var accName = document.getElementById('{!$Component.pb2.pbss.pbsi2.aid}').value;
+          dhr.RemoteActionSearchAccsCLS.getAccs(accName,handleResponse,{escape:true});
+      }
+      function handleResponse(result,event){
+          if(event.status){
+              //alert('Response >>>'+result);
+              document.getElementById('{!$Component.pb2.pbs2.pbsi2.aid}').innerHTML = result.Id;
+              document.getElementById('{!$Component.pb2.pbs2.pbsian.aname}').innerHTML = result.Name;
+              document.getElementById('{!$Component.pb2.pbs2.pbsiap.aphone}').innerHTML = result.Phone;
+          }
+      }
+      
+      function remoteallrecs(){
+          var accName = document.getElementById('acname').value;
+          //alert('Value >>>'+accName);
+          dhr.RemoteActionSearchAccsCLS.dispAccs(accName,insertTable,{escape:true});
+      }
+      
+      function insertTable(result,event)
+      {
+            //alert('Result>>>'+result.length);
+            
+            var num_rows = 2;//document.getElementById('rows').value;
+            var num_cols = 2;//document.getElementById('cols').value;
+            var width = 100;//document.getElementById('width').value;
+            var theader = "<table id='table1' border='1' width = ' "+ width +"% '>";
+            var tbody = "";
+        
+            theader += "<th>Account Id </th>";
+            theader += "<th>Account Name </th>";
+            theader += "<th>Account Phone </th>";
+            
+            for(var i = 0; i < result.length; i++)
+            {
+                tbody += "<tr>";
+                tbody += "<td>";
+                tbody += result[i].Id;
+                tbody += "</td>"
+                
+                tbody += "<td>";
+                tbody += result[i].Name;
+                tbody += "</td>"
+                
+                tbody += "<td>";
+                tbody += result[i].Phone;
+                tbody += "</td>"
+                
+                tbody += "</tr>";
+            }
+            var tfooter = "</table>";
+            document.getElementById('wrapper').innerHTML = theader + tbody + tfooter;
+            //document.getElementById('wrapper').innerHTML = 'Hello';
+        }
+  </script>
+  
+  <apex:pageBlock id="pb">
+      <apex:pageblockSection id="pbs">
+          <apex:pageBlockSectionItem id="pbsi">
+              <apex:outputLabel >Account</apex:outputLabel>
+              <input id="aname" type="text"/>
+          </apex:pageBlockSectionItem>
+      </apex:pageblockSection>
+      <apex:pageBlockButtons >
+          <button onclick="jsSearch();">Get Account</button>        
+      </apex:pageBlockButtons>
+  </apex:pageBlock>
+  
+  <apex:pageBlock id="pb2" title="Single Account">
+  
+      <apex:pageBlockSection id="pbs2">
+          <apex:pageBlockSectionItem id="pbsi2">
+              <apex:outputLabel >Account Id </apex:outputLabel>
+              <apex:outputText id="aid"></apex:outputText>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem id="pbsian">
+              <apex:outputLabel >Account Name </apex:outputLabel>
+              <apex:outputText id="aname"></apex:outputText>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem id="pbsiap">
+              <apex:outputLabel >Account Phone</apex:outputLabel>
+              <apex:outputText id="aphone"></apex:outputText>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+  <apex:pageBlock id="pb3" title="Display All Accounts">
+      <button onclick="remoteallrecs();">Retrieve All Accounts</button>
+      
+      <apex:pageblockSection >
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel >Search Account</apex:outputLabel>
+              <input id="acname" onkeyup="remoteallrecs();" type="text"/>
+          </apex:pageBlockSectionItem>
+      </apex:pageblockSection>
+      <div id="wrapper"></div>
+  </apex:pageBlock>
+</apex:page>

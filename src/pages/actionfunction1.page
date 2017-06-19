@@ -1,0 +1,14 @@
+<apex:page controller="actionfuncls" sidebar="false" >
+ <apex:form >
+      <apex:actionFunction name="change" action="{!changename}" reRender="out" status="st"/>
+      <apex:actionfunction name="unchange" action="{!unchangename}" reRender="out" status="st"/>
+      <apex:outputpanel id="out">
+          <apex:outputLabel onmouseover="change()" onmouseout="unchange()" >
+              {!name}
+          </apex:outputLabel>
+          <apex:actionstatus id="st" starttext="processing..."></apex:actionstatus>
+      </apex:outputpanel>
+  </apex:form>
+  
+  
+</apex:page>

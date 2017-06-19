@@ -1,0 +1,24 @@
+<apex:page controller="BootStrap1CTRL" sidebar="false" showHeader="false" standardStylesheets="false">
+    <head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <apex:form >
+    
+    <h2>
+         Beautiful user interface with bootstrap
+    </h2>
+    <br/>
+    <apex:inputField value="{!account.name}" styleclass="form-control"/>
+    First Name : <input type="text" class="form-control"/>
+    <!--Last Name : <input type="text" class="form-control"/>
+    Degree : <input type="text" class="form-control"/>
+    Comments : <input type="text" class="form-control"/>-->
+    
+    <div class="row">
+        <div class="col-xs-1"><apex:commandButton styleClass=" btn btn-primary" value="Submit" /></div>
+        <div class="col-xs-1"><button type="button" class="btn btn-primary">Primary</button></div>
+    </div>
+    </apex:form>
+    
+    
+</apex:page>

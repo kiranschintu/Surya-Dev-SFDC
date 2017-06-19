@@ -1,0 +1,6 @@
+<apex:page controller="sendbulkemails" sidebar="false">
+  <apex:pagemessages />
+  <apex:form >
+      <apex:commandButton value="send" action="{!SendEmail}"/>
+  </apex:form>
+</apex:page>

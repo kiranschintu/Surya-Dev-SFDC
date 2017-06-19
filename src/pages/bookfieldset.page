@@ -1,0 +1,5 @@
+<apex:page standardController="Book__c">
+  <apex:repeat value="{!$ObjectType.Book__c.FieldSets.Sample_FSet}" var="s">
+  {!Book__c[s]}
+  </apex:repeat>
+</apex:page>

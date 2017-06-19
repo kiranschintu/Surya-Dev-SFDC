@@ -1,0 +1,35 @@
+<apex:page standardController="Account" extensions="AccountRecordTypeRouterCTRL" sidebar="false">
+ <script>
+window.onload = function(){
+     if( (typeof sforce != 'undefined') && sforce && (!!sforce.one) ) {
+        console.log('inside Light');
+        var recordTypId="{!$CurrentPage.parameters.RecordType}"
+        sforce.one.createRecord('Account',recordTypId);
+    }
+    else{
+        console.log('inside classic');
+        //redirect();    
+    }
+}
+</script>
+<!--
+<script>
+
+//alert(recordTypId);
+function test() {
+    alert('Lightning Experience ?'+sforce.one);
+    //Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AccountRecordTypeRouterCTRL.navigate}',recordTypId,function(result, event){
+        
+      //  if(event.status){
+        //    alert(result);
+          //  window.location= result;
+            //location.replace(result);
+        //}else{
+            //alert('nooo');
+       // }
+    //});
+}
+
+</script>-->
+      <button type="submit"  class="btn btn-info" id="Submit" onclick="test()">Click</button> 
+</apex:page>

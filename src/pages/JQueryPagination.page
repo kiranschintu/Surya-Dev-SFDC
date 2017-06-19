@@ -1,0 +1,47 @@
+<apex:page controller="JQueryPaginationController" sidebar="false" showHeader="false">
+  <head>
+        <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+        <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+        <!--<apex:includeScript value="{!$Resource.DataTable1}"/>
+        
+        <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />-->
+        <apex:stylesheet value="{!$Resource.dataTables}"/>
+        <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+                var contactTable = j$('[id$="contacttable"]').DataTable({
+                    
+                });
+                //j$('#contacttable_length').hide();
+                //j$('[id$="contacttable_length"]').hide();
+               
+            });
+        </script>
+    </head>
+    <body>
+        <apex:form >
+        <apex:pageBlock >
+        <table border="0" id="contacttable" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <!--<th>Last Name</th>
+                    <th>Phone</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!cons}" var="contact">
+                    <tr>
+                        <td>{!contact.Name}</td>
+                        <td>{!contact.Email }</td>
+                        <!--<td>{!contact.LastName}</td>
+                        <td>{!contact.Phone}</td>-->
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+        </apex:pageBlock>
+        </apex:form>
+    </body>
+</apex:page>

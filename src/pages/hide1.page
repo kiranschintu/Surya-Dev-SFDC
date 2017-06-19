@@ -1,0 +1,14 @@
+<apex:page standardController="opportunity">
+<apex:form >
+  <apex:inputCheckbox value="{!opportunity.type__c}">
+    <apex:actionSupport event="onChange" rerender="theFieldsPanel"/>
+</apex:inputCheckbox>
+
+<apex:outputPanel id="theFieldsPanel" >
+    <!--<apex:variable var="v" value=" " rendered="{!theBool}">-->
+        <apex:inputText value="{!opportunity.amount}"/>
+        <!-- more fields etc. 
+    </apex:variable>-->
+</apex:outputPanel>
+</apex:form>
+</apex:page>

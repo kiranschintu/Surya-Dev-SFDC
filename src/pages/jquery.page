@@ -1,0 +1,39 @@
+<apex:page showheader="false" standardController="Account" recordsetVar="accounts"  readOnly="true">
+<head>
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery-ui-1.8.6.custom.min.js" />
+
+<!--<apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-ui-1.8.6.custom.min.js')}"  /> -->
+<apex:stylesheet value="{!URLFOR($Resource.JQuery, '/css/ui-lightness/jquery-ui-1.8.6.custom.css')}"  />
+<script>
+  $j = jQuery.noConflict();
+   $j(document).ready(function() {
+    $j("#details").dialog({ autoOpen: false, modal: true, position: 'Center',resizable: true,height:200,draggable:true});
+   });
+   function showDialog(name, phone,description){
+      $j("#phoneNumber").html(phone);
+      $j("#description").html(description);
+      $j("#details").dialog("open");
+      $j('#details').dialog("option" , "title" , "Contact Name :"+name);
+      $j('#details').dialog('option', 'position', 'Center');
+      return false;
+   }
+</script>
+<style>
+    .accountLink { color: blue; cursor: pointer; cursor: hand; }
+</style>
+</head>    
+  
+<body>
+
+  <apex:dataList value="{!accounts}" var="account" id="theList">
+        <a class="accountLink" onclick="return showDialog('{!account.name}','{!account.Phone}')"><apex:outputText value="{!account.name}"/></a>
+        <apex:outputText value="{!account.phone}"></apex:outputText>
+  </apex:dataList>
+  
+  <div id="details" >
+      <div style="float:left">Phone:</div><div id="phoneNumber"></div>
+  </div>
+  
+</body>
+</apex:page>

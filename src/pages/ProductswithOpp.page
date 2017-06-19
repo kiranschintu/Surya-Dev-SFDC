@@ -1,0 +1,11 @@
+<apex:page standardController="Product2" sidebar="false" extensions="ProductswithOppCon">
+    <apex:pageBlock title="Opportunities">
+      <apex:pageblockTable value="{!Records}" var="rec">
+          <apex:column value="{!rec.OpportunityId}"/>
+          <apex:column value="{!rec.Opportunity.RecordTypeId}"/>
+          <apex:column value="{!rec.Opportunity.Amount}"/>
+          <apex:column value="{!rec.Opportunity.AccountId}"/> 
+          <apex:column value="{!rec.Opportunity.Contact__c}"/>   
+      </apex:pageblockTable>
+  </apex:pageBlock> 
+</apex:page>

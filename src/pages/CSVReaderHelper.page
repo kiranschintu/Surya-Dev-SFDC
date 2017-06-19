@@ -1,0 +1,10 @@
+<apex:page controller="CSVReaderHelperCls">
+  <apex:form >
+      <apex:pageBlock title="Import File">
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Upload" action="{!importFile}"/>
+          </apex:pageBlockButtons>
+          <apex:inputFile fileName="{!fileName}" value="{!csvFile}"></apex:inputFile>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

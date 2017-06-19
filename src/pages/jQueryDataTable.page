@@ -1,0 +1,59 @@
+<apex:page controller="jQueryDataTableController">
+<apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"/>
+<script type="text/javascript">
+//When the page loads, only show the rating input if the “Has Rating” box is true
+$(document).ready(function(){
+$('input:checkbox.rating').each(function(){
+     if ($(this).attr('checked')){
+          $(this).parent().next().show();
+      }
+      else{
+          $(this).parent().next().hide();
+      }
+ });
+//Create an event binding - when a “Has-Rating” checkbox is 
+//checked/unchecked, hide/show the rating input accordingly
+ $('.rating').click(function(){
+      if ($(this).attr('checked')){
+          $(this).parent().next().show();
+      }
+      else{
+          $(this).parent().next().hide();
+      }
+  });
+});
+</script>
+<apex:form id="theForm">
+<apex:pageBlock mode="edit" title="Mass Create Accounts">
+<apex:pageBlockSection >
+<apex:dataTable value="{!accountWrapperList}" var="accountWrapper" id="table">
+  <apex:column >
+      <apex:facet name="header">Account Name</apex:facet>
+      <apex:inputField value="{!accountWrapper.actualAccount.Name}"/>
+  </apex:column>
+  <apex:column >
+      <apex:facet name="header">Source</apex:facet>
+      <apex:inputField value="{!accountWrapper.actualAccount.AccountSource}"/>
+  </apex:column>
+  <apex:column >
+      <apex:facet name="header">Type</apex:facet>
+      <apex:inputField value="{!accountWrapper.actualAccount.Type}"/>
+  </apex:column>
+  <apex:column >
+      <apex:facet name="header">Has Rating?</apex:facet>
+      <apex:inputCheckbox value="{!accountWrapper.hasRating}" styleClass="rating" />
+  </apex:column>
+  <apex:column >
+      <apex:facet name="header">Rating</apex:facet>
+      <apex:inputField value="{!accountWrapper.actualAccount.Rating}"/>
+  </apex:column>
+</apex:dataTable>
+</apex:pageBlockSection>
+<apex:panelGrid columns="1" style="width:100%; text-align:center;">
+ <apex:panelGroup >
+     <apex:commandButton value="Add Row" action="{!addRow}" id="btnAddRow" rerender="table" />
+ </apex:panelGroup>
+</apex:panelGrid>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

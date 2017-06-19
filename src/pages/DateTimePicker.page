@@ -1,0 +1,19 @@
+<apex:page >
+    <!--<script type="text/javascript" src="{!URLFOR($Resource.Bootstrap, '/js/bootstrap-timepicker.min.js')}"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, '/css/bootstrap-timepicker.min.css')}"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"/>-->
+    <!--<script>j$ = jQuery.noConflict();</script> -->
+
+    <apex:form >
+       Hello1 ::<apex:inputText />
+       <div class="input-append bootstrap-timepicker">
+            Hello <input id="timepicker1" type="text" class="input-small"/>
+            <span class="add-on"><i class="icon-time"></i></span>
+       </div>
+    </apex:form>
+
+    <script type="text/javascript">
+        jQuery('#timepicker1').timepicker();
+    </script>
+</apex:page>

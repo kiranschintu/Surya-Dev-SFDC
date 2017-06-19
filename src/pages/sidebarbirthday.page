@@ -1,0 +1,15 @@
+<apex:page sidebar="false" standardStylesheets="false" controller="SidebarbirthdayCon" showHeader="false" > 
+<!--<apex:stylesheet value="{!$Resource.pagestyle}"/> -->
+<apex:form >
+    <apex:pageBlock id="pgBlkID">
+        <apex:pageblockTable value="{!con}" var="c" cellpadding="3">
+            <apex:column >
+                <apex:image value="/img/icon/profile16.png"/>
+            </apex:column>
+            <apex:column >
+                <apex:outputLink value="/{!c.id}" target="_blank">{!c.name}</apex:outputLink>
+            </apex:column>
+        </apex:pageblockTable>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,24 @@
+<apex:page standardController="Account" recordsetvar="listPageMarker" extensions="DynamicClassroomLists">
+    <apex:messages /><br/>
+    <apex:form >
+        <apex:pageBlock title="Select Relationships to Display" id="selectionBlock">
+        <apex:pageblockSection >
+            <apex:panelGrid columns="3">
+                <apex:selectList id="unselected_list" required="false" value="{!selected}" multiselect="true" size="20"                     style="width:250px">
+                    <apex:selectOptions value="{!unSelectedOptions}"/>
+                </apex:selectList>
+                <apex:panelGroup >
+                    <apex:commandButton value=">>" action="{!DoSelect}" reRender="selectionBlock"/>
+                    <br/>
+                    <apex:commandButton value="<<" action="{!DoUnselect}" reRender="selectionBlock"/>
+                </apex:panelGroup>
+                <apex:selectList id="selected_list" required="false" value="{!unselected}" multiselect="true" size="20"                     style="width:250px">
+                    <apex:selectOptions value="{!selectedOptions}"/>
+                </apex:selectList>
+            </apex:panelGrid>
+            </apex:pageblockSection>
+        </apex:pageBlock>
+        <br/>
+        <apex:commandButton value="Show Related Lists" action="{!show}"/>
+    </apex:form>
+</apex:page>

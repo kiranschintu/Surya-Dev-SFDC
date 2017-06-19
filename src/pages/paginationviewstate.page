@@ -1,0 +1,22 @@
+<apex:page standardController="Contact" extensions="paginationviewstate" recordSetvar="contacts" >
+  <apex:pageBlock title="Viewing Contacts">
+  <apex:form id="theForm">
+    <apex:pageBlockSection columns="1">
+     <apex:pageblockTable var="c" value="{!contactss}" >
+        <apex:column value="{!c.name}"/> 
+        <apex:column value="{!c.description}"/>
+        
+      </apex:pageblockTable>
+    </apex:pageBlockSection>
+    <apex:panelGrid columns="2">
+      <apex:commandLink action="{!previous}" rerender="theForm" status="st">Previous</apex:commandlink>
+      <apex:commandLink action="{!next}" reRender="theForm" status="st">Next</apex:commandlink>
+      <apex:actionStatus id="st">
+          <apex:facet name="start">
+              <apex:image value="/img/loading.gif" height="30"/>
+          </apex:facet>
+      </apex:actionStatus>
+    </apex:panelGrid>
+  </apex:form> 
+  </apex:pageBlock>
+</apex:page>

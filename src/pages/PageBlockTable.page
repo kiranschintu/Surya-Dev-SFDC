@@ -1,0 +1,40 @@
+<apex:page controller="PageBlockTableCls" sidebar="false">
+  
+  <apex:pageBlock >
+  <table border="1" width="100%">
+  <tr><td width="80%">
+  <apex:outputPanel style="overflow:scroll;width:100%;height:150px;" layout="block">
+      <apex:pageBlockTable value="{!accs}" var="a">
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+          <apex:column value="{!a.id}"/>
+          <apex:column value="{!a.Name}"/>
+      </apex:pageBlockTable>
+      </apex:outputPanel>
+      </td></tr>
+  </table>
+  </apex:pageBlock>
+  
+</apex:page>

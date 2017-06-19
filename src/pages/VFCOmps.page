@@ -1,0 +1,12 @@
+<apex:page controller="VFCOmpsCon">
+ <apex:form >
+ <apex:pageBlock title="Account Info">
+      <apex:pageBlockSection >
+          <apex:outputField value="{!wpObject.name}"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+
+  
+  <c:AllContacts parentId="{!wpObject.Id}"/>
+  </apex:form>
+</apex:page>

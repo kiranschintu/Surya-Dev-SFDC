@@ -1,0 +1,8 @@
+<apex:page standardController="contact" extensions="msgcon">
+  <apex:messages />
+  <apex:form >
+  <apex:outputLabel value="Enter Name"/>
+  <apex:inputText required="true" value="{!contact.name}"/>
+  <apex:commandButton value="save" action="{!save}"/>
+  </apex:form>
+</apex:page>

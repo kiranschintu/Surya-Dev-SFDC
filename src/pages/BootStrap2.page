@@ -1,0 +1,27 @@
+<apex:page sidebar="false" controller="BootStrap2CTRL">
+<head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+        <!--<apex:stylesheet value="{!URLFOR($Resource.BootStrap336, 'bootstrap.min.css')}"/>-->
+    </head>
+<apex:image value="/resource/1430208722000/dhr__Violin" width="600px;" styleClass="img-responsive"/>
+<table class="table table-hover">
+    <thead class="table-responsive">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Rating</th>
+    </tr>
+    </thead>
+    <apex:repeat value="{!accounts}" var="acc">
+        <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{!acc.Name}</td>
+      <td>{!acc.Phone}</td>
+      <td>{!acc.Rating}</td>
+    </tr>
+  </tbody>
+    </apex:repeat>
+</table>
+</apex:page>

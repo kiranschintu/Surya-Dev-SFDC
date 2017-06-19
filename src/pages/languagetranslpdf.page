@@ -1,0 +1,10 @@
+<apex:page standardController="Account" extensions="languagetranslpdf" renderAs="pdf">
+  {!lang}
+  <apex:pageBlock >
+      <apex:pageblockSection >
+          <apex:outputField value="{!Account.Name}"/>{!$Label.AccountName}
+          <apex:outputLabel value="{!$Label.AccountName}"></apex:outputLabel>
+          <apex:outputLabel value="{!Account.LangFrm__c}"></apex:outputLabel>
+      </apex:pageblockSection>
+  </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,18 @@
+<apex:page sidebar="false" controller="aggregate1" >
+    
+    
+    <apex:pageBlock > 
+       <apex:repeat value="{!values}" var="g">
+            <apex:pageBlockSection columns="1" >
+                {!g.amount}; &nbsp;{!g.stage}<br/>
+                <!--<apex:repeat value="{!g.opp}" var="op">
+                    <apex:outputPanel rendered="{!op.stagename==g.stage}">
+                    <apex:outputText value="{!op.name}"/> &nbsp;
+                    <apex:outputText value="{!op.stagename}"/>
+                    </apex:outputPanel>
+                </apex:repeat> -->
+             </apex:pageBlockSection>
+        </apex:repeat>
+    
+    </apex:pageBlock>
+</apex:page>

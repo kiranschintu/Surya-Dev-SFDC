@@ -1,0 +1,119 @@
+<apex:component controller="BSureC_SecureAutoComplete">
+    <!-- JQuery Files -->
+    <apex:includeScript value="{!URLFOR($Resource.jQueryui22, '/js/jquery-1.7.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQueryui22, '/js/jquery-ui-1.8.18.custom.min.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQueryui22,'/css/smoothness/jquery-ui-1.8.18.custom.css')}" />
+    <!-- Attributes Required For Component -->
+    <apex:attribute name="objectname"
+        description="The object name you want to look for." type="String"
+        required="true" />
+    <apex:attribute name="additionalfield"
+        description="Any additional fields you'd like to search and include in the display."
+        type="String" required="false" />
+    <apex:attribute name="adnlQuery"
+        description="To filter on the basis of Role name and include in the display."
+        type="String" required="false" />
+    <apex:attribute name="autocomplete_textbox"
+        description="The ID for the Autocomplete List Textbox." type="String"
+        required="true" />
+
+    <!-- CSS Style -->
+    <style>
+        .ui-autocomplete-loading {
+            background: white url({!$Resource.AjaxAnimation}) right center no-repeat;
+        }
+        li {
+            list-style-type: none;
+        }
+    </style>
+
+    <!-- Java script -->
+    <script type="text/javascript">
+        function replaceAll(find, replace, str) {
+            return str.replace(new RegExp(find, 'g'), replace);
+        }
+        
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function() 
+        {
+    
+            var sObjects;
+            var queryTerm;
+    
+            j$(esc('{!JSENCODE(autocomplete_textbox)}')).autocomplete({
+                minLength: 1,
+                source: function(request, response) {
+                            queryTerm = request.term;
+                            Vertex_Berry.BSureC_SecureAutoComplete.findSObjects("{!JSENCODE(objectname)}", request.term, "{!JSENCODE(additionalfield)}", "{!JSENCODE(adnlQuery)}", function(result, event){
+                                if(event.type == 'exception') 
+                                {
+                                      alert(event.message);
+                                } else 
+                                {
+                                     sObjects = result;
+                                     response(sObjects);
+                                }
+                            });
+                       },
+                focus: function( event, ui ) {
+                            //alert("{!objectname}");
+                            if("{!JSENCODE(objectname)}"=="Account")
+                            {
+                                var dname;
+                                dname = ui.item.Name;
+                                dname = replaceAll("&amp\;","&", dname);
+                                dname = replaceAll("&gt\;",">", dname);
+                                dname = replaceAll("&lt\;","<", dname);
+                                j$(esc('{!JSENCODE(autocomplete_textbox)}')).val( dname );
+                                //j$(esc('{!JSENCODE(autocomplete_textbox)}')).val( ui.item.Name );
+                            }
+                            return false;
+                        },
+                select: function( event, ui ) {
+                            if("{!JSENCODE(objectname)}"=="Account")
+                            {
+                                var sname;
+                                sname = ui.item.Name;
+                                sname = replaceAll("&amp\;","&", sname);
+                                sname = replaceAll("&gt\;",">", sname);
+                                sname = replaceAll("&lt\;","<", sname);
+                                j$(esc('{!JSENCODE(autocomplete_textbox)}')).val( sname );
+                                //j$(esc('{!JSENCODE(autocomplete_textbox)}')).val( ui.item.Name );
+                            }
+                            j$(esc('{!JSENCODE(autocomplete_textbox)}_lkid')).val( ui.item.Id );
+                            j$(esc('{!JSENCODE(autocomplete_textbox)}_lkold')).val( ui.item.Name );
+                            if (event.keyCode == 13) { 
+                                event.preventDefault();
+                            }
+                            return false;
+                        },
+             })
+             .data( "autocomplete" )._renderItem = function( ul, item ) {
+                var entry; // = item.Name;
+                if("{!JSENCODE(additionalfield)}" !='')
+                {
+                    j$.each("{!JSENCODE(additionalfield)}".split(",") , function(key, value) {
+                        entry = item[value];
+                    });
+                }
+                //entry = entry + "</a>";
+                //entry = entry.replace(queryTerm, "<b>" + queryTerm + "</b>");
+                entry = replaceAll("&amp\;","&", entry);
+                entry = replaceAll("&gt\;",">", entry);
+                entry = replaceAll("&lt\;","<", entry);
+                entry = entry.replace( new RegExp( "(" + queryTerm + ")" , "gi" ), "<strong>$1</strong>" );
+                //alert(entry);
+                return j$( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + entry + "</a>")
+                    .appendTo( ul );
+            };
+        });
+    
+        function esc(myid) 
+        {
+               return '#' + myid.replace(/(:|\.)/g,'\\\\$1');
+        }
+
+    </script>
+</apex:component>

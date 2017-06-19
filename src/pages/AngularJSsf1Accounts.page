@@ -1,0 +1,298 @@
+<apex:page controller="AngularJSsf1Accounts" showHeader="false" standardStylesheets="false" docType="html-5.0">
+  <!--<apex:includeScript value="{!$Resource.JQueryJS}"/>-->
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <!--<apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />-->
+  
+  <apex:stylesheet value="{!$Resource.SLDSVF}" />
+  
+ <html class="no-js lt-ie9" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org"  lang="en"> 
+<div class="slds">
+<span class="slds-avatar slds-avatar--x-small">
+  <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/down_60.png')}" width="15px" alt="meaningful text" />
+  <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility-sprite/svg/symbols.svg#arrowdown')}" alt="meaningful text" />
+</span>
+  <div ng-app="myApp" ng-controller="myCTRL" ng-init="loadaData()">
+      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+      <table class="slds-table slds-table--bordered">
+          <thead>
+              <tr class="slds-text-heading--label">
+                  <th ng-click="order('Name')" class="slds-is-sortable" scope="col">
+                    <div class="slds-truncate">Account Name
+                        <span ng-show="predicate == 'Name'">
+                            <span ng-show="reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/down_60.png')}" width="15px;"/>
+                            </span>
+                            
+                            <span ng-show="!reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/up_60.png')}" width="15px;"/>
+                            </span>
+                        </span>
+                    </div>
+                  </th>
+                  <th ng-click="order('Phone')" class="slds-is-sortable" scope="col">
+                    <div class="slds-truncate">Phone
+                        <span ng-show="predicate == 'Phone'">
+                            <span ng-show="reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/down_60.png')}" width="15px;"/>
+                            </span>
+                            
+                            <span ng-show="!reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/up_60.png')}" width="15px;"/>
+                            </span>
+                        </span>
+                    </div>
+                  </th>
+                  <th ng-click="order('Rating')" class="slds-is-sortable" scope="col">
+                    <div class="slds-truncate">Rating
+                        <span ng-show="predicate == 'Rating'">
+                            <span ng-show="reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/down_60.png')}" width="15px;"/>
+                            </span>
+                            
+                            <span ng-show="!reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/up_60.png')}" width="15px;"/>
+                            </span>
+                        </span>
+                    </div>
+                  </th>
+                  <th ng-click="order('AnnualRevenue')" class="slds-is-sortable" scope="col">
+                      <div class="slds-truncate">Annual Revenue
+                        <span ng-show="predicate == 'AnnualRevenue'">
+                            <span ng-show="reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/down_60.png')}" width="15px;"/>
+                            </span>
+                            
+                            <span ng-show="!reverse">
+                                <img src="{!URLFOR($Resource.LightningDesignSystem, 'assets/icons/utility/up_60.png')}" width="15px;"/>
+                            </span>
+                        </span>
+                    </div>
+                  </th>
+                  <th class="slds-is-sortable" scope="col">
+                      <div class="slds-truncate">Preview Document</div>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="slds-hint-parent" ng-repeat="x in accountsData | orderBy:predicate:reverse">
+                  <td class="slds-truncate" scope="row">
+                      <a ng-click="openPopUp(x)" >{{x.Name}}</a>
+                  </td>
+                  <td class="slds-truncate" scope="row">
+                      <div>{{x.Phone}}</div>
+                  </td>
+                  <td class="slds-truncate" scope="row">
+                      {{x.Rating}}
+                  </td>
+                  <td class="slds-truncate" scope="row">
+                      {{x.AnnualRevenue}}
+                  </td>
+                  <td class="slds-truncate" scope="row">
+                      <a ng-click="openPrevPopUp()" >Click Me</a>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    
+    <!------------Model Pop Up Start --------->
+    <div id="modelpopup" class="ng-hide" ng-hide="myValue">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog">
+            <div class="slds-modal__container">
+              <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">Account Update</h2>
+              </div>
+              
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-grid slds-grid--pull-padded">
+                    <div class="slds-col--padded">
+                        <label class="slds-form-element__label" for="name">Name</label>
+                        <div class="slds-form-element__control">
+                            <input id="name" class="slds-input" type="text" ng-model="selectedAccount.Name"/>
+                        </div>
+                    </div>
+                    <div class="slds-col--padded">
+                      <label class="slds-form-element__label" for="ph9one">Phone</label>
+                      <div class="slds-form-element__control">
+                        <input id="phone" class="slds-input" type="text" ng-model="selectedAccount.Phone"/>
+                      </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid--pull-padded">
+                    <div class="slds-col--padded">
+                        <label class="slds-form-element__label" for="rating">Rating</label>
+                        <div class="slds-form-element__control">
+                            <input id="rating" class="slds-input" type="text" ng-model="selectedAccount.Rating"/>
+                        </div>
+                    </div>
+                    <div class="slds-col--padded">
+                      <label class="slds-form-element__label" for="ARevenue">Annual Revenue</label>
+                      <div class="slds-form-element__control">
+                        <input id="ARevenue" class="slds-input" type="text" ng-model="selectedAccount.AnnualRevenue"/>
+                      </div>
+                    </div>
+                </div>
+                <!--<div class="slds-grid slds-grid--pull-padded">
+                    <div class="slds-col--padded">
+                        <div class="fileUpload slds-button slds-button--neutral">
+                            <span>Choose</span> 
+                            <input id ="file123" name="file123"  ng-model="filedatachs" placeholder="Choose File" type="file" multiple="true" class="upload" onchange="angular.element(this).scope().fileNameChanged('file123')"/>Hello::: <output type="text" ng-model="fileName"/>{{fileName}}
+                        </div>
+                    </div>
+                    
+                </div>-->
+                
+            </div>
+              
+              
+              <div class="slds-modal__footer">
+                <button ng-click="cancelPopUp()" class="slds-button slds-button--neutral">Cancel</button>
+                <button ng-click="updateData(selectedAccount)" class="slds-button slds-button--neutral slds-button--brand">Save</button>
+              </div>
+            </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop--open"></div>
+  </div>
+<!-----------Model Popup End-------------->
+
+    <!------------Confirmation Pop Up Start --------->
+    <div id="modelpopup1" class="ng-hide" ng-hide="myCFValue">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog">
+            <div class="slds-modal__container">
+              <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">Confirmation Message</h2>
+              </div>
+              
+              <div class="slds-modal__content slds-p-around--medium">
+                <p>Data Saved successfully</p>
+              </div>
+              
+              
+              <div class="slds-modal__footer">
+                <button ng-click="cancelPopUp()" class="slds-button slds-button--neutral slds-button--brand">OK</button>
+              </div>
+            </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop--open"></div>
+  </div>
+<!-----------Confirmation Popup End-------------->
+
+<!------------Attachment Preview Pop Up Start --------->
+    <div id="attchPrvpopup" class="ng-hide" ng-hide="myPrvValue">
+      
+      <!--<div class="slds-modal slds-fade-in-open slds-modal--large" aria-hidden="false" role="dialog">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+      <button class="slds-button slds-button--icon-inverse slds-modal__close">
+        <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+          <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+        </svg>
+        <span class="slds-assistive-text">Close</span>
+      </button>
+      <h2 class="slds-text-heading--medium">Preview Document</h2>
+    </div>
+    <div class="slds-modal__content slds-p-around--large">
+      <div>
+        <c:Pdfcomponent value="{!attachmnt.id}" width="100%" height="100%"/>
+      </div>
+    </div>
+    <div class="slds-modal__footer">
+      <button ng-click="cancelPrevPopUp()" class="slds-button slds-button--neutral">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="slds-backdrop slds-backdrop--open"></div>-->
+      
+      <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h2 class="slds-text-heading--medium">Preview Document</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <!--<c:Pdfcomponent value="attachmentIdNG.value" width="100%" height="100%"/>-->
+                    <apex:iframe src="/servlet/servlet.FileDownload?file=00P9000000sysLl" title="Attachment" id="iFrameId"/>
+                </div>
+            
+                <div class="slds-modal__footer">
+                    <button ng-click="cancelPrevPopUp()" class="slds-button slds-button--neutral">Cancel</button>
+                </div>
+            </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop--open"></div>
+
+  </div>
+  
+<!-----------Attachment Preview Popup End-------------->
+    
+ </div>
+</div>
+</html>
+  
+  <script>
+      var app = angular.module('myApp',[]);
+      app.controller('myCTRL',function($scope){
+        $scope.myValue=true;//hide model popup
+        $scope.myCFValue=true;
+        $scope.myPrvValue=true;
+        //open pop up
+        $scope.openPopUp=function(acc){
+            $scope.selectedAccount = angular.copy(acc);
+            $scope.myValue=false;
+        }
+        //Cancel pop up
+        $scope.cancelPopUp=function(){
+            $scope.myValue=true;
+            $scope.myCFValue=true;
+        }
+        //Open document preview popup
+        $scope.openPrevPopUp=function(){
+            $scope.myPrvValue=false;
+            $scope.attachmentIdNG ='00P9000000sysLl';
+        }
+        //Cancel document preview popup
+        $scope.cancelPrevPopUp=function(){
+            $scope.myPrvValue=true;
+        }
+        $scope.loadaData=function(rid,rname) {
+            $scope.predicate='Name';
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AngularJSsf1Accounts.fetchAccounts}', 
+                function(result, event) {
+                    $scope.accountsData= result;
+                    
+                    $scope.$apply();
+            }); 
+        }
+        $scope.updateData=function(accRec) {
+            $scope.myValue=true;
+            //alert('Data changed::'+$scope.selectedAccount.Rating);
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AngularJSsf1Accounts.updateAccount}',
+                angular.toJson($scope.selectedAccount), 
+                function(result, event) {
+                    //alert('Data Saved'+$scope.selectedAccount.Phone+'::'+$scope.Origdata.Phone);
+                    $scope.myCFValue=false;
+                    for(i in $scope.accountsData) {
+                        if ($scope.accountsData[i].Id == $scope.selectedAccount.Id) {
+                            $scope.accountsData[i] = $scope.selectedAccount;
+                        }
+                    }
+                    $scope.$apply();
+            }); 
+        }
+        $scope.order = function(predicate) {
+            if($scope.predicate == predicate){
+                $scope.reverse=!$scope.reverse;
+            }else{
+                $scope.reverse=false;
+            }
+            //$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+            $scope.predicate = predicate;
+        };
+        
+        /*$scope.fileNameChanged=function(result){
+            var flname = document.getElementById(result).files;
+            $scope.fileName='Done::';
+            //$scope.fileName = flname[0].name;
+            alert('Done...'+flname[0].name);
+        }*/
+      });
+  </script>
+</apex:page>

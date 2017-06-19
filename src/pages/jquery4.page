@@ -1,0 +1,28 @@
+<apex:page standardController="Account" sidebar="false" recordSetVar="accounts">
+<head>
+<apex:includeScript value="/resource/1389342009000/dhr__JQuery1"/>
+<script>
+$(document).ready(function(){
+$("tr").click(function(){
+$("#panel").hide();
+});
+});
+</script>
+
+</head>
+<body>
+<apex:datatable value="{!accounts}" var="a">
+<apex:column value="{!a.name}"/>
+</apex:datatable>
+<div id="panel">
+<apex:outputPanel >
+<apex:outputText value="Hello"/>
+</apex:outputPanel>
+</div>
+<div id="panel">
+<apex:outputPanel >
+<apex:outputText value="Hello 1"/>
+</apex:outputPanel>
+</div>
+</body>
+</apex:page>

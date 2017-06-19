@@ -1,0 +1,21 @@
+<apex:page standardController="contact" extensions="contactcon">
+  <apex:form >
+  <apex:pageBlock id="thePageBlock">
+  <apex:pageBlockSection >
+  <apex:inputField value="{!con.Lastname}"/>
+  <apex:inputField value="{!con.accountid}"/>
+  
+  <apex:outputText label="One" rendered="{!check2==false}">
+  <apex:inputCheckbox value="{!check}">
+    <apex:actionSupport event="onchange" rerender="thePageBlock" status="status"/>
+                                                    <apex:actionStatus startText="applying value..." id="status"/>
+    </apex:inputCheckbox></apex:outputText>
+    <apex:outputText label="Two" rendered="{!check==false}">
+    <apex:inputCheckbox value="{!check2}">
+    <apex:actionSupport event="onchange" rerender="thePageBlock" status="status1"/>
+                                                    <apex:actionStatus startText="applying value..." id="status1"/>
+    </apex:inputCheckbox></apex:outputText>
+    </apex:pageBlockSection> 
+  </apex:pageBlock>
+</apex:form>
+</apex:page>

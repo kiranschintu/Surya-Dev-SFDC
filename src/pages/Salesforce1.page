@@ -1,0 +1,97 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="Salesforce1CTRL">
+  <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+  
+  <apex:includeScript value="{!$Resource.JQueryJS}"/>
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <!--<apex:stylesheet value="{!$Resource.BootStrapCSS}"/>
+  <apex:includeScript value="{!$Resource.BootStrapJS}"/>-->
+  
+  <script>
+      function dofun(){
+          var sd = document.getElementById("modalpopup");
+          sd.style.display='block';
+      }
+      
+      function doHide(){
+          var sd = document.getElementById("modalpopup");
+          sd.style.display='none';
+      }
+      
+      function fileUpload(){
+          var fileId = document.getElementById("upldfile");
+          alert('File is:::'+fileId.value );
+      }
+  </script>
+  <div class="slds">
+  <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" onclick="dofun();">Click Me!!!</button> 
+  
+  <div ng-app="ngApp" ng-controller="myCTRL">
+  <div id="modalpopup" style="display:none" >
+  <div  class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog">
+    <div class="slds-modal__container">
+      <div class="slds-modal__header">
+        <button class="slds-button slds-button--icon-inverse slds-modal__close">
+          <!--<svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+          </svg>-->
+          <span class="slds-assistive-text">Close</span>
+        </button>
+        <h2 class="slds-text-heading--medium">Upload Documents</h2>
+      </div>
+      <div class="slds-modal__content slds-p-around--medium">
+        <div>
+          <input type="file" id="upldfile" fileread="uploadme"/>
+          <input type="text" id="name" ng-model="name"/>
+        </div>
+      </div>
+      <div class="slds-modal__footer slds-modal__footer--directional">
+        <!--<apex:commandButton value="Upload" action="{!doSome}" Styleclass="slds-button slds-button--neutral"/>-->
+        <button class="slds-button slds-button--neutral" ng-click="closeNotification4()">Upload</button>
+        <button class="slds-button slds-button--neutral slds-button--brand" onclick="doHide();">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="slds-backdrop slds-backdrop--open"></div></div>
+  </div>
+  </div>
+  
+  <script>
+        var app = angular.module("ngApp", []); 
+        app.controller("myCTRL", ["$scope", function($scope) {
+        $scope.contacts = [];
+        
+        .directive("fileread", [function () {
+            return {
+                scope: {
+                    fileread: "="
+                },
+                link: function (scope, element, attributes) {
+                    element.bind("change", function (changeEvent) {
+                        scope.$apply(function () {
+                            scope.fileread = changeEvent.target.files[0];
+                            // or all selected files:
+                            // scope.fileread = changeEvent.target.files;
+                        });
+                    });
+                }
+            }
+        }]);
+
+        $scope.getContactss = function(){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.Salesforce1CTRL.doSome}', 
+            function(result, event) {
+                //$scope.contacts = result;
+                //$scope.$apply();
+                alert('Inserted...');
+                }); 
+         }
+         
+         $scope.closeNotification4 = function() {
+                alert('Clicked'+$scope.name+'$$$'+$scope.upldfile);
+                var sd = document.getElementById('upldfile');
+                alert('File Data is:'+sd);       
+         } 
+            
+        }]);
+    </script>  
+</apex:page>

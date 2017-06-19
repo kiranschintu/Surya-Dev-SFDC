@@ -1,0 +1,25 @@
+<apex:page standardStylesheets="false" showHeader="false">
+    <!--<html>
+        <head>-->
+            <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+        <!--</head>
+        <body>-->
+            <div ng-app="myApp" ng-controller="myCtrl">
+                <h1>You entered: {{carname}}</h1>
+                <h1 ng-click="changeName()">{{carname}}</h1>
+                <input type="test" value="Hello" ng-model="username"/>
+            </div>
+        <!--</body>
+    </html>-->
+    <script>
+        var app = angular.module('myApp',[]);
+        app.controller('myCtrl', function($scope) {
+            $scope.carname = "Volvo";
+            //var name = $scope.username;
+            //alert('Found:'+name);
+            $scope.changeName = function() {
+                $scope.carname = "Nelly";
+            }
+        });
+</script>
+</apex:page>

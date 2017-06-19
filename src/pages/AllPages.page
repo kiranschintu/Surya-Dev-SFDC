@@ -1,0 +1,3 @@
+<apex:page controller="AllPagesUtilityCTRL">
+  <apex:include pageName="{!pageName}"/>
+</apex:page>

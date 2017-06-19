@@ -1,0 +1,76 @@
+<apex:page controller="ChartExampleCTRL">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--
+    <apex:chart data="{!chData}" width="300" height="300">
+        <apex:axis type="Category" position="left"  fields="Name" dashSize="0">
+        
+        </apex:axis>
+        <apex:axis grid="false" type="Numeric" minimum="0" maximum="100" position="bottom" fields="Amount" dashSize="0">
+        
+        </apex:axis>
+        <apex:barSeries Gutter="0" tips="false" orientation="horizontal" axis="bottom" xField="Amount" yField="Name"/>
+    </apex:chart>
+    -->
+
+<style>
+#chrtcontainer{
+    border:1px solid red;
+    background:white;
+}
+#myProgress {
+  width: 100%;
+ 
+ 
+}
+
+#myBar {
+  width: 10%;
+  height: 60px;
+  background-color: #4CAF50;
+  //border : 5px solid white;
+}
+#myBar1 {
+  width: 30%;
+  height: 60px;
+  background-color: #4CAF50;
+  //border : 5px solid white;
+}
+
+#myBar2 {
+  width: 50%;
+  height: 60px;
+  background-color: #4CAF50;
+  //border : 5px solid white;
+}
+
+</style>
+
+<h1>JavaScript Progress Bar</h1>
+<div id="chrtcontainer">
+    <div class="row">
+        <div class="col-sm-4">Hello</div>
+        <div class="col-sm-6" id="myProgress">
+          <div id="myBar"></div>
+          <div id="myBar1"></div>
+          <div id="myBar2"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container1">
+  <h1>Hello World!</h1>
+  <div class="row">
+    <div class="col-sm-4" style="background-color:yellow;">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="col-sm-6">
+      <div id="myBar"></div>
+          <div id="myBar1"></div>
+          <div id="myBar2"></div>
+    </div>
+  </div>
+</div>
+
+</apex:page>

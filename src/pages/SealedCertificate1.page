@@ -1,0 +1,99 @@
+<apex:page showHeader="false" standardStylesheets="false" renderAs="pdf" docType="html-5.0"  applyHtmlTag="false" applyBodyTag="false">
+    <head>
+      <title>Sealed Certificate</title>
+    </head>
+    <body>
+
+    <div>
+      <div style="text-align:center;">
+        Image
+        <h1>The Florida Bar</h1>
+        <p>651 East Jefferson Street <br/>Tallahassee, FL  32399-2300</p> 
+      </div>
+      
+      <div style="text-align:center;">
+          <table width="100%">
+              <tr>
+                  <td><p>John F. Harkness, <br/>Jr.Executive Director</p></td>
+                  <td style="width:45%"></td>
+                  <td><p>850/561-5600 <br/> www.FLORIDABAR.org</p></td>
+              </tr>
+          </table>
+      </div>
+      
+      <div style="height:30px;">
+      </div>
+      
+      <div>
+        <p>State of Florida )</p>
+        <p>County of Leon   )</p>
+      </div>
+      
+      
+      <div>
+          <table width="100%">
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td width="40%">
+                      <table>
+                          <tr>
+                              <td>In Re:</td>
+                              <td>00000</td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>Name</td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>Firm</td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>Address</td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>City, State Zip</td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      </div>
+      
+      
+      
+      <div class="row" style="height:30px;">
+      </div>
+          
+      <div>
+          <p>I HEREBY CERTIFY that I am the duly appointed custodian of membership records of The Florida Bar.</p>
+          <p>I FURTHER CERTIFY that the records in the office of the Clerk of the Supreme Court of Florida indicate that said attorney was admitted to practice law in the State of Florida on (Admit Date).</p>
+          <p>I FURTHER CERTIFY that the records in the office of The Florida Bar indicate that the above attorney is an active member of The Florida Bar in good standing.</p>
+      </div>
+      
+      <div>
+          <table width="100%" cellpadding="10px">
+              <tr>
+                 <td width="50%">Dated this _______ day of (Month)</td>
+                 <td rowspan="3">Image</td> 
+              </tr>
+              <tr>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td>
+                      Pam Gerard, Manager<br/>
+                      Membership Records Dept.<br/>
+                      The Florida Bar<br/>
+                  </td>
+              </tr>
+          </table>
+      </div>
+    </div>
+
+    </body>
+
+</apex:page>

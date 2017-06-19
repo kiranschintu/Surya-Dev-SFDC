@@ -1,0 +1,11 @@
+<apex:page controller="AccountDispCon" >
+ <apex:pageBlock >
+     <apex:pageBlockSection >
+         <apex:outputText value="{!acc.Image__c}" escape="false"/>
+     </apex:pageBlockSection>
+ </apex:pageBlock>
+ 
+ <apex:form >
+     <apex:commandButton value="Send Email" action="{!sendEmail}"/>
+ </apex:form>
+</apex:page>

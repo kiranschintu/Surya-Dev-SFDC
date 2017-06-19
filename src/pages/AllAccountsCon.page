@@ -1,0 +1,28 @@
+<apex:page controller="AllAccountsCon"  sidebar="false">
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Search" action="{!doSearch}"/>
+          <apex:commandButton value="PDF" action="{!generatePDF}"/>
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection >
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel >Name</apex:outputLabel>
+              <apex:inputText value="{!aName}"/>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+      <apex:pageBlockTable value="{!acc}" var="a">
+         <apex:column >
+             <apex:facet name="{!if(isDone,'header','false')}">
+                 <apex:outputPanel > 
+                     <apex:inputCheckbox /> 
+                 </apex:outputPanel>
+             </apex:facet>
+             
+             <apex:inputCheckbox /> 
+         </apex:column>
+          <apex:column value="{!a.Name}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

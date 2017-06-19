@@ -1,0 +1,6 @@
+<apex:page controller="datePicker" id="mypage" docType="html-5.0">
+   <apex:form >    
+        Date: <apex:inputText value="{!datename}" size="10" id="demo" onfocus="DatePicker.pickDate(false, this , false);" />   
+        <apex:input label="datePicker" value="{! dd}" type="auto"/>
+    </apex:form>
+</apex:page>

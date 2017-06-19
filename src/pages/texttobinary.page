@@ -1,0 +1,17 @@
+<apex:page >
+  <script>
+  function convert() {
+  var  output=document.getElementById("ti2");  
+  var input=document.getElementById("ti1").value;
+    output.value = "";
+    for (i=0; i < input.length; i++) {
+        output.value +=input[i].charCodeAt(0).toString(2) + " ";
+    }
+}
+</script>
+<apex:form >
+<textarea rows="4" id="ti1" cols="50"/>
+<input id="ti2"/>
+<apex:commandButton value="check" onclick="convert();" rerender="check"/>
+</apex:form>
+</apex:page>

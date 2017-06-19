@@ -1,0 +1,5 @@
+<apex:page controller="deleteaccountscon" >
+  <apex:form >
+      <apex:commandButton value="delete Accounts" action="{!deleteacc}"/>
+  </apex:form>
+</apex:page>

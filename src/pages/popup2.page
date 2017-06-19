@@ -1,0 +1,72 @@
+<apex:page controller="tstpopup">
+    <script type="text/javascript">
+  function _enabled() {
+    document.getElementById('mb_ad').innerHTML = "<img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTATDPIEBMPsosE_WMUO-C2COd4jF2SaOKdD1zQTe1kJuIDsWXI' />";
+    var rel=true;
+    document.getElemetById('mkdisb').disabled=true;
+    alert('value'+document.getElemetById('one'));
+    
+    }
+
+  var r =true;
+</script>
+    <body>
+    <apex:form >
+        <apex:commandButton value="Show Pop up" action="{!showPopup}" rerender="tstpopup"/>
+        <apex:pageBlock >
+            This is just filler text from the Salesforce General. 
+        </apex:pageBlock>
+ 
+        <apex:outputPanel id="tstpopup">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+                This is where I would put whatever information I needed to show to my end user.<br/><br/><br/>
+                <apex:commandButton value="Hide Pop up" action="{!closePopup}" rerender="tstpopup"/>
+                <apex:commandButton value="Close" action="{!closePopup}" rerender="tstpopup"/>
+                <apex:commandButton value="Import" action="{!Import}" rerender="tstpopup"/>
+                <apex:image rendered="{!image}" value="/resource/1395226788000/dhr__AjaxLoading"/>
+                <apex:commandButton value="Make Disable" onclick="_enabled();" id="mkdisb" />
+                <button onclick="_enabled();" >Add Google Logo</button>
+                
+            </apex:outputPanel>
+             </apex:outputPanel>
+ <apex:commandButton value="Call JS Image" onclick="myfun();"/>
+<!-- <button onclick="add_google_logo();">Add Google Logo</button> -->
+ <apex:commandButton reRender="ss" value="Call JS Image2" onclick="_enabled();">
+ <apex:param name="nickName" value="true" assignTo="{!image}"/>
+ </apex:commandButton>
+  <apex:commandButton onclick="_enabled();" value="Make Disable1" id="one" />
+<apex:image value="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTATDPIEBMPsosE_WMUO-C2COd4jF2SaOKdD1zQTe1kJuIDsWXI" rendered="{!image==true}"/>
+</apex:form>
+ 
+    <style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:gray;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+
+    </style></body>
+</apex:page>

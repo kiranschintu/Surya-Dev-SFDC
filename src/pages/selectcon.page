@@ -1,0 +1,22 @@
+<apex:page standardController="Contact" >
+<!--<apex:form >
+<apex:pageBlock >
+<apex:pageBlockSection columns="1" > 
+<apex:dataTable value="{!selected}" var="item1" rowClasses="odd,even"> 
+<apex:column id="pb" > 
+<table width="700" border=""> 
+<tr><td><br/><br/></td></tr> 
+<tr><td width="100"><b>{!item1.salutation}</b>.{!item1.firstname} {{!item1.lastname}</td></tr> 
+<tr><td>{!nullValue(item1.mailingstreet,'')}</td></tr> 
+<tr><td>{!nullValue(item1.mailingcity,'')} {!item1.mailingstate} {!item1.mailingpostalcode} </td></tr> 
+<tr><td>{!nullValue(item1.mailingcountry,'')} </td></tr>
+<tr><td><b>Phone:</b> {!item1.phone} </td></tr>
+<tr><td><br/><br/></td></tr>
+<hr width="100%" > </hr> 
+</table>
+</apex:column> 
+</apex:dataTable> 
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>-->
+</apex:page>

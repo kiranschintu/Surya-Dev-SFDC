@@ -1,0 +1,22 @@
+<apex:page sidebar="false" standardController="Account" extensions="ReloadOnceNewCls">
+<apex:form >
+    <!--<apex:actionFunction name="doCallout" action="{!doSome}"/>-->
+    <apex:actionFunction name="doCallout" action="{!doSome}"/>
+
+</apex:form>
+
+
+  <!--  Do we need to reload the page? ReloadOnceNewCls-->
+<!--<apex:outputPanel id="reloadPanel" rendered="{!reloadNeeded}" >-->
+    <script type="text/javascript">
+        alert('customHstatus::'+'{!$Setup.ReloadOnce__c.ISReload__c}');
+        var st ='{!$Setup.ReloadOnce__c.ISReload__c}'; 
+        if(st!='true'){
+           //alert('Done');
+           doCallout();
+           window.location.reload('/{!account.id}');
+           //window.top.location.href = '/{!Account.id}';
+        }
+    </script>   
+<!--</apex:outputPanel>-->
+</apex:page>

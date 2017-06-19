@@ -1,0 +1,5 @@
+<apex:page controller="CustomComponentAttachmentCls">
+  <apex:iframe src="{!URLFOR($Action.Attachment.Download, attach.Id)}" height="200" />
+  <apex:image url="/servlet/servlet.FileDownload?file=attach.Id"/>
+<iframe src="{!URLFOR($Action.Attachment.Download, attach.Id)}" /> 
+</apex:page>

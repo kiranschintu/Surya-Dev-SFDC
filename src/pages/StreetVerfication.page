@@ -1,0 +1,25 @@
+<apex:page standardController="Account" showHeader="false" extensions="StreetVerficationCon">
+ 
+ <apex:outputPanel id="block">
+ <script>
+    if('{!account.Dont_Reload__c}'=='s'){
+    if('{!t1}'<= '{!t2}' && '{!t1}' > '{!t3}' && '{!t1!=Null}' && '{!t2!=Null}'  && '{!t3!=Null}' ){
+        window.top.location='/{!Account.id}';
+        window.alert('hello');
+        //function myfun(){
+        //stoppolling();
+        //}
+    }
+    }
+</script>
+
+  <apex:form >\
+    <!--<apex:actionfunction name="myfun" action="{!stoppolling}" rerender="block"/> -->
+    <apex:actionPoller action="{!incrementCounter}" reRender="block" interval="5" rendered="{!count<5}" /> <!-- {!count<1} -->
+  </apex:form>
+  <apex:outputText value="{!count}"></apex:outputText>
+  
+  <apex:outputField value="{!accc.Street_Result__c}"/>
+  <apex:image value="/img/loading.gif" height="20" rendered="{!count==0}"/>
+</apex:outputPanel>
+</apex:page>

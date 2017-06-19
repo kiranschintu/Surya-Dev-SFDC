@@ -1,0 +1,3 @@
+<apex:page >
+  <apex:outputLabel value="{!$Label.Translation}"></apex:outputLabel>
+</apex:page>

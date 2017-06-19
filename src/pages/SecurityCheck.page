@@ -1,0 +1,11 @@
+<apex:page controller="SecurityCheck" sidebar="false">
+  <apex:form >
+      <apex:commandButton value="Update" action="{!test}"/>
+  </apex:form>
+  <apex:pageBlock >
+      <apex:pageBlockTable value="{!leads}" var="a">
+          <apex:column value="{!a.name}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  <c:CustomComponentAttachment ></c:CustomComponentAttachment>
+</apex:page>

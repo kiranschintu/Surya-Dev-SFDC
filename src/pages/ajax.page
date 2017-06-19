@@ -1,0 +1,12 @@
+<apex:page >
+  <apex:form id="a" >
+  <apex:commandButton rerender="a" value="save" onclick="window.open('http://www.childaidireland-india.ie/')" /><br/>
+  <apex:commandLink rerender="a" onclick="window.open('http://www.childaidireland-india.ie/')" value="Click Me.."/><br/>
+  <apex:pageblock >
+  <apex:pageBlockButtons id="aa" >
+  <apex:commandLink rerender="aa" onclick="wwww.google.com" value="click"/>
+  </apex:pageBlockButtons>
+  </apex:pageblock>
+  
+  </apex:form>
+</apex:page>

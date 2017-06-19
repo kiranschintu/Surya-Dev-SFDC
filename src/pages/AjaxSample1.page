@@ -1,0 +1,55 @@
+<apex:page controller="AjaxSample1" showHeader="true" sidebar="false" tabStyle="Contact">
+<!--  <apex:form >
+    <apex:dataTable value="{!ContactRecords}" var="c" cellpadding="4" border="1">
+      <apex:column >
+        <apex:facet name="header"><b>Name</b></apex:facet>
+        <apex:commandLink reRender="detail" value="{!c.name}">
+          <apex:param name="id" value="{!c.id}"/>
+        </apex:commandLink>
+      </apex:column>
+      <apex:column >
+        <apex:facet name="header"><b>Account Name</b></apex:facet>
+            <apex:commandLink value="{!c.account.name}" rerender="detail1">
+                <apex:param name="aid" value="{!c.accountId}"/>
+            </apex:commandLink> 
+      </apex:column>
+    </apex:dataTable>
+  </apex:form>
+  <apex:outputPanel id="detail">
+   <apex:detail subject="{!ContactRecord}" title="false" relatedList="false"/>
+  </apex:outputPanel>
+  
+ <apex:outputPanel id="detail1">
+   <apex:detail subject="{!AccountRecord}" title="false" relatedList="false"/>
+  </apex:outputPanel>
+-->
+
+<apex:form >
+  <apex:pageBlock >
+      <apex:PageBlockTable value="{!ContactRecords}" var="c">
+      <apex:column >
+        <apex:commandLink reRender="Contact" value="{!c.name}">
+          <apex:param name="id" value="{!c.id}"/>
+        </apex:commandLink>
+      </apex:column>
+      <apex:column >
+        <apex:commandLink value="{!c.account.name}" rerender="Account">
+                <apex:param name="aid" value="{!c.accountId}"/>
+        </apex:commandLink> 
+      </apex:column>
+    </apex:PageBlockTable>    
+    
+    <apex:pageblockSection Title="Account Information" id="Account" columns="1">
+        
+       <!-- <apex:detail subject="{!AccountRecord}" title="false" relatedList="false"/>-->    
+       <apex:outputField value="{!AccountRecord.Name}"/>
+    </apex:pageblockSection>
+    
+     <apex:pageblockSection Title="Contact Information" id="Contact">
+        <apex:detail subject="{!ContactRecord}" title="false" relatedList="false"/> 
+    </apex:pageblockSection>
+    
+  </apex:pageBlock>
+</apex:form>
+
+</apex:page>

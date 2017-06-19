@@ -1,0 +1,13 @@
+<apex:page controller="XmlStreamReaderDemo" sidebar="false">
+    <apex:form >
+        <apex:inputtextarea cols="40" rows="20" value="{!xmlString}"/>
+        <!--<apex:inputtextarea cols="40" rows="20" id="result" value="{!parsedText}"><br/>-->
+        <apex:commandbutton value="Parse" action="{!doSome}"/>
+    
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!books}" var="b">
+            <apex:column headerValue="Name" value="{!b.name}"/>
+            <apex:column headerValue="Version" value="{!b.version}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock></apex:form>
+</apex:page>

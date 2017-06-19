@@ -1,0 +1,9 @@
+<aura:component description="Stop Watch with Start, Stop and Reset buttons"
+                implements="flexipage:availableForAllPageTypes,force:appHostable">
+	<aura:attribute name="timer" type="String"  description="Timer for stop watch"/>
+	<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+	<div>Time: {!v.timer}</div>
+    <ui:button aura:id="start" class="primaryButton" label="Start"  press="{!c.startTimer}"/>
+    <ui:button aura:id="stop"  class="primaryButton" label="Stop"   press="{!c.stopTimer}"/>
+    <ui:button aura:id="reset" class="primaryButton" label="Reset"  press="{!c.resetTimer}"/>
+</aura:component>

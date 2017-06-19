@@ -1,0 +1,64 @@
+<apex:page controller="AngularJS5CTRL" showHeader="false" standardStylesheets="false">
+  <apex:includeScript value="{!$Resource.JQueryJS}"/>
+  <apex:includeScript value="{!$Resource.ANGULARJS}"/>
+  <apex:stylesheet value="{!$Resource.BootStrapCSS}"/>
+  <apex:includeScript value="{!$Resource.BootStrapJS}"/>
+  <form>
+    <div class="bootstrap" ng-app="ngApp" ng-controller="ContactCtrl" data-ng-init="getContactss()">
+        <h1 align="center">Click The Button</h1>
+        <button ng-click="getContactss()" class="btn btn-lg btn-default btn-block">Get Contacts</button> 
+        <button class="slds-button slds-button--neutral" style = "background-color: #0068C6; color: white" ng-click="closeNotification4()">
+                                    Okay
+                                </button> 
+        <table class="table">
+          <thead>
+              <th>Name</th>
+              <th>Rating</th>
+          </thead>
+          <tbody>
+              <tr ng-repeat="x in contacts">
+                  <td>
+                      <input type="text" value='{{x.Name}}'/>
+                  </td>
+                  <td>{{x.Email}}</td>
+              </tr>
+          </tbody>
+        </table>
+ 
+ <!--<p>
+ <ul>
+ <li id="{{current.Id}}" ng-repeat="current in contacts" ng-class-even="'rowEven'">{{current.Name}}</li>
+ </ul>
+ </p>-->
+</div>
+</form>
+    <script>
+        var app = angular.module("ngApp", []); 
+        app.controller("ContactCtrl", ["$scope", function($scope) {
+        $scope.contacts = [];
+        $scope.getContactss = function(){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AngularJS5CTRL.myContacts}', 
+            function(result, event) {
+                $scope.contacts = result;
+                $scope.$apply();
+                }); 
+                
+                /*dhr.AngularJS5CTRL.myContacts(function(result,event){
+                    $scope.contacts = result;
+                $scope.$apply();
+                });*/
+         }
+         
+         $scope.closeNotification4 = function() {
+                alert('Clicked');
+                var data = angular.toJson($scope.contacts);
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AngularJS5CTRL.mydata}',data, 
+            function(result, event) {
+                
+                });
+                
+         } 
+            
+        }]);
+    </script>  
+</apex:page>

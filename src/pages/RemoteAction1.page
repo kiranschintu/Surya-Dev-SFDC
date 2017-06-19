@@ -1,0 +1,23 @@
+<apex:page controller="RemoteActionCalling">
+<script type="text/javascript">
+    function MyRemoteFun(keywrd){
+        alert(keywrd+'Value'+document.getElementById('{!$Component.frm.ipt}'));//('j_id0:frm:ipt'));
+        
+        dhr.RemoteActionCalling.myRemoteCall( keywrd, function(result, event)
+        {
+        if (event.status)
+        {
+           document.getElementById("{!$Component.opt}").innerHTML = result+': Hello';
+        } 
+        }, {escape:true});
+    }
+    
+</script>
+<button onclick="MyRemoteFun('Salesforce');">Get Account</button>
+<apex:outputText id="opt" />
+<!--<apex:form id="frm">
+
+    
+Hello<apex:inputText id="ipt" ></apex:inputText>
+</apex:form>-->
+</apex:page>

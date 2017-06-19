@@ -1,0 +1,9 @@
+<apex:page controller="InputFileCls">
+  <apex:form >
+      <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlock >
+          <apex:inputFile value="{!body}" size="10" filename="{!name}"/>
+          <apex:commandButton value="Save" action="{!doCheck}"/>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

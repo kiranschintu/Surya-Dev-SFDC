@@ -1,0 +1,6 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" cache="false" standardStylesheets="false" controller="ServerSideDeviceDetection" action="{!detectDevice}">
+<h1> This is the Desktop Version</h1>
+<apex:outputText >{!isIPhone}</apex:outputText>
+<apex:outputText >{!isAndroid}</apex:outputText>
+<apex:outputText >{!isDesktop}</apex:outputText>
+</apex:page>

@@ -1,0 +1,12 @@
+<apex:page standardController="Account" recordSetVar="accs" >
+  <apex:pageBlock >
+      <apex:pageBlockSection >
+          <apex:repeat value="{!accs}" var="a">
+          <apex:pageBlockSectionItem >
+              <apex:outputField value="{!a.name}"/>
+              <apex:outputField value="{!a.id}"/>
+              </apex:pageBlockSectionItem>
+          </apex:repeat>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

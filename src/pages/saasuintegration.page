@@ -1,0 +1,6 @@
+<apex:page controller="SaasuIntegrationCon">
+  <apex:messages />
+  <apex:form >
+      <apex:commandButton value="get" action="{!dosave}"/>
+  </apex:form>
+</apex:page>

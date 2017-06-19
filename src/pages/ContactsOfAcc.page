@@ -1,0 +1,9 @@
+<apex:page Controller="ContactsOfAccCLS" sidebar="false" renderAs="pdf">
+  <apex:pageBlock title="All Contacts Related to Account">
+      <apex:pageBlockTable value="{!cons}" var="c">
+          <apex:column value="{!c.id}"/>
+          <apex:column value="{!c.Name}"/>
+          <apex:column value="{!c.Phone}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

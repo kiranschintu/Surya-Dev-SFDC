@@ -1,0 +1,253 @@
+<apex:page Controller="ReadcsvFileUingjs" sidebar="false">
+
+<!--<html id="showstate">
+<head>-->
+ 
+<script>
+ 
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      // Great success! All the File APIs are supported.
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+   
+ 
+</script>
+<style>
+
+    
+  #progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+  }
+  #progress_bar.loading {
+    opacity: 1.0;
+  }
+  #progress_bar .percent {
+    background-color: #99ccff;
+    height: auto;
+    width: 0;
+  }
+</style>
+ 
+<!--</head>
+<body>-->
+ 
+    <input type="file" id="files" name="files[]"/>
+    <div id="msg"></div>
+    <div id="progress_bar"><div class="percent">0%</div></div>
+    
+    <script>
+   var progress = document.querySelector('.percent');
+     function updateProgress(evt) {
+    // evt is an ProgressEvent.
+    if (evt.lengthComputable) {
+      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+      // Increase the progress bar length.
+      if (percentLoaded < 100) {
+        progress.style.width = percentLoaded + '%';
+        progress.textContent = percentLoaded + '%';
+      }
+    }
+  }
+      function parseCSV(text, lineTerminator, cellTerminator) {
+      
+        //break the lines apart
+        //var lines =text.replace('/\r\n/g','-'); 
+        var lines = text.split(lineTerminator);
+        //alert(lines.length);
+        
+        
+        var totfiels= lines.length;
+        
+        var headers = lines[0];
+        //alert('Headers: '+headers);
+        //var headervals=headers.split(cellTerminator);
+        //alert('No of Headers : '+headervals.length);
+        //alert('Header 1 :'+headervals[0]);
+        //alert('Header 4 :'+headervals[4]);
+                
+        alert('totfiels==='+totfiels);
+        
+        /*
+        var invalidrows=[];
+        var j;//to avoid immediate row
+        var count=0;//manage row number
+        var insaft=0;
+        var count1=0;
+        for(var i=1;i<totfiels;i++){
+            var rowwitcommas = lines[i].split(',');
+            if(rowwitcommas.length<3 && lines[i]!=''){
+            count1+=1;
+            //alert('Count1 ::'+count1);
+            if(j+1!=i){
+            insaft=i;//-count;
+            //alert('Row Number'+(i-count)+'****'+lines[i-count]);
+            j=i;
+            count++;
+            alert('Count1 in cond'+count1);
+          }
+          }
+          
+          if(insaft!=0){
+          //alert('insaft'+insaft);
+          //alert('i'+i);
+          var kk = (i-insaft);
+          //alert('kk'+kk);
+          
+          if(kk==1){
+          
+          if(count1==2){
+          
+          invalidrows.push(i-count);
+          alert('total rows in loop ::'+invalidrows);
+          alert('Count1 in loop::'+count1);
+          }else if(count1==1){
+          //alert('count in 1 condition ::'+count);
+           //alert('i in 1 condition ::'+i);
+          alert('i value:'+i);
+          alert('count value:'+count);
+          //alert('i-count-1 value:'+(i-count-count1));
+          invalidrows.push(i-count-1);
+          
+          alert('total rows in last loop ::'+invalidrows); 
+          alert('Count1 in last loop::'+count1);
+          count1=0;
+          }
+          //alert('invalid rows'+invalidrows);
+          
+          count1=0;
+          }
+          }
+          }
+          
+        
+        
+        alert('Invalid Rows in File'+invalidrows+'**Total Rows**'+invalidrows.length);
+        */
+        //if(invalidrows.length==0){
+        
+        var batch;
+        if(totfiels<25000)        
+        batch=1;
+        else if(totfiels>25000 && totfiels<50000)
+        batch=2;
+        else if(totfiels>50000 && totfiels<75000)
+        batch=3;
+        else if(totfiels>75000 && totfiels<100000)
+        batch=4;
+        else
+        batch=5;
+            var k=1;
+            var l=1;
+            for(var i = 1; i<batch+1; i++)
+            {
+            alert('i value'+i);
+            var newFile ='';
+            var num = k+totfiels/batch;
+           //alert('num value'+num);
+            for(var j = l; j< num && j<totfiels; j++){
+                if(lines[j] != "")
+                {
+                //alert('Row ::'+lines[j]);
+                //var rowwitcommas = lines[j].split(',');
+                //alert('cell'+rowwitcommas+'::Row Length::'+rowwitcommas.length);
+                
+                //if(rowwitcommas.length==2){
+                //alert('Hello');
+                //alert('Please check row Number '+j);
+                //}
+                    newFile += lines[j]+lineTerminator;
+                    l=j+1;
+                    
+                }
+            }
+            //alert('last j value'+l);
+            alert('num==='+num +'::'+newFile);
+            
+            k=num;
+            if(newFile!=null && newFile!='')
+            {
+                methodOneInJavascript(newFile,headers);
+            }
+        }
+        //}
+      
+      }
+        
+      function handleFileSelect() {
+      var reader;
+      progress.style.width = '0%';
+    progress.textContent = '0%';
+     
+     //files= document.getElementById('files').value;
+      var files = document.getElementById('files').files;
+      var filec = document.getElementById('files');
+      
+    // alert('selected file'+files+'::'+filec.value+'::');
+     if(filec.value==''){
+     ms='error';
+     document.getElementById('msg').innerHTML=ms;
+     //alert('Please select file');
+     }else{
+     //if(filec.value.contains('.csv')){
+    //var key = filec.value.indexOf('');
+    if(filec.value.indexOf('.csv')!=-1){
+    if(filec.value.indexOf('C:')!=-1){
+    alert('check for');
+    }
+     
+    // Loop through the FileList and populate the 'outputTable' with the data
+        for (var i = 0, f; f = files[i]; i++) {
+ 
+         reader = new FileReader();
+         reader.onprogress = updateProgress;
+         
+          reader.onloadstart = function(e) {
+          document.getElementById('progress_bar').className = 'loading';
+            };
+             // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+            alert('On Load :: File Name ::'+filec.value);
+              //call the parse function with the proper line terminator and cell terminator
+              parseCSV(e.target.result, '\n', ',');
+               progress.style.width = '100%';
+      progress.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar').className='';", 5000);
+            
+            };
+          })(f);
+ 
+          // Read the file as text
+          reader.readAsText(f);
+          
+        }
+        }else{
+            alert('Invalid File. Please select valid .CSV file');
+        }
+        }
+      }
+ 
+      //document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    </script>
+ 
+<!--</body>
+</html>-->
+    <apex:form id="formid">
+    <apex:pagemessages ></apex:pagemessages>
+        <apex:actionFunction action="{!ReadFile}" name="methodOneInJavascript" rerender="formid">
+            <apex:param name="firstParam" assignTo="{!nameFile}" value=""/>
+            <apex:param name="secondParam" assignTo="{!HeaderValues}" value=""/>
+        </apex:actionFunction>
+       <apex:commandButton value="import" onclick="handleFileSelect();" rerender="formid"/>
+   </apex:form>
+</apex:page>

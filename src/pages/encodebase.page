@@ -1,0 +1,13 @@
+<apex:page Controller="EncodeBaseCon">
+  <apex:pageblock >
+      <apex:pageblockSection >
+          <apex:outputField value="{!account.name}"/>
+          <apex:image value="{!account.Image1__c}"/>
+          <apex:image value="data:image/jpg;base64,{!base64codeblob}"/>
+          
+          
+          <apex:outputText >{!base64codeblob}</apex:outputText>
+          
+      </apex:pageblockSection>
+  </apex:pageblock> 
+</apex:page>

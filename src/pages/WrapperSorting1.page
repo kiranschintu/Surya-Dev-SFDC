@@ -1,0 +1,11 @@
+<apex:page controller="WrapperSorting1" sidebar="false">
+  <apex:pageBlock title="Records">
+      <apex:pageBlockTable value="{!wrapperAccs}" var="wrap">
+          <apex:column value="{!wrap.acc.id}"/>
+          <apex:column value="{!wrap.acc.name}"/>
+          <apex:column value="{!wrap.acc.Account_Number__c}"/>
+          <apex:column value="{!wrap.acc.Rating}"/>
+          <apex:column value="{!wrap.isPrimary}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

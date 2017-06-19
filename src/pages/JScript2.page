@@ -1,0 +1,19 @@
+<apex:page >
+   <script>
+   function changetextcolor(input,textid){
+       if(input.checked){
+           document.getElementById(textid).style.color = "violet";
+           
+       }
+       else{
+           document.getElementById(textid).style.color = "Black";
+       }
+   }
+   </script>
+  <apex:form >
+  <apex:inputCheckbox id="box" onclick="changetextcolor(this,'{!$Component.block}');"/>
+  <apex:outputPanel id="block">
+      <apex:outputLabel >Hello Java Script :)</apex:outputLabel>
+  </apex:outputPanel>
+  </apex:form>
+</apex:page>

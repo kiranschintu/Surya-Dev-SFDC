@@ -1,0 +1,15 @@
+<apex:page standardController="Contact" extensions="myclass" recordSetVar="contacts" tabStyle="Contact">
+<apex:messages />
+<apex:form >
+<apex:pageBlock title="Display Contact Numbers">
+<apex:pageBlockSection >
+<apex:inputText />
+<apex:outputText >
+<apex:dataList value="{!Contacts}" var="acct" type="1">
+                       {!acct.MobilePhone} </apex:dataList>
+</apex:outputText>
+</apex:pageBlockSection>
+</apex:pageBlock>
+<!--<apex:commandButton value="send" action="{!send}"/>-->
+</apex:form>
+</apex:page>

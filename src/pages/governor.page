@@ -1,0 +1,5 @@
+<apex:page controller="Governor" sidebar="false">
+ <apex:dataList value="{!mymethod}" var="c">
+    <apex:outputtext value="{!c.name}"/> 
+ </apex:dataList>
+</apex:page>

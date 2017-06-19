@@ -1,0 +1,13 @@
+<!-- SmileTrainCallout vf page -->
+<apex:page standardController="Opportunity" extensions="SmileTrainCalloutExtn">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:outputField value="{!Opportunity.Amount}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Confirm" action="{!doCallout}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

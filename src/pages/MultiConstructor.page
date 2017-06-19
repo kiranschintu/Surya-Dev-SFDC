@@ -1,0 +1,9 @@
+<apex:page controller="MultiConstructorCTRL">
+  <apex:pageBlock title="Information">
+      <apex:pageBlockTable value="{!multiFormDt.multyForms}" var="m">
+          <apex:column headerValue="Name" value="{!m.Name}"/>
+          <apex:column headerValue="Age" value="{!m.age}"/>
+          <apex:column headerValue="Salary" value="{!m.salary}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

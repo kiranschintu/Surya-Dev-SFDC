@@ -1,0 +1,18 @@
+<apex:page standardController="contact" showHeader="false" recordSetVar="contacts" extensions="ShowHideHTMLControler">  
+    <center>
+    <apex:messages />
+    <apex:form >  
+        <h1>Show/Hide HTML form Visualforce Example</h1> <br/> 
+        
+        <apex:outputPanel rendered="{!AND((IF(results.size>0, true, false)),(IF(results.size<4, true, false)))}">
+        <apex:dataTable value="{!results}" var="aaa" border="1">
+          <apex:column value="{!aaa.name}"/>
+          <apex:column value="{!aaa.mobilephone}"/>
+        </apex:dataTable>
+          <apex:outputLink value="apex/hidedatafulllist" >for more</apex:outputLink>
+        </apex:outputPanel>
+        
+        <apex:outputText rendered="{!IF(results.size==0, true, false)}">No Records to Display</apex:outputText>
+    </apex:form> 
+    </center> 
+</apex:page>

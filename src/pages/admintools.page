@@ -1,0 +1,21 @@
+<apex:page standardController="Case">
+ <script>
+ window.onload = hideBtns;
+
+    function hideBtns()
+    {
+this.bodyOnLoad();
+        var result = window.top.location.pathname.split('/');
+        alert('hello'+result);
+if(result[1].substring(0,3) == '001') //XYX  is the sample custom object code. You can use your custom object index.
+{
+          
+     if(document.getElementsByName("save_new")[0]!=null)
+     document.getElementsByName("save_new")[0].style.display = 'none';
+     if(document.getElementsByName("save_new")[1]!=null)
+     document.getElementsByName("save_new")[1].style.display = 'none';
+      }
+   
+    }
+     </script>
+</apex:page>

@@ -1,0 +1,17 @@
+<apex:page standardController="Custom_list__c">
+  <apex:pagemessages ></apex:pagemessages>
+  <apex:form >
+  <apex:pageblock >
+  <!--<apex:pageblocksection title="Custom Hierarchy Settings">
+      <apex:inputField value="{!Case__c.Sample_Custom__c}"/>
+      
+  </apex:pageblocksection> -->
+
+<apex:pageblocksection title="Custom List Settings">
+      <apex:inputField value="{!Custom_list__c.Enter_Number__c}"/>
+      
+  </apex:pageblocksection>
+  </apex:pageblock>
+  <apex:commandButton value="save" action="{!save}"/>
+  </apex:form>
+</apex:page>

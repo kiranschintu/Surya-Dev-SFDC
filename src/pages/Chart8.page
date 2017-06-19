@@ -1,0 +1,7 @@
+<apex:page controller="Chart8CTRL">
+  <apex:chart height="400" width="700" animate="true" data="{!barData}">
+    <apex:axis type="Numeric" position="left" fields="Amount,Amount1,Amount2" title="Member" grid="true"/>
+    <apex:axis type="Category" position="bottom" fields="Name" title="Month Of the Year"/>
+    <apex:areaSeries axis="left" xField="Name" tips="true" yField="Amount,Amount1,Amount2"/>
+</apex:chart>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page sidebar="false" controller="bulkdataload">
+ <apex:form >
+     <apex:commandButton value="Create Job" action="{!createbulkjob}"/>
+ </apex:form>
+ <apex:outputText value="{!status}"/>
+</apex:page>

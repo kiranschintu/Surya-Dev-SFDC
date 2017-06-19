@@ -1,0 +1,17 @@
+<apex:page standardController="ClassRoom__c" recordSetVar="classlist"  extensions="DynamicClassroomList">
+    
+    <apex:dynamicComponent componentValue="{!ClassroomRelatedLists}"/>
+    
+    <apex:form >
+        
+        <apex:pageBlock title="Classrooms Available" mode="edit">
+            <apex:pageMessages />
+            <apex:selectRadio value="{!objId}">
+                <apex:selectOptions value="{!displayObjsList}"/>
+            </apex:selectRadio>
+        </apex:pageBlock>
+
+        <apex:commandButton value="Select Related Items" action="{!Customize}"/>
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page standardController="Contact" extensions="idmeVerificationController">
+<apex:pageBlock >
+    <flow:interview name="ID_me_Verification" interview="{!myVerify}" finishLocation="{!finishPage}" /> 
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,18 @@
+<apex:page >
+  <script>
+function disable_quicksave() {document.getElementById("{!$Component.form.topBlock.buttons.quicksave}").disabled=true;}
+
+function enable_quicksave() {document.getElementById("{!$Component.form.topBlock.buttons.quicksave}").disabled=false;}
+</script>
+<apex:form id="form">
+<apex:pageBlock id="topBlock">
+<apex:pageBlockButtons id="buttons" >
+
+<apex:commandButton id="quicksave" value="Quick Save" action="{!quickSave}" status="oneclick_quicksave" rerender="buttons"/> 
+
+<apex:actionStatus id="oneclick_quicksave" onstart="disable_quicksave()" onstop="enable_quicksave()"/>
+
+</apex:pageBlockButtons>  
+</apex:pageBlock>   
+</apex:form>
+</apex:page>

@@ -1,0 +1,22 @@
+<apex:page sidebar="false" controller="AccWithAllContactsClass">
+  <apex:form >
+      <apex:inputtext value="{!accName}" />
+      <apex:commandButton value="ShowContacts" action="{!showContacts}" reRender="out" status="mystatus"/><br/>
+      
+      <apex:actionstatus id="mystatus" starttext="please wait it is loading contacts.......">
+      <apex:facet name="stop">
+      <apex:outputpanel id="out">
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:pageBlockTable value="{!conRecords}" var="c">
+                  <apex:column headerValue="Contacts">
+                        {!c.Name}
+                  </apex:column>
+              </apex:pageBlockTable>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+      </apex:outputpanel>
+       </apex:facet>
+      </apex:actionstatus>
+  </apex:form>
+</apex:page>

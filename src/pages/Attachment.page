@@ -1,0 +1,6 @@
+<apex:page controller="AttachmentCon">
+  <apex:form >
+  
+      <apex:commandButton value="Create Attachment" action="{!CreateAttachment}"/>
+  </apex:form>
+</apex:page>

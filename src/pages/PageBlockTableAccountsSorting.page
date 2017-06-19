@@ -1,0 +1,99 @@
+<apex:page controller="PageBlockTableAccountsSortingController" sidebar="false">
+  <style type="text/css">
+        .sorting {
+        background: #f2f3f3 url('{! URLFOR($Resource.JQueryDataTables, 'images/sort_both.png') }') no-repeat center right !important;
+        padding-right: 52.15px!important;
+        }
+        .sorting_asc {
+        background: #f2f3f3 url('{! URLFOR($Resource.JQueryDataTables, 'images/sort_asc.png') }') no-repeat center right !important;
+        padding-right: 52.15px!important;
+        }
+        .sorting_desc {
+        background: #f2f3f3 url('{! URLFOR($Resource.JQueryDataTables, 'images/sort_desc.png') }') no-repeat center right !important;
+        padding-right: 52.15px!important;
+        }
+        .sorting_asc_disabled {
+        background: #f2f3f3 url('{! URLFOR($Resource.JQueryDataTables, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+        padding-right: 52.15px!important;
+        }
+        .sorting_desc_disabled {
+        background: #f2f3f3 url('{! URLFOR($Resource.JQueryDataTables, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+        padding-right: 52.15px!important;
+        }
+        .disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.6;
+        
+    }
+        <!--table.dataTable tr.odd { background-color: white; }
+        table.dataTable tr.even { background-color: white; }
+        table.dataTable tr.odd td.sorting_1 { background-color: white; }
+        table.dataTable tr.odd td.sorting_2 { background-color: white; }
+        table.dataTable tr.odd td.sorting_3 { background-color: white; }
+        table.dataTable tr.even td.sorting_1 { background-color: white; }
+        table.dataTable tr.even td.sorting_2 { background-color: white; }
+        table.dataTable tr.even td.sorting_3 { background-color: white; }
+        .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+        padding: 3px;
+        }-->
+    </style>
+    <apex:includeScript value="/support/console/28.0/integration.js"/>
+    <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+    <!--<apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />-->
+    <apex:includeScript value="{!$Resource.JQueryDataTableMin}"/>
+    <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+    <script>
+        j$ = jQuery.noConflict();
+        j$(document).ready( function () {
+            var workerActTable = j$('[id$="workerActionsTable"]').DataTable({
+                columnDefs: [
+                {
+                    targets: [0],
+                    //orderable: false
+                },
+                {
+            
+                "orderable": false}],
+                "pageLength": 10,
+               
+            });
+            j$('[id$="workerActionsTable_filter"]').hide();
+            j$('[id$="workerActionsTable_length"]').hide();
+            //j$('[id$="workerActionsTable_paginate"]').hide();
+            //j$('[id$="workerActionsTable_info"]').hide();
+
+        });
+        
+        //For Console subtab name
+        function testSetTabTitle() {
+            //Set thee current tabs title
+            sforce.console.setTabTitle("Worker Actions");
+            sforce.console.setTabLink();
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+    </script>
+    
+    <apex:pageBlock title="Worker Actions">
+        <apex:pageBlockTable id="workerActionsTable" value="{!accounts}" var="acc">
+            <apex:column >
+                <apex:facet name="header">
+                  Select<br/>
+                  <select class="disabled" id="program" onchange="doSearch();">
+                      <option value="One">One</option>
+                  </select>
+                </apex:facet>
+                <apex:outputField value="{!acc.name}"/>
+            </apex:column>
+            <apex:column headerValue="User" value="{!acc.CreatedBy.Name}"/>
+            <apex:column headerValue="Rating" value="{!acc.Rating}"/>
+            <apex:column headerValue="Date" value="{!acc.CreatedDate}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

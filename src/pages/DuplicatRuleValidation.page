@@ -1,0 +1,35 @@
+<apex:page controller="DuplicatRuleValidationCTRL" sidebar="false">
+    
+    <apex:form >
+        <apex:pageBlock title="Duplicate Records" rendered="{!hasDuplicateResult}">
+            <apex:pageMessages />
+            <apex:pageBlockTable value="{!duplicateRecords}" var="item">
+                <apex:column >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputLink value="/{!item['Id']}">{!item['Name']}</apex:outputLink>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Owner</apex:facet>
+                    <apex:outputField value="{!item['OwnerId']}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Last Modified Date</apex:facet>
+                    <apex:outputField value="{!item['LastModifiedDate']}"/>
+                </apex:column>
+            </apex:pageBlockTable> 
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Contact" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!doSome}"/>
+            </apex:pageBlockButtons>         
+
+            <apex:pageBlockSection >
+                <apex:inputField value="{!lead.FirstName}"/>
+                <apex:inputField value="{!lead.LastName}"/>
+                <apex:inputField value="{!lead.Email}"/>
+                <apex:inputField value="{!lead.Phone}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

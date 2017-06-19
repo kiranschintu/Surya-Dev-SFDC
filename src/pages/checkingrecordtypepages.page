@@ -1,0 +1,25 @@
+<apex:page standardController="Account" extensions="checkingrecordtypepages">
+ <script>
+  function showpopup(){
+      var confirm = window.confirm('Do you want to proceed..');
+      if(confirm){
+          return true;
+      }else 
+      return false;
+  }
+  </script>
+ <apex:form id="block">
+ 
+ <apex:actionStatus startText="loading..." id="st"></apex:actionStatus>
+ <apex:pageBlock >
+ <apex:pageblockButtons >
+     <apex:commandButton value="save" action="{!save}" onclick="if(!confirm()) return false;"/>
+ </apex:pageblockButtons>
+     <apex:pageblockSection >
+         <apex:outputField value="{!Account.RecordTypeid}"/>
+         <apex:inputField value="{!Account.name}"/>
+         <apex:inputField value="{!Account.Rating}"/>
+     </apex:pageblockSection>
+ </apex:pageBlock>
+ </apex:form>
+</apex:page>

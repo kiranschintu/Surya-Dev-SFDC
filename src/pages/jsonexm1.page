@@ -1,0 +1,6 @@
+<apex:page controller="josnexm1con">
+  
+  <apex:form >
+     <!-- <apex:commandButton value="Check" action="{!records}"/>-->
+  </apex:form>
+</apex:page>

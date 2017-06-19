@@ -1,0 +1,37 @@
+<apex:page controller="uploadCSVcontroller" tabStyle="Account" readOnly="true">
+    <apex:form >
+        <apex:pageMessages id="pm"/>
+        <apex:inputFile value="{!contentFile}" filename="{!nameFile}"/>
+        <apex:commandButton value="Display" id="theButton"/>  
+       
+        <apex:pageBlock >
+            <apex:outputPanel id="results" >
+            
+                <apex:pageBlockSection title="Input CSV data Details">
+                    <p>File Name: {!nameFile}</p>
+                    <p>Rows : {!rowCount}</p>
+                    <p>Columns : {!colCount}</p>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Output CSV data">
+                    <apex:pageBlockTable value="{!results}" var="row">  
+                        <apex:repeat value="{!row}" var="cell" >
+                            <apex:column value="{!cell}"/>
+                        </apex:repeat>    
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                 
+                <apex:pageBlockSection title="Name Details">
+                    <apex:pageBlockTable value="{!results}" var="row">  
+                        <apex:repeat value="{!row[0]}" var="cell" >
+                            <apex:column value="{!cell}"/>
+                        </apex:repeat>    
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+
+                
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

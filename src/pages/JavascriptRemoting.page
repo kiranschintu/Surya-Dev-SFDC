@@ -1,0 +1,31 @@
+<apex:page controller="JavascriptRemotingCon">
+ <script>
+ /*Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.JavascriptRemotingCon.findAll}',
+    function(result,event){
+        if(event.status){
+            for(var i=0;i<result.length;i++){
+                var id = result[i].Id;
+                var Name = result[i].Name;
+                alert('Record is :'+id+' , '+Name)
+            }
+        }
+    }
+);*/
+ function loadHotels(){
+    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.JavascriptRemotingCon.findAll}',
+    function(result,event){
+        if(event.status){
+            for(var i=0;i<result.length;i++){
+                var id = result[i].Id;
+                var Name = result[i].Name;
+                alert('Record is :'+id+' , '+Name)
+            }
+        }
+    }
+);
+}
+ </script> 
+ <apex:form >
+     <apex:commandButton value="retrieve" onclick="loadHotels()"/>
+ </apex:form>
+</apex:page>

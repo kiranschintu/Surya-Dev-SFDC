@@ -1,0 +1,14 @@
+<apex:page controller="SpellCheckerCtrl">
+  
+  <textarea name="myTextArea1"  id="myTextArea1" cols="15" rows="4">Hello Worlb.</textarea>
+  <textarea name="myTextArea2"  id="myTextArea2" cols="150" rows="4">{!msg}</textarea>
+  <apex:form >
+      <apex:inputText value="{!msg}"/>
+  </apex:form><apex:includeScript value="/resource/1449559114000/dhr__SpellChecker"/>
+  <apex:includeScript value="//code.jquery.com/jquery-1.10.2.js"/>
+  <script type='text/javascript'>
+      $j = jQuery.noConflict();
+      $jSpelling.SpellCheckAsYouType('all')
+  
+  </script>
+</apex:page>

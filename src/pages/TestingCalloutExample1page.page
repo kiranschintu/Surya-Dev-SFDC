@@ -1,0 +1,23 @@
+<apex:page standardController="contact" extensions="TestingCalloutExample1" sidebar="false">
+  
+  <apex:form >
+   
+  <apex:pageBlock title="Welcome " id="area" >
+  <apex:pageBlockButtons location="top">
+      <!--<apex:commandbutton value="Integrate" action="{!TotalPrice}" reRender="area" status="status" />-->
+      
+      
+  </apex:pageBlockButtons>
+    <apex:pageBlockSection >
+    <apex:outputText label="Grand Total is:">
+      <apex:actionStatus id="status" startText="Proceeding..."/>
+        <apex:messages />
+    </apex:outputText>
+    <apex:outputText value="{!totalprice}"></apex:outputText>
+    </apex:pageBlockSection>
+    
+   </apex:pageBlock>
+  </apex:form>
+  
+ 
+</apex:page>

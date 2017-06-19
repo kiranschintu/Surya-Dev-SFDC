@@ -1,0 +1,25 @@
+<apex:page controller="mypagecontroller">
+<apex:pagemessages ></apex:pagemessages>
+<apex:form >
+<apex:pageBlock id="block">
+
+<apex:pageblockbuttons >
+<apex:commandButton action="{!saving}" value="save" />
+
+<apex:commandButton action="{!addrow}" value="Add" rerender="block"/>
+</apex:pageblockbuttons>
+<apex:pageblockTable value="{!myrecords}" var="itr">
+    
+    <apex:column headerValue="Name" >
+        <apex:inputField value="{!itr.name}"/>
+    </apex:column>
+    
+    <apex:column headerValue="IsActive" >
+        <apex:inputField value="{!itr.Active__c}"/>
+    </apex:column> 
+     
+</apex:pageblockTable>
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

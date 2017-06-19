@@ -1,0 +1,12 @@
+<apex:page controller="groupaccounts" action="{!load}" sidebar="false">
+  
+  <apex:repeat value="{!states}" var="state">
+      <apex:pageBlock title="{!state}">
+          <apex:repeat value="{!accounts}" var="account"> 
+              <apex:outputPanel rendered="{!IF(state=account.BillingState,true,false)}">
+                  {!account.Name} - {!account.BillingState}<br/>
+              </apex:outputPanel>
+          </apex:repeat>
+      </apex:pageBlock>
+  </apex:repeat>
+</apex:page>

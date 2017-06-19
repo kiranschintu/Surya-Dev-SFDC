@@ -1,0 +1,12 @@
+<apex:page controller="actionsuportcls" sidebar="false">
+  <apex:form >
+    <apex:outputpanel id="out">
+    <apex:outputLabel >Hello Put mouse On Me: </apex:outputLabel>
+      <apex:outputText style="font-size:25px" value="{!name}"></apex:outputText>
+      
+     <apex:actionsupport event="onmouseover"  action="{!changename}" reRender="out"/>
+     <apex:actionsupport event="onmouseout"  action="{!unchangename}" reRender="out"/> 
+    </apex:outputpanel>
+      <apex:actionStatus startText="loading..."></apex:actionStatus>
+  </apex:form>  
+</apex:page>

@@ -1,0 +1,28 @@
+<apex:page standardController="Opportunity">
+  <apex:form >
+    <apex:pageBlock title="Edit Opportunity" id="thePageBlock" mode="edit">
+   
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}"/>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>               
+      </apex:pageBlockButtons>
+
+    <apex:pageBlockSection columns="1">
+      <apex:inputField value="{!opportunity.name}"/>
+      <apex:pageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.opportunity.fields.stageName.label}" 
+                        for="stage"/>
+      
+        <apex:inputField value="{!opportunity.stageName}" id="stage">
+          <apex:actionSupport event="onchange" rerender="thePageBlock"
+                              status="status"/>
+          </apex:inputField>
+          
+      </apex:pageBlockSectionItem>
+        <apex:inputfield value="{!opportunity.closedate}"/>
+        {!text(now())}<apex:actionStatus startText=" (Changing...)" id="status"  title="" startStyle=""/>
+        </apex:pageBlockSection>
+
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

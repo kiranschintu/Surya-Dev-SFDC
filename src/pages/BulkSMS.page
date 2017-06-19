@@ -1,0 +1,26 @@
+<apex:page standardcontroller="Contact"  extensions="BulkSMSContactExtension" recordSetVar="contact"  tabStyle="Contact" sidebar="false">
+ 
+ <span style="font-weight:bold; color:red">
+ <apex:messages />
+ </span>
+ 
+ <apex:form >
+ <apex:pageBlock title="Send SMS">
+ <apex:pageBlockSection >
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel for="message" value="Enter your message:" />
+ <apex:inputtextarea id="message" value="{!message}" required="true" />
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel for="recipients" value="Mobile Number" />
+ 
+ <apex:outputText id="recipients" value="{!Contacts}"></apex:outputText>
+  </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:commandButton action="{!sendSMS}" value="Send" id="sendButton" />
+ <apex:commandButton action="{!cancel}" value="Cancel" id="cancelButton" />
+ </apex:pageBlockSectionItem>
+ </apex:pageBlockSection>
+ </apex:pageBlock>
+ </apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page sidebar="false" controller="WrapperExampleCTRL">
+  <apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Process" action="{!doSome}"/>
+      </apex:pageBlockButtons>
+      <apex:pageBlockTable value="{!accWrapper}" var="ac">
+          <apex:column value="{!ac.acc.Name}"/>
+          <apex:column value="{!ac.acc.Rating}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

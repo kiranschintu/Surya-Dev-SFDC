@@ -1,0 +1,7 @@
+<apex:page standardController="Account" extensions="Tran2">
+  <apex:pageBlock title="Account Details">
+      <apex:pageBlockSection >
+          <apex:outputField value="{!account.name}"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

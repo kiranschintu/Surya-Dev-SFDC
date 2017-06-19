@@ -1,0 +1,35 @@
+<apex:page standardController="Contact" recordSetVar="contacts" sidebar="false">
+<head>
+<script src="https://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>
+  <script>
+   $j = jQuery.noConflict();
+   $j(document).ready(function() {
+    $j("#details").dialog({ autoOpen: false, modal: true, position: 'Center',resizable: true,height:200,draggable:true});
+   });
+   function showDialog(name, phone,description){
+      $j("#phoneNumber").html(phone);
+      $j("#description").html(description);
+      $j("#details").dialog("open");
+      $j('#details').dialog("option" , "title" , "Contact Name :"+name);
+      $j('#details').dialog('option', 'position', 'Center');
+      return false;
+   }
+</script>
+<style>
+    .accountLink { color: blue; cursor: pointer; cursor: Hand; }
+</style> 
+</head>   
+<body>
+  <apex:dataList value="{!contacts}" var="c" id="theList">
+        <a href="" class="accountLink" onclick="return showDialog('{!c.lastname}','{!c.Phone}','{!c.description}')"><apex:outputText value="{!c.name}"/></a>
+  </apex:dataList>
+   
+  <div id="details" >
+      <div style="float:left">Phone:</div><div id="phoneNumber"></div>
+      <div style="float:left">Description:</div><div id="description"></div>
+      
+  </div>
+</body>
+</apex:page>

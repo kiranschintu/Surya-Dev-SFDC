@@ -1,0 +1,58 @@
+<apex:page standardController="contact" extensions="reloadonce">
+  <apex:form >
+       <apex:actionFunction name="actionFunName" action="{!changename}"/>
+       
+       <apex:pageBlock id="block"> 
+       <apex:actionStatus startText="Hello" stopText="stopped : "> </apex:actionStatus>
+          
+       <apex:outputText value="{!contact.reload__c}"/>
+       </apex:pageBlock> 
+      
+     
+    </apex:form> 
+   
+  <!-- <script>
+   if('{!contact.reload__c}'=='s'){
+   window.setTimeout(javaScrpt(),1000);
+    //window.location.reload==true;
+   }
+   else{
+   myStopFunction();
+   }
+     function javaScrpt(){
+       actionFunName();
+       alert('Hello');
+       window.location.reload==true;
+       //window.top.location='/{!contact.id}';   
+      }
+      
+      function myStopFunction(){
+        clearTimeout(myVar);
+      }
+ </script> -->
+ 
+ <script>
+ if('{!contact.reload__c}'=='s')
+var myVar=setInterval(myTimer(),1000);
+else
+clearIterval(myVar);
+function myTimer()
+{
+actionFunName();
+
+window.loction='https://google.com';
+//alert('Hello :'window.location);
+alert('hello'+window.location);
+//location.reload();
+}
+function reloadig(){
+window.top.location='/{!contact.id}';
+}
+function myStopFunction()
+{
+clearInterval(myVar);
+}
+</script>
+ 
+  
+</apex:page>

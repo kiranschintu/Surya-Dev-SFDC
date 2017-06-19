@@ -1,0 +1,42 @@
+<!--<apex:page sidebar="false" standardController="Account" extensions="AddressValidationCls" action="{!DoCallout}">
+<apex:form id="frm">
+    <apex:actionFunction name="stopReload" action="{!stopReload}" reRender="frm"/>
+</apex:form>
+<script type="text/javascript">
+        //alert('customHstatus::'+'{!$Setup.ReloadOnce__c.ISReload__c}');
+        var st ='{!$Setup.ReloadOnce__c.ISReload__c}'; 
+        if(st!='true'){
+           //alert('Done');
+           stopReload();
+           //window.parent.location.href='/{!Account.id}';
+           //window.location.reload('/{!account.id}');
+           window.top.location.href = '/{!Account.id}';
+        }
+</script>   
+</apex:page>-->
+
+
+<apex:page standardController="Account" extensions="AddressValidationCls" action="{!DoCallout}">
+  <apex:form >
+      <apex:actionfunction name="callDoCallout" action="{!DoCallout}"/>
+  </apex:form>
+  
+  <apex:outputPanel rendered="{!refreshPage}">
+  <script type='text/javascript'>
+  if(window.localStorage){
+      //alert('Hello Page1');
+      if( !localStorage.getItem( 'firstLoad' ) ){
+          alert('Hello Page if');
+          localStorage[ 'firstLoad' ] = true;
+          //callDoCallout(); 
+          window.top.location='/{!Account.id}';
+      }  
+      else{
+        //alert('Hello Page else');
+        localStorage.removeItem( 'firstLoad' );
+      }
+  }
+
+</script>
+  </apex:outputPanel>
+</apex:page>

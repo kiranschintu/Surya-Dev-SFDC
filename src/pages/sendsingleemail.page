@@ -1,0 +1,18 @@
+<apex:page standardController="task" extensions="sendingemailcon">
+  <apex:form >
+  <apex:pageBlock >
+  <apex:pageblockSection columns="1" >
+    <apex:pageblockSectionItem >
+      Email :<apex:inputText value="{!email}"/>
+      </apex:pageblockSectionItem>
+      <apex:pageblockSectionItem >
+      Subject :<apex:inputText value="{!subject}"/>
+      </apex:pageblockSectionItem>
+      <apex:pageblockSectionItem >
+      Body :<apex:inputText value="{!Body}"/>
+      </apex:pageblockSectionItem>
+  </apex:pageblockSection>
+  <apex:commandButton value="send email" action="{!sendEmail}"/>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

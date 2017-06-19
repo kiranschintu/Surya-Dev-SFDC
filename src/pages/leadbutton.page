@@ -1,0 +1,16 @@
+<apex:page standardController="Lead">
+<!--
+    Created by: Greg Hacic
+    Last Update: 17 May 2012 by Greg Hacic
+    Questions?: http://www.interactiveties.com/contact
+-->
+<style type="text/css">
+.buttonDiv {
+    padding-left: 115px; /*attempts to indent the button to better align within the standard page layout*/
+    display: {!IF( Lead.Status = 'Unqualified', 'none', '')}; /*controls whether the div tag is displayed*/
+}
+</style>
+<div class="buttonDiv">
+    <input class="btn" name="demo_button" onclick="JavaScript: parent.location.href='{!URLFOR( $Action.Lead.Convert ,  Lead.Id, [retURL="/"+Lead.Id])}';" title="Convert Lead" type="button" value="Convert" />
+</div>
+</apex:page>

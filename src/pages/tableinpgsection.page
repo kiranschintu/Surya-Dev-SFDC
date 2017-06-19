@@ -1,0 +1,14 @@
+<apex:page controller="tableinpgsection">
+  <apex:form >
+  <apex:pageBlock >
+      
+      <apex:pageBlockSection title="Account Information" >
+          <apex:inputField value="{!account.name}"/>
+          <apex:inputField value="{!account.phone}"/>
+          <apex:inputField value="{!account.industry}" rendered="{!account.industry}" />
+          <apex:inputHidden rendered="{!account.industry!=null}"/>
+          <apex:inputField value="{!account.rating}"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

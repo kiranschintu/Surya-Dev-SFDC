@@ -1,0 +1,9 @@
+<apex:page controller="Chart7CTRL">
+    <apex:chart height="400" width="700" data="{!barData}">
+        <apex:axis type="Numeric" position="left" fields="Amount,Amount1" title="Member" grid="true"/>
+        <apex:axis type="Category" position="bottom" fields="Name" title="Month of the Year"/>
+        <apex:lineSeries axis="left" fill="true" xField="Name" yField="Amount" markerType="cross" markerSize="4" 
+            markerFill="#FF0000"/>
+        <apex:lineSeries axis="left" xField="Name" yField="Amount1" markerType="circle" markerSize="4" markerFill="#FF0000"/>
+    </apex:chart>
+</apex:page>

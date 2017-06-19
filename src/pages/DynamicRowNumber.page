@@ -1,0 +1,45 @@
+<apex:page standardController="Account">
+     
+  <apex:form >
+ <apex:variable value="{!1}" var="rowNum"/>
+
+ <table border="1">
+    <apex:repeat value="{!Account.contacts}" var="item">
+      <apex:variable value="{!1}" var="cellNum"/>
+      <tr id="hello{!rowNum}">
+          <script>
+          alert('Row Found :'+{!rowNum});
+          </script>
+          <td id="cellid">{!item.Name}
+              <script>
+              alert('Cell Found'+{!rowNum}{!cellNum});
+              </script>
+          </td>
+          <apex:variable var="cellNum" value="{!cellNum+ 1}"/>
+          <td>
+          <div id="cid{!rowNum}{!cellNum}">
+          <apex:inputField value="{!item.Phone}"/>
+          
+          <!--<apex:inputField value="{!item.Phone}"/>-->
+          
+              <script>
+              
+              alert('Cell Found'+{!rowNum}{!cellNum});
+              alert('Value is cid{!rowNum}{!cellNum}::'+document.getElementById('cid22').firstChild.value);
+              </script>
+              </div>
+          </td>
+          <script>
+   //alert('Test Id ::'+document.getElementById('hello1'));
+   
+ </script>
+      </tr>
+      <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+   </apex:repeat>
+  </table>
+  <script>
+   alert('hello:');
+   alert('Test Id ::'+document.getElementById('hello1'));
+ </script>
+ </apex:form>
+</apex:page>

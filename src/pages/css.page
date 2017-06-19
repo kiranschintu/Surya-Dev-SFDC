@@ -1,0 +1,19 @@
+<apex:page >
+<style>
+.ch:hover{
+text-decoration:underline;
+background-color:yellow;
+color:red;
+}
+.ch{
+text-decoration:none;
+color:blue;
+}
+</style>
+  <apex:panelGrid >
+     <apex:panelGroup >
+       <apex:outputlink styleclass="ch" >HOME</apex:outputlink>&nbsp;&nbsp;&nbsp;
+       <apex:outputlink styleclass="ch">HOME1</apex:outputlink>&nbsp;&nbsp;&nbsp;
+     </apex:panelGroup>
+ </apex:panelGrid>
+</apex:page>

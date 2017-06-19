@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="Tran5" sidebar="false">
+   
+   <apex:message />
+   <apex:pagemessages />
+   <apex:form >
+   <apex:pageBlock title="Insertintg Account">
+       <apex:pageblockSection >
+           <apex:inputField value="{!Account.Name}"/>
+       </apex:pageblockSection>
+       <apex:commandButton value="Insert" action="{!DoSave}"/>
+   </apex:pageBlock>
+   </apex:form>
+ 
+</apex:page>

@@ -1,0 +1,114 @@
+<apex:component Controller="CaseSlaController">
+    <!---- Two parameters can be passed into this component ---->
+    <apex:attribute name="sObjectType" type="string" description="the sObject type to get data category tree for" />
+    <apex:attribute name="callback" type="string" description="Name of javascript function to call when tree drawing is complete" />
+
+    <!--- include the required libraries --->
+    <link rel="stylesheet" href="{!URLFOR($Resource.jsTree, 'css/jquery.treeview.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jsTree, 'js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jsTree, 'js/jquery.treeview.js')}" />
+
+    <script>
+        //put jQuery in no conflict mode
+        j$=jQuery.noConflict();     
+
+        //object to hold all our functions and variables, keep things organized and dont pollute the heap
+        var categorySelect = new Object();
+
+        //invokes the getCategoriesJson function on the apex controller. Returns to the callback function with the
+        //fetched data
+        categorySelect.getCategoryData = function(sObjectType,callback)
+        {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CaseSlaController.getCategoriesJson}', 
+                sObjectType,
+                function(result, event){
+                   callback(result,event);
+                }, 
+                {escape: true}
+            );          
+        }    
+
+        //as soon as the dom has loaded lets get to work
+        j$(document).ready(function() {
+
+            //first off, find all the data category data for the given sObject type.       
+            categorySelect.getCategoryData('{!sObjectType}',function(result,event)
+            {
+                //the json data we get back is all screwed up. Since it got JSON encoded twice quotes become the html
+                //&quote; and such. So we fix the JSON and reparse it. I know its kind of hacky but I dont know of a better way
+
+                var fixedJson = JSON.parse(categorySelect.htmlDecode(result));         
+
+                //lets create the series of nested lists required for our tree plugin from the json data.
+                var html = categorySelect.buildTreeHtml(fixedJson);                          
+
+                //write the content into the dom
+                j$('#categoryTree').html(html);              
+
+                //apply the treeview plugin
+                j$("#categoryTree").treeview({
+                    persist: "location",
+                    collapsed: true,
+                    unique: true
+                });  
+
+                //if the string that was passed in for callback is actually representative of a function, then call it
+                //and pass it the categoryTree html.
+                if(typeof({!callback}) == "function")
+                {
+                    {!callback}(j$("#categoryTree"));                                               
+                }
+            });    
+        });
+
+        //function that is meant to be called recursivly to build tree structure html
+        categorySelect.buildTreeHtml = function(category)
+        {
+            var html = '';     
+
+            //iterate over the category data  
+            j$.each(category,function(index,value)
+            {
+                //create list item for this item.
+                html+='<li><a href="#" category="'+value.name+'" class="dataCategoryLink" title="Attach '+value.label+' SLA to Case">'+value.label+'</a>';
+
+                //check to see if this item has any topCategories to iterate over. If so, pass them into this function again after creatining a container               
+                if(value.hasOwnProperty('topCategories') && value.topCategories.length > 0)
+                {
+                    html += '<ul>';
+                    html += categorySelect.buildTreeHtml(value.topCategories);                    
+                    html +='</ul>';                 
+                }   
+                //check to see if this item has any childCategories to iterate over. If so, pass them into this function again after creatining a container                           
+                else if(value.hasOwnProperty('childCategories')  && value.childCategories.length > 0)
+                {
+                    html+='<ul>';                   
+                    html += categorySelect.buildTreeHtml(value.childCategories);
+                    html+='</ul>';
+                }
+                html += '</li>';
+            });
+            return html;                
+        }
+
+        //fixes the double encoded JSON by replacing html entities with their actual symbol equivilents
+        //ex: &quote; becomes "
+        categorySelect.htmlDecode = function(value) 
+        {
+            if (value) 
+            {
+                return j$('<div />').html(value).text();
+            } 
+            else
+            {
+                return '';
+            }
+        }            
+    </script>
+    <div id="categoryTreeContainer">
+        <ul id="categoryTree">
+
+        </ul>
+    </div>
+</apex:component>

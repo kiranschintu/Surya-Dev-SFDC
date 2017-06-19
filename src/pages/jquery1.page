@@ -1,0 +1,18 @@
+<apex:page sidebar="false">
+<head>
+  <apex:includeScript value="/resource/1389342009000/dhr__JQuery1"/>
+ <script>
+ $ = jQuery.noConflict();
+$(document).ready(function() {
+$("p").click(function(){
+//$(this).hide();
+});
+});
+</script>
+</head>
+<body>
+<p>Hide Me</p>
+<p>Hide Me too </p>
+
+</body>
+</apex:page>

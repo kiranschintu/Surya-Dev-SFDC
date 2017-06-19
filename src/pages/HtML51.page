@@ -1,0 +1,42 @@
+<apex:page controller="HtML52Cls" docType="html-5.0">
+  <apex:form >
+ 
+<apex:pageBlock title="Winter 14 Visualforce Explore" >
+ 
+<apex:pageBlockSection >
+  
+  <apex:pageBlockSection >
+  <apex:outputLabel ></apex:outputLabel>
+  <apex:inputText label="Account" value="{!AccountName}" list="{!Accounts}"
+      html-inputText="Enter your preferred browser" html-autocomplete="on" />
+  </apex:pageBlockSection>
+    
+    <apex:pageBlockSection >
+    <apex:outputLabel ></apex:outputLabel>
+    <apex:input label="Increment Me!!" value="{! hello }" type="auto"
+     html-min="0" html-max="100" html-step="5"/>
+    </apex:pageBlockSection>
+    
+     <apex:pageBlockSection >
+     <apex:outputLabel ></apex:outputLabel>
+     <apex:input label="datePicker" value="{! fDate }" type="auto"/>
+     </apex:pageBlockSection>
+     
+     <apex:pageBlockSection >
+     <apex:outputLabel ></apex:outputLabel>
+     <apex:input label="Email" value="{!email }" type="email"
+      html-placeholder="you@example.com"
+      html-pattern="^[a-zA-Z0-9._-]+@example.com$"/>
+      </apex:pageBlockSection>
+     
+     <apex:pageBlockSection >
+     <apex:outputLabel ></apex:outputLabel>
+     <apex:input label="Phone" value="{!phone }" type="tel"
+      html-placeholder="999-999-9999"
+      html-autofocus="true"/>
+      </apex:pageBlockSection>
+     
+</apex:pageBlockSection>
+ </apex:pageBlock>     
+   </apex:form>
+</apex:page>

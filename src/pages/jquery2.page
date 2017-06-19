@@ -1,0 +1,18 @@
+<apex:page sidebar="false">
+<head>
+<apex:includeScript value="/resource/1389342009000/dhr__JQuery1"/>
+<script>
+$(document).ready(function(){
+$("p").hover(function(){
+$(this).hide();
+},function(){
+$(this).show();
+});
+});
+</script>
+
+</head>
+<body>
+<p>Hello Mouser Hover : </p>
+</body>
+</apex:page>

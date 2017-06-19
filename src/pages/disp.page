@@ -1,0 +1,24 @@
+<apex:page standardController="Contact" extensions="DispExtension">
+  <apex:form >
+      <apex:pageblock mode="InlineEdit" id="block">
+          <apex:pageblockButtons >
+              <apex:commandButton value="Save" action="{!UpdateAcc}"/>
+              <apex:commandButton value="Cancel" action="{!Cancel}"/>
+          </apex:pageblockButtons>
+          <apex:pageblockSection >
+              <apex:inputField value="{!Contact.FirstName}"/>
+              <apex:inputField value="{!Contact.LastName}"/>
+              <apex:inputField value="{!Contact.AccountId}">
+                  <apex:actionsupport event="onchange" status="mystatus" rerender="block"/>
+              </apex:inputField>
+              
+              <apex:outputField value="{!Contact.Account.name}" rendered="{!contact.Accountid!=Null}"/>
+              
+              
+              <apex:actionStatus id="mystatus" startText="Loading..." stopText="Done"></apex:actionStatus>
+              <apex:inputField value="{!Contact.phone}" />
+          </apex:pageblockSection>
+    
+      </apex:pageblock>
+  </apex:form>
+</apex:page>

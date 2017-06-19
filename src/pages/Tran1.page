@@ -1,0 +1,7 @@
+<apex:page sidebar="false" renderAs="pdf" controller="Tran1">
+ <apex:pageBlock title="Account">
+     <apex:pageblockSection >
+         <apex:outputField value="{!acc.name}"/>
+     </apex:pageblockSection>
+ </apex:pageBlock>
+</apex:page>

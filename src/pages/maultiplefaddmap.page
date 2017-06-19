@@ -1,0 +1,72 @@
+<apex:page standardController="Account" sidebar="false">
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA&sensor=false" type="text/javascript"></script>
+<script type="text/javascript">
+            var map = null;
+            var geocoder = null;          
+            function initialize() {
+                if (GBrowserIsCompatible()) {
+                    map = new GMap2(document.getElementById("map_canvas"));
+                    map.setCenter(new GLatLng(24.957639, 46.698775), 4);
+                    geocoder = new GClientGeocoder();
+                    map.setUIToDefault();                  
+                }
+            }
+ 
+            function createMarker(point,address)
+            {   
+                // Create our "tiny" marker icon
+                var blueIcon = new GIcon(G_DEFAULT_ICON);
+                blueIcon.image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/green/blank.png";
+                blueIcon.iconSize = new GSize(32, 32)
+                // Set up our GMarkerOptions object
+                markerOptions = { icon:blueIcon };
+                var marker = new GMarker(point, markerOptions);
+                GEvent.addListener(marker, "click", function() {
+                    marker.openInfoWindowHtml("<b>"+address+"</b>");
+                });
+                return marker;
+            }
+            function showAddress()
+            {
+                var address1='{!Account.BillingCity}'+'|'+'{!Account.ShippingCity}';
+                var address=address1.split('|');
+                for(var i=0;i<address.length;i++)
+                {
+                    if(address[i] == ''){continue;}
+                    var addPart = address[i];
+                    //alert("addM('" + addPart[0] + "','" + addPart[1] + "');");
+                    //setTimeout("addM('" + addPart + "');",300);
+                    addM(addPart);
+                }
+            }
+ 
+            function addM(add)
+            {
+                add = add + ",India";
+                if (geocoder)
+                {
+                    geocoder.getLatLng(add,function(point)
+                        {
+                            if (!point)
+                            {
+                                alert(add + " not found");
+                            }
+                            else
+                            {                             
+                                map.addOverlay(createMarker(point,add));                            
+                            }
+                        }
+                    );                  
+                }
+ 
+            }
+</script>
+       
+  <apex:form >   
+      <div id="map_canvas" style="width: 989px; height: 250px"></div>
+      <input type="button" value = "Show Markers" onClick="showAddress();"/>     
+  </apex:form>
+  <script type="text/javascript">
+      initialize();
+  </script>     
+</apex:page>

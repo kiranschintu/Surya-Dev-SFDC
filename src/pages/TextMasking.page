@@ -1,0 +1,50 @@
+<apex:page tabStyle="Lead" standardController="Lead">
+
+    <apex:sectionHeader title="Novo Cliente" subtitle="Passo 1 de 6"/>
+    <apex:includeScript value="{!$Resource.FSINT_BRAZIL_jquery}"/>
+    <apex:includeScript value="{!$Resource.FSINT_BRAZIL_jMaskedInput}"/>
+    
+    <apex:form >
+        <apex:pageBlock title="Detalhes do Cadastro">
+            <apex:facet name="footer">
+                <apex:outputPanel >
+                    <apex:commandButton value="Cancelar" styleClass="btn"/>
+                    <apex:commandButton value="Próximo" styleClass="btn"/>
+                </apex:outputPanel>
+            </apex:facet>
+            
+            <apex:pageBlockSection title="Consulta do Cliente">
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="Rating" for="TypeOfPerson"/>
+                    <apex:inputField id="TypeOfPerson" value="{!Lead.Rating}" required="true" onchange="typeOfPersonChange(this);"/>
+                    
+                    <apex:outputLabel value="Lead Convert Test"  for="PersonID"/>
+                    <apex:inputField id="PersonID"  styleClass="Personal_ID__c-mask" value="{!Lead.Lead_Convert_Test__c}" required="true"/>
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+            
+            <script>
+                function typeOfPersonChange (data,data1)
+                {
+                    var selectedValue= data.value;
+                    var SelectedTest = document.getElementById('j_id0:j_id4:j_id5:j_id9:PersonID').value;
+                    if(selectedValue == "Hot" && (SelectedTest==null || SelectedTest==''))
+                    {
+                        //alert('hello');
+                        $(".Personal_ID__c-mask").mask("999.999.999-99");
+                    
+                    }else if (selectedValue == "Warm" && (SelectedTest==null || SelectedTest==''))
+                    {
+                        $(".Personal_ID__c-mask").mask("99.999.999/9999-99");
+                    }else
+                    {
+                        $(".Personal_ID__c-mask").val("");
+                        $(".Personal_ID__c-mask").unmask("");
+                    }
+                   
+                }
+            </script>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

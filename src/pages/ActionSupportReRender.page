@@ -1,0 +1,27 @@
+<apex:page controller="ActionSupportReRenderCls">
+  <apex:form id="frm">
+  <apex:pageMessages ></apex:pageMessages>
+<apex:pageblock id="allcons" title="Available Contacts">
+<apex:pageBlockSection >
+    <apex:inputField value="{!acc.Name}"/>
+    <apex:actionRegion >
+    <apex:inputField value="{!acc.Rating}">
+        <apex:actionSupport event="onchange" action="{!doTest}" reRender="frm" status="st">
+                                <apex:param name="selRocRecIndexParam" value="{!acc.Rating}" />
+                            </apex:actionSupport>
+    </apex:inputField></apex:actionRegion>
+    <apex:inputField value="{!acc.Phone}"/>
+    <apex:selectList size="1" value="{!selectedValue}">
+        <apex:selectOptions value="{!options}"></apex:selectOptions>
+        <apex:actionSupport event="onchange" action="{!doTest}" reRender="frm" status="st"/>
+    </apex:selectList>
+    <apex:inputField value="{!acc.Description}"/>
+    <apex:actionStatus startText="Loading..." id="st"></apex:actionStatus>
+</apex:pageBlockSection>                                 
+                                              <!--<input type="radio" name="rocRecId" value="{!allcon.Id}">
+                            <apex:actionSupport event="onclick" immediate="true" reRender="consel">
+                                <apex:param name="selRocRecIndexParam" value="{!allcon.Id}" />
+                            </apex:actionSupport>-->
+ </apex:pageBlock>                    
+                    </apex:form>
+</apex:page>

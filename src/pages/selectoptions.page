@@ -1,0 +1,36 @@
+<apex:page standardController="Account" extensions="selectoptions">
+    <apex:form id="block">
+    <apex:actionFunction name="myselection" action="{!selectedValue}" reRender="block,accpg" status="st"/>
+    
+    <apex:actionStatus id="st">
+            <apex:facet name="start">
+                <apex:image value="/img/loading.gif"/>
+            </apex:facet>
+        </apex:actionStatus>
+
+    <apex:selectList size="1" value="{!Selection}" onchange="myselection()" >
+        <apex:selectOptions value="{!options}"/>
+        <apex:actionSupport event="onchange" status="st" action="{!selectedValue}" reRender="block,accpg"/>
+    </apex:selectList>
+    
+    <apex:selectList size="1" value="{!acc.type}">
+        <apex:selectoptions value="{!AccountTypes}"/>
+    </apex:selectList>
+    
+    <apex:commandButton value="Check" action="{!selectedValue}"/>
+    <apex:outputText value="{!Selection}"></apex:outputText>
+    
+    <apex:selectList size="1" value="{!contact.name}">
+        <apex:selectoptions value="{!contactslist}" />
+    </apex:selectList>
+   <apex:outputtext value="{!contactslist}"/>  
+    <apex:dataList value="{!contacts}" var="c">
+    <apex:outputField value="{!c.name}"/> 
+    </apex:dataList>
+    </apex:form>
+    <apex:pageBlock title="Account" id="accpg">
+        <apex:pageBlockSection >
+            <apex:outputField value="{!selectedAccount.Name}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

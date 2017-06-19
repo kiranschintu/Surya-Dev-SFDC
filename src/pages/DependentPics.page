@@ -1,0 +1,116 @@
+<apex:page sidebar="false">
+ 
+ <div id="wrapper">
+
+</div>
+ 
+  <script src="/soap/ajax/27.0/connection.js" type="text/javascript"></script>
+  <script>
+  
+  function getDependentOptions (objName, ctrlFieldName, depFieldName) {
+    // Isolate the Describe info for the relevant fields
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+    var objDesc = sforce.connection.describeSObject(objName);
+    var ctrlFieldDesc, depFieldDesc;
+    var found = 0;
+    //alert('Fields>>>'+objDesc.fields.length);
+    for (var i=0; i<objDesc.fields.length; i++) {
+        var f = objDesc.fields[i];
+        if (f.name == ctrlFieldName) {
+            ctrlFieldDesc = f;
+            found++;
+            //alert('Contrl Found'+f);
+        } if (f.name == depFieldName) {
+            depFieldDesc = f;
+            found++;
+            //alert('Dependent Found'+f);
+        }
+        if (found==2) break; 
+    }
+ 
+    // Set up return object
+    var dependentOptions = {};
+    var ctrlValues = ctrlFieldDesc.picklistValues;
+    //alert('Control Fields>>>'+ctrlValues[0].label);
+    for (var i=0; i<ctrlValues.length; i++) {
+        dependentOptions[ctrlValues[i].label] = [];
+    }
+    //alert('Dependent Options:::'+dependentOptions[0]);
+ 
+    var base64 = new sforce.Base64Binary("");
+    function testBit (validFor, pos) {
+        var byteToCheck = Math.floor(pos/8);
+        var bit = 7 - (pos % 8);
+        return ((Math.pow(2, bit) & validFor.charCodeAt(byteToCheck)) >> bit) == 1;
+    }
+    
+    // For each dependent value, check whether it is valid for each controlling value
+    var depValues = depFieldDesc.picklistValues;
+    //alert('depValues:::'+depValues);
+    for (var i=0; i<depValues.length; i++) {
+        var thisOption = depValues[i];
+        var validForDec = base64.decode(thisOption.validFor);
+        for (var ctrlValue=0; ctrlValue<ctrlValues.length; ctrlValue++) {
+            if (testBit(validForDec, ctrlValue)) {
+                dependentOptions[ctrlValues[ctrlValue].label].push(thisOption.label);
+            }
+        }
+    }
+    //return dependentOptions;
+    //alert(dependentOptions['India'][0]);
+     var num_rows = 2;//document.getElementById('rows').value;
+            var num_cols = 2;//document.getElementById('cols').value;
+            var width = 100;//document.getElementById('width').value;
+            var theader = "<table id='table1' border='1' width = ' "+ width +"% '>";
+            var tbody = "";
+        
+            theader += "<th>Controlling Field</th>";
+            theader += "<th>Dependent Field</th>";
+            
+            for(var i = 0; i < ctrlValues.length; i++)
+            {
+                tbody += "<tr>";
+                tbody += "<td>";
+                tbody += ctrlValues[i].label;
+                tbody += "</td>"
+                
+                
+                for(var j=0;j<dependentOptions[ctrlValues[i].label].length;j++){
+                      tbody += "<td>";
+                      var bodyy='';
+                      bodyy += dependentOptions[ctrlValues[i].label][j];
+                      tbody += bodyy;
+                      tbody += "</td>"
+                }
+                
+                tbody += "</tr>";
+            }
+            var tfooter = "</table>";
+            var tab_text = theader + tbody + tfooter;
+            document.getElementById('wrapper').innerHTML = theader + tbody + tfooter;
+            
+            var csvData = new Blob([tab_text], { type: 'text/xls' }); //new way
+            var csvUrl = URL.createObjectURL(csvData);
+            
+            var a         = document.createElement('a');
+            a.href        = csvUrl;
+            a.target      = '_blank';
+            a.download    = 'myFile.xls';
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            
+            return dependentOptions;
+    
+}
+ 
+ 
+var OBJ_NAME = 'dhr__A__c';
+var CTRL_FIELD_NAME = "dhr__Controlling__c";
+var DEP_FIELD_NAME = "dhr__Dependent__c";
+var options = getDependentOptions(OBJ_NAME, CTRL_FIELD_NAME, DEP_FIELD_NAME);
+//alert('Values::'+options['India'] );
+</script>
+
+</apex:page>

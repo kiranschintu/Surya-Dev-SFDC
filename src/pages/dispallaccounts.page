@@ -1,0 +1,16 @@
+<apex:page standardController="Account"  recordSetVar="acc" sidebar="false">
+ <apex:pageblock >
+ <!-- here we can handle all records so we have to use pageblock table or data table or data list-->
+ <apex:pageblockTable value="{!acc}" var="ac">
+     <apex:column >
+         <apex:outputField value="{!ac.name}"/>
+     </apex:column>
+     <apex:column >
+         <apex:outputField value="{!ac.id}"/>
+     </apex:column>
+     <apex:column >
+         <apex:outputField value="{!ac.phone}"/>
+     </apex:column>
+ </apex:pageblockTable>
+ </apex:pageblock>
+</apex:page>

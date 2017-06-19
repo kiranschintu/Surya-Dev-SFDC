@@ -1,0 +1,15 @@
+<apex:page >
+<script type="text/javascript">
+    //window.onload = setupPage;
+    function setupPage() {
+    //var lmt=document.getElementById('lmt').value;
+    var lt=3;
+    var lll=document.getElementById('{!$Component.section.lmt}').value;
+    alert('Hello'+lll);
+    }
+ </script>
+  <apex:form id="section">
+  <apex:commandButton value="Chcek" oncomplete="setupPage();"/>
+  <apex:inputText id="lmt"/>
+  </apex:form>
+</apex:page>

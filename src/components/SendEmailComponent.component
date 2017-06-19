@@ -1,0 +1,22 @@
+<apex:component controller="SendEmailController">
+  <apex:attribute name="sourceObjectAttr" description="Used to identify from which object called" type="String" required="true" assignTo="{!sourceObject}"/>
+  <apex:attribute name="recordIdAttr" description="Record Id" type="Id" required="true" assignTo="{!recordId}"/>
+  <apex:messages />
+    <apex:form >
+    <apex:pageBlock title="Send an Email to Your Representatives">
+        <apex:pageBlockButtons >
+         <apex:commandButton value="Send Email" action="{!send}" />
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Subject" for="Subject"/>     
+                <apex:inputText value="{!subject}" id="Subject" maxlength="80"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Body" for="Body"/>     
+                <apex:inputTextarea value="{!body}" id="Body"  rows="10" cols="80"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:component>

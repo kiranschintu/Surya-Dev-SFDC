@@ -1,0 +1,11 @@
+<apex:page >
+  <script type="text/javascript">
+  function _enabled() {
+    document.getElementById('mb_ad').innerHTML = "<img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTATDPIEBMPsosE_WMUO-C2COd4jF2SaOKdD1zQTe1kJuIDsWXI' />";
+    }
+
+  //var r =true;
+</script>
+<div id="mb_ad"></div>
+  <button onclick="_enabled();">Add Google Logo</button>
+</apex:page>

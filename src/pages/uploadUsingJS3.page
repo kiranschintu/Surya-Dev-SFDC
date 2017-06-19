@@ -1,0 +1,18 @@
+<apex:page >
+<script>
+function bar(){
+    alert('Hello');
+    baz = document.getElementById('foo').value;
+    //baz = baz.replace('/g','-');
+    if(baz.contains('\t'))
+    alert('Final Text :'+baz);
+    
+}
+</script>
+<body>
+<apex:form >
+<textarea id="foo" name="foo"></textarea>
+<apex:commandButton value="check" onclick="bar();" reRender="check"/>
+</apex:form>
+</body>
+</apex:page>
